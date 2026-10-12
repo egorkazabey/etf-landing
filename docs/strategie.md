@@ -246,3 +246,15 @@ Sbíráno průběžně, pořadí podle očekávaného dopadu se určí v README.
 | Doručení odměny | okamžité stažení PDF po odeslání (vyšší konverze, víc falešných adres) | PDF jen e-mailem (ověřený kontakt, nižší konverze) | konverze na odeslání; podíl platných adres | 12. 10. 2026 |
 | Kdy ukázat lištu s výzvou | lišta od načtení | lišta až po první interakci (změna vstupu, přepnutí fondu, scroll) | konverze na odeslání; klik na lištu | 12. 10. 2026 |
 - Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.
+
+## 9. Pořadí sekcí na stránce (podklad pro README)
+
+Zapsáno 12. 10. 2026 při stavbě stránky (fáze 2).
+
+1. **Sekce, kterou slíbila reklama:** u reklamy A (a bez `utm_content`) kalkulačka, u reklamy B srovnání VOO / SPY / IVV s evropskými fondy. První obrazovka plní slib reklamy a ukazuje hodnotu bez jakékoli akce.
+2. **Druhý interaktivní prvek:** u A srovnání, u B kalkulačka. Kdo nereagoval na výzvu, dostane další hodnotu z jiného úhlu.
+3. **Odměna a formulář:** obsah PDF (4 body), e-mail a souhlas. Je až za oběma prvky, protože hodnotu už návštěvník viděl. Pod každým prvkem je odkaz na tuto sekci a pevná lišta vede sem odkudkoli.
+4. **Jak počítáme a odkud jsou čísla:** sbalené, pro ty, kdo chtějí ověřit. Neodvádí pozornost od formuláře, ale je k dispozici.
+5. **Patička:** upozornění, že nejde o doporučení, správce osobních údajů, označení ukázkového projektu.
+
+Technicky je pořadí sekcí 1 a 2 přepnuté přes CSS (`order`) podle `utm_content` ještě před vykreslením, takže stránka neproblikne.

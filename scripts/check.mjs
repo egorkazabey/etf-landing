@@ -25,6 +25,37 @@ for (const [, label, ter, amount] of rows) {
   if (got !== want) fail(`výpočet ${label.trim()}: vzorec ${got} Kč, dokumentace ${want} Kč`);
 }
 
+// 2b. Výchozí čísla v public/index.html (vidět před načtením skriptu) sedí s daty a vzorcem
+const { FUNDS, ESMA, BROKERS } = await import("../public/data.js");
+const html = readFileSync(root + "public/index.html", "utf8");
+const norm = s => s.replace(/&nbsp;| /g, " ").replace(/&amp;/g, "&").trim();
+const fmt = n => Math.round(n).toLocaleString("cs-CZ");
+const pct = n => n.toLocaleString("cs-CZ", { maximumFractionDigits: 4 }) + " %";
+const fund = t => FUNDS.find(f => f.ticker === t);
+const eu = FUNDS.filter(f => f.type === "UCITS" && f.index.startsWith("S&P 500"));
+const range = (arr, k) => [Math.min(...arr.map(f => f[k])), Math.max(...arr.map(f => f[k]))];
+const [euLo, euHi] = range(eu, "ter");
+const [szLo, szHi] = range(eu, "assetsUsd");
+const cost = ter => feeCost(2000, 20, ter);
+const expected = {
+  'data-out="voo"': fmt(cost(fund("VOO").ter)) + " Kč",
+  'data-out="eu"': fmt(cost(euLo)) + " až " + fmt(cost(euHi)) + " Kč",
+  'data-out="avg"': fmt(cost(ESMA.avg_fund.ter)) + " Kč",
+  'data-ter="voo"': pct(fund("VOO").ter),
+  'data-ter="eu"': pct(euLo).replace(" %", "") + " až " + pct(euHi),
+  'data-ter="avg"': pct(ESMA.avg_fund.ter),
+  'data-f="ter"': pct(fund("VOO").ter),
+  'data-f="eu-ter"': pct(euLo).replace(" %", "") + " až " + pct(euHi),
+  'data-f="size"': fmt(fund("VOO").assetsUsd / 1e9) + " mld. USD",
+  'data-f="eu-size"': fmt(szLo / 1e9) + " až " + fmt(szHi / 1e9) + " mld. USD",
+  'data-f="brokers"': BROKERS.filter(b => b.verified).map(b => b.broker.split(" ")[0] + " " + b.usEtf).join(", ")
+};
+for (const [attr, want] of Object.entries(expected)) {
+  const m = html.match(new RegExp(attr + "[^>]*>([^<]*)"));
+  if (!m) fail(`public/index.html: chybí prvek ${attr}`);
+  else if (norm(m[1]) !== norm(want)) fail(`public/index.html ${attr}: v HTML "${norm(m[1])}", z dat "${norm(want)}"`);
+}
+
 // 3. Dlouhé pomlčky (U+2013, U+2014)
 function files(dir, exts) {
   if (!existsSync(dir)) return [];
@@ -52,4 +83,4 @@ if (errors.length) {
   console.error("CHYBY:\n- " + errors.join("\n- "));
   process.exit(1);
 }
-console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${textFiles.length} souborů bez dlouhých pomlček`);
+console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, ${textFiles.length} souborů bez dlouhých pomlček`);
