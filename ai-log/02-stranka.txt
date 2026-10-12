@@ -1,0 +1,1607 @@
+▗ ▗   ▖ ▖  Claude Code v2.1.296
+           Opus 5.5 · Claude Pro
+ ▘▘   ▝▝   ~/etf-landing
+
+  Get to finished work sooner with Opus 5.5. Switch anytime with /model.
+
+❯ /clear                                                                        
+
+❯ /plan Přečti CLAUDE.md a docs/. Fáze 1 je hotová, jsme ve fázi 2: stránka.    
+  Začni jen návrhem vizuálního stylu ke schválení, kód stránky zatím ne.        
+                                                                                
+  1. Směr: jak má stránka působit na začínajícího investora z Instagramu, který 
+  jí věnuje pár vteřin. Na čem stojí důvěra, aby nepůsobila jako reklama na     
+  finanční produkt ani jako šablona.                                            
+  2. Typografie (konkrétní písma zdarma s podporou češtiny), barvy s dobrým     
+  kontrastem pro mobil na slunci, tvar komponent.                               
+  3. Co konkrétně odlišuje stránku od výchozího výstupu Claude (žádné fialové   
+  gradienty, karty s ikonami, emoji, generické fráze) a čím se místo toho       
+  inspiruješ.                                                                   
+  4. První obrazovka na 375 × 667 px pro reklamu A i B: co je vidět bez         
+  scrollování.                                                                  
+  5. Stack a proč: lehká statická stránka, rychlé načtení na mobilu, kam se     
+  ukládají leady (zdarma), čím měříme eventy (zdarma, s ohledem na GDPR),       
+  hosting Vercel.                                                               
+                                                                                
+  Připrav dvě odlišné varianty stylu jako jednoduché HTML soubory v design/     
+  (jen první obrazovka), ať je můžu otevřít v prohlížeči a vybrat. Popis        
+  variant a zdůvodnění do docs/vizualni-styl.md.                                
+
+  Read 2 files, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Přečtu soubory po částech přímo.
+
+  Read 3 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ Fetch(https://vercel.com/docs/limits/fair-use-guidelines)
+  ⎿  Received 9.3KB (200 OK)
+
+⏺ Fetch(https://vercel.com/docs/analytics/custom-events)
+  ⎿  Received 16.7KB (200 OK)
+
+⏺ Fetch(https://umami.is/pricing)
+  ⎿  Received 176.3KB (200 OK)
+
+⏺ Fetch(https://supabase.com/pricing)
+  ⎿  Received 26.4KB (200 OK)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Fetch(https://neon.com/pricing)
+  ⎿  Received 13.7KB (200 OK)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Prošel jsem strategii, data i reklamy a teď ověřuji podklady pro technický
+  stack (hosting, ukládání leadů, analytika), aby návrh nestavěl na číslech z
+  paměti. Dál vytvořím dvě HTML varianty první obrazovky a
+  docs/vizualni-styl.md.
+
+⏺ Fetch(https://neon.com/docs/introduction/scale-to-zero)
+  ⎿  Received 3KB (200 OK)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Mám ověřené podklady pro stack. Teď píšu obě HTML varianty a nejdřív si
+  ověřím, že výpočet kalkulačky v náhledu sedí s čísly v zdroje-dat.md.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Výpočet sedí se všemi pěti hodnotami v zdroje-dat.md. Píšu variantu 1.
+
+⏺ Write(design/varianta-1-cenovka.html)
+  ⎿  Wrote 269 lines to design/varianta-1-cenovka.html
+       1 <!doctype html>
+       3 <head>
+       4 <meta charset="utf-8">
+       5 <meta name="viewport" content="width=device-width, initial-scale
+       6 <title>Varianta 1: Cenovka (náhled první obrazovky)</title>
+       7 <!-- Jen pro náhled. Na produkci písmo hostujeme sami (bez požad
+       8 <link rel="preconnect" href="https://fonts.googleapis.com">
+       9 <link rel="preconnect" href="https://fonts.gstatic.com" crossori
+         gin>
+         h,wght@62..125,400..900&display=swap" rel="stylesheet">
+     … +340 lines (ctrl+o to expand)
+
+⏺ Teď varianta 2 se stejným obsahem, ale jiným vizuálním jazykem.
+
+⏺ Write(design/varianta-2-datovy-clanek.html)
+  ⎿  Wrote 252 lines to design/varianta-2-datovy-clanek.html
+       1 <!doctype html>
+       3 <head>
+       4 <meta charset="utf-8">
+         =1">
+         >
+       7 <!-- Jen pro náhled. Na produkci písma hostujeme sami (bez požad
+       8 <link rel="preconnect" href="https://fonts.googleapis.com">
+       9 <link rel="preconnect" href="https://fonts.gstatic.com" crossori
+      10 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sa
+         00&display=swap" rel="stylesheet">
+     … +315 lines (ctrl+o to expand)
+
+⏺ Obě varianty jsou napsané. Udělám screenshoty v headless prohlížeči, abych
+  ověřil, že se obsah opravdu vejde do 375 × 667.
+
+  Read 2 files, listed 1 directory, ran 1 shell command (ctrl+o to expand)
+
+⏺ Obě varianty se do 375 × 667 vejdou i s pevnou lištou. Opravím zalomení („500“
+  a „%“ samostatně na řádku) pevnými mezerami a zúžím sloupec popisků v tabulce
+  varianty 2.
+
+  Read 2 files, ran 4 shell commands (ctrl+o to expand)
+
+⏺ Náhledy vypadají správně. Teď píšu docs/vizualni-styl.md.
+
+⏺ Write(docs/vizualni-styl.md)
+  ⎿  Wrote 143 lines to docs/vizualni-styl.md
+      1 # Vizuální styl
+      3 Stav: **návrh ke schválení** (12. 10. 2026). Kód stránky vznikne 
+        až po výběru varianty.
+      5 Náhledy první obrazovky (otevřít v prohlížeči, kalkulačka i přepí
+        nač fungují):
+        tml)
+      7 - [design/varianta-2-datovy-clanek.html](../design/varianta-2-dat
+      8 
+      9 Obě varianty mají stejný obsah, stejná data a stejnou strukturu p
+        yl, ne obsah.
+     … +262 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+⏺ Kontrola dlouhých pomlček je čistá. Podle pravidla 2 návrh commitnu a pushnu.
+  Nejdřív zkontroluji větev, protože git hlásil „HEAD“.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Návrh vizuálního stylu je hotový, commitnutý a pushnutý (7a89e75). Kód stránky
+  jsem nepsal.
+
+  Otevřete v prohlížeči:
+  open design/varianta-1-cenovka.html design/varianta-2-datovy-clanek.html
+  Každý soubor ukazuje první obrazovku pro reklamu A i B vedle sebe, přesně 375
+  × 667 px. V náhledu funguje kalkulačka a přepínač VOO / SPY / IVV. Kalkulačka
+  dává stejná čísla jako zdroje-dat.md (1 443 / 3 359 / 61 171 Kč). Ze
+  screenshotů v Chrome je vidět, že se obě obrazovky vejdou i s pevnou lištou
+  výzvy.
+
+  Varianty
+  - 1, Cenovka: písmo Archivo v zúžené šířce, černá na bílé a jedna žlutá
+    „cenovka“ na obrazovce. Text na bílé má kontrast 18,9 : 1. Částka je
+    největší prvek na stránce.
+  - 2, Datový článek: písma Newsreader a IBM Plex Sans, teplý papír, tenké linky
+    a zdroje jako poznámky pod čarou. Vstupy kalkulačky jsou vepsané do věty.
+
+  Doporučuji variantu 1. Varianta 2 je hezká, ale teplý papír s patkovým písmem
+  je dnes častý vzhled výstupů AI, takže jde proti požadavku, aby stránka
+  nevypadala jako výchozí výstup Claude. Zdůvodnění je v docs/vizualni-styl.md,
+  kde jsou i kontrasty, srovnání s typickým výstupem AI a rozpis první
+  obrazovky.
+
+  Stack: statické HTML bez frameworku na Vercelu, formulář přes Vercel Function,
+  leady do databáze Neon (Postgres, zdarma) a měření přes Umami Cloud (zdarma,
+  bez cookies, s funnely). Při ověřování jsem narazil na tři věci, které mění
+  volby:
+  - Vercel Hobby je jen pro nekomerční použití. Pro zadání stačí, ale skutečná
+    placená kampaň by potřebovala tarif Pro. Patří to do README.
+  - Supabase jsem vyřadil. Bezplatný projekt se po týdnu bez provozu pozastaví.
+    Kdyby hodnotitel stránku zkoušel později, formulář by lead neuložil.
+  - Vercel Web Analytics jsem vyřadil. Vlastní eventy má jen v placených
+    tarifech, takže by na Hobby nešlo měřit celou cestu k formuláři.
+
+  Potřebuji od vás rozhodnout:
+  1. Varianta 1, 2, nebo kombinace?
+  2. Pracovní název „ETF v korunách“ ponechat?
+  3. Dvě odchylky od reklamy.md: u A vypouštím podnadpis, protože opakuje čísla
+     z výsledku a odsunul by ho pod ohyb, a u B je podnadpis kratší.
+  4. E-mail s PDF: ve fázi 2 jen uložit kontakt a nabídnout stažení PDF, e-mail
+     přidat až po ověření limitů Brevo?
+  5. Meta Pixel ve fázi 2 vynechat (bez něj nepotřebujeme cookie lištu) a uvést
+     ho v README jako věc, kterou by skutečná kampaň potřebovala?
+
+✻ Sautéed for 7m 26s · done 10:09 PM
+
+※ recap: Ve fázi 2 (stránka) jsem připravil a pushnul dva návrhy vizuálního stylu první obrazovky (design/) s popisem v docs/vizualni-styl.md. Teď potřebuji, abyste vybrali variantu (doporučuji 1, Cenovka) a odpověděli na otevřené otázky. (disable recaps in /config)
+
+❯ Rozhodnutí:                                                                   
+  1. Varianta 1 (Cenovka).                                                      
+  2. Název "ETF v korunách" ponechat. Do patičky správce osobních údajů: Yehor  
+  Havrylov a kontaktní e-mail, stránka označená jako ukázkový projekt do        
+  výběrového řízení.                                                            
+  3. Obě odchylky od reklamy.md schvaluji, zapiš je do reklamy.md.              
+  4. Ve fázi 2 jen uložit kontakt a hned nabídnout stažení PDF, e-mail zatím    
+  ne. Proto oprav všechny texty, které slibují e-mail ("pošleme na e-mail"), na 
+  okamžité stažení. Do README dej jako A/B hypotézu: doručení jen e-mailem      
+  (ověřený kontakt, nižší konverze) proti okamžitému stažení (vyšší konverze,   
+  víc falešných adres).                                                         
+  5. Meta Pixel ve fázi 2 vynechat. Do README: skutečná kampaň optimalizovaná   
+  na leady ho potřebuje, s cookie lištou. Pokud ve čtvrtek zbude čas, doplníme. 
+                                                                                
+  Opravy k náhledu:                                                             
+  - "registrované v ČR podle emitentů" u evropských fondů: ověřeno jen u CSPX a 
+  SPYL. Buď to ověř u VUAA na stránce Vanguardu, nebo piš jen u CSPX a SPYL.    
+  - Obrazovka B je na pár vteřin moc hutná: nadpis na 4 řádky a poznámka s      
+  hvězdičkou mizí pod lištou. Zkrať nadpis, ať doslova opakuje slib reklamy B,  
+  a poznámku dej tam, kde je vidět, nebo hvězdičku odstraň.                     
+  - Lišta s CTA je vidět hned od načtení, strategie říká až po interakci s      
+  kalkulačkou. U A je výsledek vidět hned, takže lišta dává smysl, ale sjednoť  
+  to ve strategii a zdůvodni. Do README jako A/B hypotézu: lišta hned proti     
+  liště až po první interakci.                                                  
+                                                                                
+  Pak pokračuj podle plánu fáze 2: stránka, formulář s uložením do Neonu,       
+  eventy v Umami, PDF. Nejdřív mi ukaž plán.                                    
+
+⏺ Nejdřív ověřím registraci VUAA v ČR na stránce Vanguardu, protože na tom
+  závisí text na obrazovce B.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+⏺ VUAA je na stránce Vanguardu ověřená: v části „Register countries“ je uvedená
+  i „Czech Republic“. Teď najdu všechny texty, které slibují poslání e-mailem.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Teď opravy. Nejdřív náhled varianty 1: obrazovka B, texty v liště a
+  registrace.
+
+  Read 1 file, ran 3 shell commands (ctrl+o to expand)
+
+⏺ Obrazovka B má teď nadpis na dva řádky a poznámka je nad lištou s rezervou.
+  Teď dokumenty. Začnu vizualni-styl.md.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Update(docs/vizualni-styl.md)
+  ⎿  Added 3 lines, removed 3 lines
+       1  # Vizuální styl
+       2  
+       3 -Stav: **návrh ke schválení** (12. 10. 2026). Kód stránky vznikn
+         -e až po výběru varianty.                                       
+       3 +Stav: **schváleno 12. 10. 2026: varianta 1 (Cenovka)**, s oprav
+         +ami náhledu z revize (viz sekce 7). Varianta 2 zůstává v repozi
+         +táři jako zamítnutý návrh.                                     
+       4  
+       5  Náhledy první obrazovky (otevřít v prohlížeči, kalkulačka i pře
+          pínač fungují):
+       6 -- [design/varianta-1-cenovka.html](../design/varianta-1-cenovka
+         -.html)                                                         
+       7 -- [design/varianta-2-datovy-clanek.html](../design/varianta-2-d
+         -atovy-clanek.html)                                             
+       6 +- [design/varianta-1-cenovka.html](../design/varianta-1-cenovka
+         +.html) (schválená)                                             
+       7 +- [design/varianta-2-datovy-clanek.html](../design/varianta-2-d
+         +atovy-clanek.html) (zamítnutá)                                 
+       8  
+       9  Obě varianty mají stejný obsah, stejná data a stejnou strukturu
+           první obrazovky. Liší se jen vizuálním jazykem, aby šlo vybíra
+          t styl, ne obsah.
+      10  
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Teď reklamy.md: zapíšu obě schválené odchylky.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+⏺ Teď zápis chyb agenta do ai-notes.md (pravidlo 4).
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Opravy jsou commitnuté a pushnuté (1f61044). Než napíšu plán, zjistím, jaké
+  nástroje jsou lokálně k dispozici pro nasazení.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Opravy jsou hotové, commitnuté a pushnuté (1f61044):
+
+  - VUAA: registraci v ČR jsem ověřil na stránce Vanguardu (Fund facts,
+    „Register countries“ obsahuje „Czech Republic“). „Registrované v ČR“ proto
+    zůstává u všech tří evropských fondů. Je to zapsané v zdroje-dat.md.
+  - Obrazovka B: nadpis je teď doslovně „VOO vedle evropského fondu na stejný
+    index“ a má 2 řádky. Hvězdičku jsem nahradil popiskem „jen třída ETF/Acc“
+    přímo pod číslem. Poznámka je vidět nad lištou.
+  - Lišta a texty:
+    - Texty v liště slibují „zdarma, stáhnete hned“ místo e-mailu.
+    - Ve strategii je zdůvodněno, proč je lišta vidět od načtení: výsledek je
+      vidět bez interakce a lišta jen odkazuje na odměnu, pole pro e-mail se
+      objeví až pod výsledkem nebo po klepnutí.
+    - Obě A/B hypotézy jsou v nové sekci strategie.md „8. Hypotézy“, odkud je
+      převezmu do README.
+  - Dokumenty:
+    - Rozhodnutí jsou zapsaná v vizualni-styl.md a reklamy.md.
+    - Omezení do README (Meta Pixel, Vercel Hobby, Umami) jsou v strategie.md.
+    - Chyby agenta jsem zapsal do ai-notes.md jako záznamy 8 až 10: registrace
+      VUAA, rozpor lišty se strategií a obrazovka B kontrolovaná jen na to,
+      jestli se vejde, ne na čitelnost.
+
+  ---
+
+  Plán fáze 2: stránka
+
+  Struktura repozitáře
+
+  public/index.html          stránka (CSS inline, ať první obrazovka nečeká na 
+  další soubor)
+  public/app.js              kalkulačka, přepínač, přepnutí hlavičky podle 
+  utm_content, formulář, eventy
+  public/data.js             vygenerováno z data/etf.csv, čísla se nepřepisují 
+  ručně
+  public/fonts/              Archivo woff2, jen latin + latin-ext
+  public/soukromi.html       zásady zpracování osobních údajů (krátké)
+  public/srovnani-etf.pdf    odměna + náhledy stran (PNG)
+  reward/tahak.html          zdroj PDF, převod do PDF přes headless Chrome
+  api/lead.js                Vercel Function: validace, uložení do Neonu
+  db/schema.sql              tabulka leads
+  scripts/build-data.mjs     CSV na data.js
+  scripts/check.mjs          výchozí čísla na stránce a v PDF sedí s CSV a 
+  vzorcem, kontrola dlouhých pomlček
+  docs/mereni.md             tracking plán
+
+  Pořadí sekcí (zdůvodnění půjde do README)
+
+  1. Hlavička podle reklamy: u A kalkulačka, u B srovnání VOO / SPY / IVV s
+     evropskými fondy. Plní slib reklamy.
+  2. Druhý interaktivní prvek: u A srovnání, u B kalkulačka. Kdo neklikl na
+     lištu, dostane další hodnotu.
+  3. Odměna a formulář: náhledy stran PDF, 4 body obsahu, pole pro e-mail a
+     souhlas. Je tady, protože hodnotu už návštěvník viděl.
+  4. Jak počítáme a zdroje: rozbalovací, pro ty, kdo nevěří.
+  5. Patička:
+     - správce Yehor Havrylov a kontaktní e-mail,
+     - „ukázkový projekt do výběrového řízení“,
+     - „nejde o investiční doporučení“,
+     - datum dat a odkaz na zásady.
+
+  Stránka zůstane krátká: strategie uvádí doporučený rozsah 195 až 715 slov
+  (Unbounce).
+
+  Formulář a uložení
+
+  - Pole: e-mail a nezaškrtnutý souhlas. Skryté pole proti robotům.
+  - Na serveru: validace a uložení do Neonu. Ukládám:
+    - e-mail (unikátní),
+    - souhlas: ano/ne, znění a čas,
+    - utm_* a verzi hlavičky,
+    - zadanou částku a počet let.
+  - Po odeslání:
+    - Formulář se změní na „Hotovo“ a velké tlačítko „Stáhnout PDF“.
+    - PDF se otevře přímo, bez atributu download, protože stahování v prohlížeči
+      uvnitř Instagramu je nejisté.
+    - Na skutečném telefonu to ověřím ve fázi 3.
+
+  Odměna (PDF)
+
+  Formát A5 na výšku s velkým písmem, 3 až 4 strany:
+  1. Tabulka 7 fondů z NYSE Arca a 4 evropských (TER, velikost,
+     akumulace/výplata, registrace v ČR jen tam, kde je ověřená).
+  2. Brokeři: jen ověření (Fio, DEGIRO, XTB), s datem.
+  3. Jak číst TER a co kalkulačka nepočítá.
+  4. Zdroje a data.
+
+  Výkonnost do PDF nedám, protože u Vanguard US fondů zůstala neověřená.
+
+  Měření (Umami)
+
+  - Eventy:
+    - hero_view (a/b),
+    - calc_change (první změna),
+    - fund_switch,
+    - cta_bar_click,
+    - form_view,
+    - form_start,
+    - form_submit,
+    - lead_saved / lead_error,
+    - pdf_open.
+  - Funnel: návštěva → interakce → form_view → form_start → lead_saved →
+    pdf_open, rozdělený podle utm_content.
+  - Podrobně v docs/mereni.md.
+
+  Kroky (po každém commit a push)
+
+  1. Kostra: data z CSV, písma, check.mjs.
+  2. Stránka se sekcemi, patičkou a zásadami.
+  3. Formulář, api/lead.js a Neon.
+  4. PDF a náhledy.
+  5. Umami a docs/mereni.md.
+  6. Nasazení náhledu na Vercel. Zkušební lead zkontroluji v Neonu a eventy v
+     Umami. Pak připomenu export ai-log/02-stranka.txt.
+
+  Co potřebuji od vás
+
+  1. Kontaktní e-mail do patičky. Bude veřejně na stránce, proto ho nechci
+     odhadovat.
+  2. Co s kontaktem bez zaškrtnutého souhlasu?
+     - Doporučuji: PDF dostane každý, e-mail uložíme, jen když souhlas zaškrtne.
+       Bez souhlasu se zaznamená jen anonymní event.
+     - Měřená konverze pak bude „lead se souhlasem“.
+     - Alternativa je povinný souhlas. Ten je ale podmínkou pro získání odměny a
+       právně ho nemám ověřený.
+  3. Účty: Vercel ani Neon CLI tu nejsou nainstalované. Navrhuji, abyste:
+     - Vercel: importoval repozitář z GitHubu.
+     - Neon: připojil databázi přes Vercel Marketplace, aby se DATABASE_URL
+       nastavila sama.
+     - Umami Cloud: založil web a poslal mi Website ID (je veřejné).
+
+     Kód připravím tak, aby fungoval hned po nastavení. Lokálně ho otestuji
+     proti vaší databázi, když mi dáte DATABASE_URL do .env. Ten soubor bude v
+     .gitignore.
+
+  Implementaci začnu po schválení plánu a odpovědi na body 1 a 2.
+
+✻ Sautéed for 3m 45s · done 10:18 PM
+
+※ recap: Stavíme ETF landing page ve stylu Cenovka a vaše opravy náhledu jsou hotové a pushnuté. Čeká se na vás: schvalte plán fáze 2, pošlete kontaktní e-mail do patičky a rozhodněte, co s kontaktem bez souhlasu.
+
+❯ Plán schvaluji. Odpovědi:                                                     
+  1. Kontaktní e-mail do patičky: havrylov.yehor@gmail.com                      
+  2. Souhlas povinný, ale transparentní: přímo nad tlačítkem jednou větou, k    
+  čemu e-mail použijeme a že se lze jedním klikem odhlásit, plus odkaz na       
+  zásady. Bez souhlasu formulář neodejde. Do README: právně neověřeno           
+  (podmíněný souhlas, GDPR čl. 7 odst. 4), před ostrým spuštěním konzultovat s  
+  právníkem. Tvoji variantu (PDF pro každého, e-mail jen se souhlasem) zapiš    
+  jako alternativu.                                                             
+  3. Účty založím teď, Website ID z Umami ti pošlu.                             
+                                                                                
+  Důležité: export konverzace jde do veřejného repozitáře. Nikdy nevypisuj      
+  obsah .env, DATABASE_URL ani jiné tajné klíče, ani v příkazech, ani ve        
+  výstupech. Soubor .env si vytvořím sám. Přidej to jako pravidlo do CLAUDE.md. 
+                                                                                
+  Začni krokem 1.                                                               
+
+⏺ Začínám krokem 1. Nejdřív pravidlo o tajných údajích do CLAUDE.md a
+  .gitignore, aby .env nemohl skončit v repozitáři.
+
+  Read 1 file, listed 1 directory (ctrl+o to expand)
+
+⏺ .gitignore už .env* ignoruje. Doplním výjimku pro .env.example (jen názvy
+  proměnných, bez hodnot) a pravidlo do CLAUDE.md.
+
+⏺ Update(CLAUDE.md)
+  ⎿  Added 1 line
+      47     Při práci na stránce přidat do kontroly i zdrojové soubory s
+           texty.
+      48  6. **Export konverzace na konci každé fáze.** Agent na konci fá
+          ze připomene, uživatel spustí `/export ai-log/NN-nazev.txt` (na
+          př. `ai-log/00-zalozeni.txt`, `ai-log/01-strategie.txt`), agent
+           export commitne a pushne.
+      49  7. **Vizuální styl vždy nejdřív ke schválení, teprve potom kód.
+          ** Stránka nesmí vypadat jako výchozí výstup od Claude.
+      50 +8. **Tajné údaje nikdy nevypisovat.** Export konverzace jde do 
+         +veřejného repozitáře. Agent nikdy nečte ani nevypisuje obsah `.
+         +env`, `DATABASE_URL` ani jiné klíče a hesla: ani v příkazech, a
+         +ni ve výstupech, ani v commitech. `.env` vytváří a spravuje jen
+         + uživatel. Agent smí ověřit jen to, že proměnná existuje (např.
+         + `test -n "$DATABASE_URL" && echo nastaveno`), nikdy její hodno
+         +tu. Kód čte tajné údaje jen z proměnných prostředí. V repozitář
+         +i je jen `.env.example` s názvy proměnných bez hodnot.         
+      51  
+      52  ## Harmonogram
+      53  
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Zapíšu rozhodnutí o souhlasu do strategie, včetně alternativy a omezení do
+  README.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Teď písmo. Stáhnu Archivo jako variabilní woff2 jen v rozsahu os, které
+  stránka používá (šířka 72 až 100 %, váha 400 až 900), a jen podmnožiny latin a
+  latin-ext.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Obě podmnožiny dohromady váží asi 176 kB, což je na mobil moc. Zkusím z nich
+  vytvořit jeden soubor obsahující jen znaky, které čeština a stránka skutečně
+  potřebují.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Nainstaluji fonttools do dočasného prostředí v scratchpadu (do projektu
+  nepatří) a vezmu zdrojový variabilní font z repozitáře google/fonts.
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Z 176 kB je jeden soubor o 38 kB. Ověřím, že obsahuje všechny české znaky a
+  obě osy.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Písmo je v pořádku, teď se zaměřím na data. Čísla z ESMA a stav u brokerů
+  zatím existují jen v dokumentech, takže je převedu do CSV vedle etf.csv, aby
+  stránka měla jediný zdroj čísel.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Write(scripts/build-data.mjs)
+  ⎿  Wrote 83 lines to scripts/build-data.mjs
+       1 // Převede data/*.csv na public/data.js, aby stránka a PDF braly
+          čísla z jednoho místa.
+         ýstup se needituje ručně.
+       3 import { readFileSync, writeFileSync } from "node:fs";
+       4 import { fileURLToPath } from "node:url";
+       6 const root = fileURLToPath(new URL("..", import.meta.url));
+       7 export const OUT = root + "public/data.js";
+       8 
+          pole.
+      10 export function parseCsv(text) {
+     … +80 lines (ctrl+o to expand)
+
+⏺ Write(public/calc.js)
+  ⎿  Wrote 9 lines to public/calc.js
+      1 // Náklady fondu v Kč. Model popsaný v docs/zdroje-dat.md, sekce 
+        Výpočty:
+      2 // vklad na začátku měsíce, roční náklady strhávané měsíčně jako 
+      3 // Výsledek = součet vkladů minus konečná hodnota.
+      4 export function feeCost(monthly, years, terPct) {
+      5   const keep = Math.pow(1 - terPct / 100, 1 / 12);
+      6   let value = 0;
+        * keep;
+      8   return monthly * years * 12 - value;
+      9 }
+     … +2 lines (ctrl+o to expand)
+
+⏺ Write(scripts/check.mjs)
+  ⎿  Wrote 55 lines to scripts/check.mjs
+       1 // Kontroly před commitem: npm run check
+       2 // 1. public/data.js odpovídá data/*.csv
+       3 // 2. vzorec v public/calc.js dává stejné částky jako tabulka v 
+       4 // 3. v textech nejsou dlouhé pomlčky (CLAUDE.md, pravidlo 5)
+       5 import { readFileSync, readdirSync, existsSync, statSync } from 
+         "node:fs";
+       6 import { fileURLToPath } from "node:url";
+       8 import { feeCost } from "../public/calc.js";
+       9 
+      10 const root = fileURLToPath(new URL("..", import.meta.url));
+     … +53 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Kontroly prošly: data jsou aktuální, všech 5 výpočtů sedí s zdroje-dat.md a v
+  souborech nejsou dlouhé pomlčky. Doplním do dokumentace nové datové soubory a
+  změřenou velikost písma.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Krok 1 je hotový, commitnutý a pushnutý (07c4e80). npm run check prošel.
+
+  Co jsem udělal
+  - CLAUDE.md, pravidlo 8: tajné údaje (.env, DATABASE_URL, klíče) se nikdy
+    nečtou ani nevypisují, ani v příkazech, výstupech a commitech. .env
+    spravujete jen vy. Smím ověřit jen to, že proměnná existuje, nikdy její
+    hodnotu. V repozitáři je jen .env.example s názvem proměnné bez hodnoty a
+    .gitignore ho jako jediný ze souborů .env* pouští do gitu.
+  - Souhlas: povinný, s jednou větou nad tlačítkem a odkazem na zásady. Je
+    zapsaný ve strategie.md. Vaše původně zamítnutá alternativa (PDF pro
+    každého, e-mail jen se souhlasem) je tam jako nezvolená varianta a odkaz na
+    GDPR čl. 7 odst. 4 je v omezeních do README.
+  - Jeden zdroj čísel:
+    - Čísla z ESMA a stav u brokerů byly dosud jen v dokumentech. Převedl jsem
+      je beze změny do data/esma.csv a data/brokeri.csv. Broker, kterého jsme
+      neověřili z primárního zdroje, je tam označený a stránka ho nepoužije.
+    - npm run build z CSV vygeneruje public/data.js, takže se na stránce nebudou
+      čísla přepisovat ručně.
+  - Vzorec a kontrola: vzorec kalkulačky je jen na jednom místě
+    (public/calc.js). npm run check ověřuje tři věci:
+    - že data.js odpovídá CSV,
+    - že vzorec dává stejné částky jako tabulka Výpočty v zdroje-dat.md (všech 5
+      sedí),
+    - že v textech nejsou dlouhé pomlčky.
+  - Písmo: podmnožiny z Google Fonts by měly dohromady 176 kB. Místo nich je tam
+    jeden soubor archivo-cs.woff2 o 38 kB, jen se znaky pro češtinu a s
+    rozsahem šířky a váhy, který stránka používá. Ověřil jsem, že obsahuje
+    všechny české znaky a tabulkové číslice. Postup lze zopakovat přes
+    scripts/subset-font.sh a licence OFL je přiložená.
+
+  Další je krok 2: samotná stránka se sekcemi, přepínáním hlavičky podle
+  utm_content, patičkou a zásadami. Formulář v něm bude zatím bez ukládání,
+  napojím ho na Neon v kroku 3. Website ID z Umami budu potřebovat až v kroku 5.
+  Mám pokračovat?
+
+✻ Cooked for 2m 51s · done 10:24 PM
+
+※ recap: Stavíme landing page s porovnáním ETF a jsme ve fázi 2. Krok 1 (data z CSV, kontroly, písmo, pravidlo o tajných údajích) je hotový a pushnutý. Až mi potvrdíte, pustím se do kroku 2, samotné stránky.
+
+❯ Umami Website ID: 95649497-86b4-4a56-9ecb-1e2eadf99268                        
+
+⏺ Website ID si poznamenám pro krok 5 (je veřejné, patří do kódu stránky). Plán
+  je schválený, pokračuji krokem 2: stránka.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Data odpovídají náhledu. Píšu public/index.html.
+
+⏺ Write(public/index.html)
+  ⎿  Wrote 344 lines to public/index.html
+       1 <!doctype html>
+       3 <head>
+       5 <meta name="viewport" content="width=device-width, initial-scale
+         =1">
+         v korunách</title>
+         unách a srovnání VOO, SPY a IVV z NYSE Arca s evropskými fondy n
+       8 <meta name="theme-color" content="#111111">
+       9 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://w
+         ght='32' fill='%23111'/%3E%3Crect x='4' y='20' width='24' height
+      10 <
+     … +476 lines (ctrl+o to expand)
+
+⏺ Teď public/app.js: kalkulačka, přepínač fondů, lišta a formulář. Formulář bude
+  posílat na /api/lead, které vznikne v kroku 3.
+
+⏺ Write(public/app.js)
+  ⎿  Wrote 169 lines to public/app.js
+      1 import { FUNDS, ESMA, BROKERS } from "/data.js";
+      2 import { feeCost } from "/calc.js";
+      3 
+      4 const $ = (sel, root = document) => root.querySelector(sel);
+      5 const fmt = n => Math.round(n).toLocaleString("cs-CZ");
+      7 const pct = n => n.toLocaleString("cs-CZ", { maximumFractionDigit
+        s: 4 }) + " %";
+      8 const digits = s => parseInt(String(s).replace(/\D/g, ""), 10) ||
+         0;
+      9 const fund = t => FUNDS.find(f => f.ticker === t);
+     … +191 lines (ctrl+o to expand)
+
+⏺ Teď stránka se zásadami zpracování osobních údajů.
+
+⏺ Write(public/soukromi.html)
+  ⎿  Wrote 72 lines to public/soukromi.html
+       1 <!doctype html>
+       3 <head>
+       4 <meta charset="utf-8">
+       5 <meta name="viewport" content="width=device-width, initial-scale
+       6 <title>Zásady zpracování osobních údajů | ETF v korunách</title>
+       7 <meta name="robots" content="noindex">
+         ww.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' hei
+         ght='32' fill='%23111'/%3E%3Crect x='4' y='20' width='24' height
+         ='6' fill='%23ffd400'/%3E%3C/svg%3E">
+      10   @font-face {
+     … +88 lines (ctrl+o to expand)
+
+⏺ Rozšířím npm run check o kontrolu, že výchozí čísla napsaná přímo v HTML (aby
+  byla vidět ještě před načtením skriptu) sedí s daty a vzorcem.
+
+⏺ Update(scripts/check.mjs)
+  ⎿  Added 31 lines
+      25    if (got !== want) fail(`výpočet ${label.trim()}: vzorec ${got
+          } Kč, dokumentace ${want} Kč`);
+      26  }
+      27  
+      28 +// 2b. Výchozí čísla v public/index.html (vidět před načtením s
+         +kriptu) sedí s daty a vzorcem                                  
+      29 +const { FUNDS, ESMA, BROKERS } = await import("../public/data.j
+         +s");                                                           
+      30 +const html = readFileSync(root + "public/index.html", "utf8"); 
+      31 +const norm = s => s.replace(/&nbsp;| /g, " ").replace(/&amp;/g,
+         + "&").trim();                                                  
+      32 +const fmt = n => Math.round(n).toLocaleString("cs-CZ");        
+      33 +const pct = n => n.toLocaleString("cs-CZ", { maximumFractionDig
+         +its: 4 }) + " %";                                              
+      34 +const fund = t => FUNDS.find(f => f.ticker === t);             
+      35 +const eu = FUNDS.filter(f => f.type === "UCITS" && f.index.star
+         +tsWith("S&P 500"));                                            
+      36 +const range = (arr, k) => [Math.min(...arr.map(f => f[k])), Mat
+         +h.max(...arr.map(f => f[k]))];                                 
+      37 +const [euLo, euHi] = range(eu, "ter");                         
+      38 +const [szLo, szHi] = range(eu, "assetsUsd");                   
+      39 +const cost = ter => feeCost(2000, 20, ter);                    
+      40 +const expected = {                                             
+      41 +  'data-out="voo"': fmt(cost(fund("VOO").ter)) + " Kč",        
+      42 +  'data-out="eu"': fmt(cost(euLo)) + " až " + fmt(cost(euHi)) +
+         + " Kč",                                                        
+      43 +  'data-out="avg"': fmt(cost(ESMA.avg_fund.ter)) + " Kč",      
+      44 +  'data-ter="voo"': pct(fund("VOO").ter),                      
+      45 +  'data-ter="eu"': pct(euLo).replace(" %", "") + " až " + pct(e
+         +uHi),                                                          
+      46 +  'data-ter="avg"': pct(ESMA.avg_fund.ter),                    
+      47 +  'data-f="ter"': pct(fund("VOO").ter),                        
+      48 +  'data-f="eu-ter"': pct(euLo).replace(" %", "") + " až " + pct
+         +(euHi),                                                        
+      49 +  'data-f="size"': fmt(fund("VOO").assetsUsd / 1e9) + " mld. US
+         +D",                                                            
+      50 +  'data-f="eu-size"': fmt(szLo / 1e9) + " až " + fmt(szHi / 1e9
+         +) + " mld. USD",                                               
+      51 +  'data-f="brokers"': BROKERS.filter(b => b.verified).map(b => 
+         +b.broker.split(" ")[0] + " " + b.usEtf).join(", ")             
+      52 +};                                                             
+      53 +for (const [attr, want] of Object.entries(expected)) {         
+      54 +  const m = html.match(new RegExp(attr + "[^>]*>([^<]*)"));    
+      55 +  if (!m) fail(`public/index.html: chybí prvek ${attr}`);      
+      56 +  else if (norm(m[1]) !== norm(want)) fail(`public/index.html $
+         +{attr}: v HTML "${norm(m[1])}", z dat "${norm(want)}"`);       
+      57 +}                                                              
+      58 +                                                               
+      59  // 3. Dlouhé pomlčky (U+2013, U+2014)
+      60  function files(dir, exts) {
+      61    if (!existsSync(dir)) return [];
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Kontrola prošla. Ověřím, že kontrola opravdu selže, když číslo v HTML nesedí
+  (dočasně změním jednu částku a vrátím ji).
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Kontrola chybu odhalí. Teď stránku spustím lokálně a udělám screenshoty první
+  obrazovky 375 × 667 pro reklamu A i B.
+
+  Read 3 files, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Obsah přetéká doprava – zřejmě artefakt headless Chrome, které nedovolí okno
+  užší než ~500 px, takže se screenshot ořízl. Ověřím to přes iframe s přesnou
+  šířkou 375 px.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Na skutečných 375 px vše sedí, přetékání bylo jen artefakt headless okna. Teď
+  otestuji interakce (kalkulačku, přepínač fondů, validaci formuláře a lištu) –
+  nainstaluji si puppeteer-core pro ovládání Chrome.
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Stránka v kroku 2 je napsaná a na 375 px se vejde. Teď píšu automatický test
+  interakcí (kalkulačka, přepínač, formulář, lišta) v headless Chrome.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Zjistil jsem, že dvě selhání jsou způsobená testem, ne stránkou – trojklik v
+  mobilní emulaci nevybral text, takže se psalo za původní hodnotu. Upravím
+  test, aby pole nejdřív vyprázdnil, a zopakuji kontrolu roků a odeslání.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Plurál let, formátování částky, odesílání formuláře i chybová hláška fungují
+  správně – chyba 501 je očekávaná, protože /api/lead vznikne až v kroku 3. Teď
+  smažu pomocný soubor pro iframe, zapíšu pořadí sekcí jako podklad pro README a
+  commitnu.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Krok 2 je hotový, commitnutý a pushnutý (7aecef3). npm run check prošel.
+  Lokálně stránka běží na http://127.0.0.1:8765, reklamu B uvidíte přes
+  ?utm_content=b_srovnani. Website ID z Umami použiji v kroku 5.
+
+  Co je na stránce
+  - Pořadí sekcí podle reklamy: u A (a bez utm_content) je nahoře kalkulačka, u
+    B srovnání. Přepíná se ještě před vykreslením, takže stránka neproblikne.
+    Pak následuje druhý prvek, odměna s formulářem, sbalená sekce „Jak počítáme
+    a odkud jsou čísla“ a patička se správcem a označením ukázkového projektu.
+    Zdůvodnění pořadí je ve strategie.md, sekce 9, jako podklad pro README.
+  - Čísla: všechna se berou z data.js. Výchozí čísla, která jsou v HTML vidět
+    ještě před načtením skriptu, hlídá npm run check. Zkusil jsem do HTML dát
+    chybnou částku a kontrola ji odhalila.
+  - Lišta: je vidět od načtení. Když návštěvník dojde k formuláři, zmizí, aby ho
+    nepřekrývala, a po odeslání zmizí úplně.
+  - Formulář: e-mail a povinný souhlas, ve kterém je jednou větou účel,
+    odhlášení jedním klikem a odkaz na zásady. Má skryté pole proti robotům a
+    české chybové hlášky přímo u polí.
+  - Zásady: stránka /soukromi.html.
+
+  Ověřeno v Chrome na 375 × 667 px (automatický test)
+  - Rozložení: nic nepřetéká do strany a písmo Archivo se načte. Výsledek u A i
+    srovnání u B jsou vidět nad lištou.
+  - Kalkulačka: přepočítává se při psaní a skloňuje „1 rok / 2 roky / 5 let“.
+    Přepínač VOO / SPY / IVV mění čísla.
+  - Lišta: odroluje k formuláři a dá kurzor do pole e-mailu.
+  - Formulář: hlásí chybějící e-mail, neplatný e-mail i chybějící souhlas.
+    Odeslaná data obsahují e-mail, souhlas s jeho zněním, verzi hlavičky,
+    částku, roky a utm_*.
+  - Odeslání: zatím končí hláškou „Uložení se nepovedlo“, protože /api/lead
+    vznikne až v kroku 3. Tlačítko se pak znovu povolí.
+
+  Ke kontrole v zásadách:
+  - Doba uložení je napsaná jako „do odvolání souhlasu, nejdéle do ukončení
+    ukázkového projektu“. Pokud chcete konkrétní datum, doplním ho.
+  - Mezi zpracovateli jsou uvedené Vercel a Neon.
+
+  Pro krok 3 (formulář a Neon) potřebuji:
+  1. Region databáze v EU (např. Frankfurt), ať údaje nejsou zbytečně v USA.
+     Prosím ověřte to při zakládání projektu v Neonu.
+  2. DATABASE_URL v souboru .env. Napište mi, až tam bude. Ověřím jen to, že
+     proměnná existuje, a tabulku vytvořím skriptem z db/schema.sql. Hodnotu
+     nebudu číst ani vypisovat.
+  3. Stejná DATABASE_URL ve Vercelu. Pokud jste Neon připojil přes Vercel
+     Marketplace, je tam nastavená sama.
+
+  Mám pokračovat krokem 3?
+
+✻ Baked for 5m 9s · done 10:32 PM
+
+※ recap: Stavíme landing page ETF v korunách pro fázi 2. Stránka s kalkulačkou, srovnáním a formulářem je hotová a pushnutá. Další krok: vytvořte databázi Neon v EU a `DATABASE_URL` vložte do `.env`, pak napojím formulář.
+
+❯ Neon je ve Frankfurtu, připojený přes Vercel Marketplace, DATABASE_URL je ve  
+  Vercelu i v .env.                                                             
+                                                                                
+  Než začneš krok 3, oprav podle kontroly stránky na 375 × 667:                 
+  - Na první obrazovce A jsou dvě stejné výzvy: tlačítko "Stáhněte si srovnání  
+  všech fondů v PDF" a lišta "Chci PDF". Tlačítko je napůl pod lištou. Nech jen 
+  lištu.                                                                        
+  - Sbalené sekce (details) nevypadají klikatelně. Přidej viditelnou značku,    
+  např. + nebo šipku.                                                           
+  - Zásady: doba uložení konkrétně, do odvolání souhlasu, nejdéle do 31. 12.    
+  2026, pak smazání.                                                            
+  - V kroku 4 dej náhled první strany PDF hned nad formulář, ať je hodnota      
+  vidět, ne jen popsaná.                                                        
+                                                                                
+  Pak pokračuj krokem 3.                                                        
+
+⏺ Nejdřív čtyři opravy z kontroly stránky, potom krok 3.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Doplním do zásad region databáze a do strategie umístění náhledu PDF pro krok
+  4. Pak zapíšu chybu agenta, která z kontroly vyplynula.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Ověřím opravy screenshotem: první obrazovku A a sbalené sekce.
+
+  Read 2 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ Obě opravy jsou vidět: na první obrazovce A je jediná výzva v liště a sbalené
+  sekce mají značky +/−. Commitnu a pustím se do kroku 3.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ DATABASE_URL je nastavená (ověřeno jen to, hodnotu jsem nečetl). Instaluji
+  ovladač Neonu.
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+⏺ Ovladač má tagované šablony i sql.query(text, params). Píšu schéma, migraci a
+  funkci api/lead.js.
+
+⏺ Write(db/schema.sql)
+  ⎿  Wrote 18 lines to db/schema.sql
+       1 -- Kontakty z formuláře. Spuštění: npm run db:migrate (bezpečné 
+       2 -- Uchováváme jen to, co je v zásadách (public/soukromi.html), n
+         ejdéle do 31. 12. 2026.
+       4   id            bigint generated always as identity primary key,
+         písmeny
+       6   consent       boolean     not null check (consent), -- bez sou
+       7   consent_text  text        not null,                 -- znění s
+         ouhlasu, jak ho návštěvník viděl
+         ledního udělení souhlasu
+      10   submissions   integer     not
+     … +19 lines (ctrl+o to expand)
+
+⏺ Write(scripts/db-migrate.mjs)
+  ⎿  Wrote 18 lines to scripts/db-migrate.mjs
+       1 // Vytvoří tabulky podle db/schema.sql. Spuštění: npm run db:mig
+         rate
+       2 // DATABASE_URL se čte z prostředí (lokálně z .env), nikdy se ne
+       3 import { readFileSync } from "node:fs";
+       4 import { neon } from "@neondatabase/serverless";
+       5 
+       6 if (!process.env.DATABASE_URL) {
+       8   process.exit(1);
+       9 }
+      10 const sql = neon(process.env.DATABASE_URL);
+     … +12 lines (ctrl+o to expand)
+
+⏺ Write(api/lead.js)
+  ⎿  Wrote 86 lines to api/lead.js
+       1 // POST /api/lead: uloží kontakt z formuláře do Neonu (tabulka l
+         eads, db/schema.sql).
+         DF.
+       3 import { neon } from "@neondatabase/serverless";
+       4 
+       6 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+       7 const UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_co
+         ntent"];
+       9 function send(res, status, data) {
+      10   res.statusCode = status;
+     … +93 lines (ctrl+o to expand)
+
+⏺ Write(scripts/dev-server.mjs)
+  ⎿  Wrote 29 lines to scripts/dev-server.mjs
+       1 // Lokální server bez Vercel CLI: statické soubory z public/ a /
+         api/lead.
+         pisuje). Port 8765 nebo PORT.
+       3 import { createServer } from "node:http";
+       4 import { readFile } from "node:fs/promises";
+       6 import { fileURLToPath } from "node:url";
+       7 import lead from "../api/lead.js";
+       8 
+         );
+      10 const port = Number(process.env.PORT) || 8765;
+     … +27 lines (ctrl+o to expand)
+
+⏺ Doplním skripty do package.json, zastavím dočasný Python server a spustím
+  migraci.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Background command "Serve the page locally on port 8765" failed with exit code
+144
+
+⏺ Tabulka leads v Neonu existuje, ale je prázdná. Teď upravím engines na Node 22
+  (kvůli --env-file-if-exists) a spustím lokální server s API.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Otestuji API přímo: odmítnutí chybných požadavků, uložení, opakované odeslání
+  a past na roboty.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Odpovědi API sedí (hláška CFPropertyList je jen šum macOS curl). Zkontroluji v
+  databázi testovací řádky. Vypíšu jen řádky s testovacími adresami
+  @example.com, nic jiného.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Databáze se chová podle návrhu – e-mail malými písmeny, opakované odeslání jen
+  navýšilo počet a obnovilo čas souhlasu, UTM parametry zůstaly z prvního
+  odeslání a robot ani neplatné požadavky se neuložily. Teď projdu celý průběh v
+  prohlížeči od načtení formuláře po potvrzovací stav.
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Test se zasekl. Podívám se, kde.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Background command "Run browser funnel test through form submit" failed with
+exit code 144
+
+⏺ Test nevypsal nic, takže se zasekl ještě před odesláním. Přidám výpis po
+  každém kroku a časové limity.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Kroky proběhnou v pořádku, problém je až v zavírání prohlížeče – zřejmě kvůli
+  osiřelým instancím Chrome z přerušeného testu. Ukončím jen ty spuštěné
+  puppeteerem (podle jeho dočasného profilu), uživatelský Chrome nechám běžet.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Žádné osiřelé procesy nejsou, ale zaseklé je nejspíš browser.close() — výstup
+  se mohl ztratit kvůli asynchronnímu zápisu do roury na macOS. Nastavím timeout
+  na zavírání a proces explicitně ukončím.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Výstup se opět ztratil. Budu ho zapisovat synchronně do souboru, abych viděl,
+  kde test stojí.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Test stojí po kliknutí na lištu, tedy u psaní do pole e-mailu nebo u odeslání.
+  Přidám výpis za každý řádek.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Psaní i souhlas projdou. Test se zasekne až u odeslání. Zapíšu do logu
+  požadavky na /api/lead a případnou chybu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Požadavek odejde, ale odpověď nepřijde. Zkusím, jestli server teď odpovídá na
+  curl.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Curl odpoví hned. Zkusím přes curl přesně stejný požadavek, jaký posílá
+  prohlížeč (celé znění souhlasu, všechna pole).
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Server odpovídá správně i na přesný požadavek z prohlížeče. Teď zkontroluji,
+  jestli se lead-test-2 z prohlížeče uložil do databáze, abych zjistil, kde je
+  problém.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Zjistil jsem, že požadavek se správně odesílá a ukládá – problém je jen v
+  čekání na odpověď v testu. Místo čekání na síťovou událost nastavím čekání na
+  zobrazení potvrzení na stránce.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Celý průchod v prohlížeči funguje správně – chyba byla v testu (zaseklé čekání
+  na síťovou událost v puppeteeru), ne ve stránce. Teď se podívám na
+  potvrzovací stav.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Potvrzovací stav vypadá správně. Smažu testovací řádky z databáze.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Do omezení pro README doplním, že API chrání jen skryté pole a nemá omezení
+  počtu požadavků. Pak commit.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Krok 3 je hotový, commitnutý a pushnutý (94974d2). Před tím jsem opravil vaše
+  tři připomínky ke stránce (03bb72d).
+
+  Opravy stránky
+  - Jedna výzva na první obrazovce: na první obrazovce A zůstala jen lišta,
+    tlačítka pod kalkulačkou i pod srovnáním jsem odstranil. Strategie je
+    upravená.
+  - Sbalené sekce: mají vpravo čtvercovou značku „+“, po rozbalení „−“ na černém
+    poli.
+  - Zásady: údaje se uchovávají do odvolání souhlasu, nejdéle do 31. 12. 2026, a
+    pak se smažou. Doplnil jsem, že databáze běží v EU (Frankfurt).
+  - Náhled PDF: v kroku 4 dám náhled první strany PDF přímo nad formulář. Je to
+    zapsané ve strategii.
+  - ai-notes.md, záznam 11: screenshoty jsem měl, ale kontroloval jsem jen,
+    jestli se obsah vejde, ne jestli se výzvy neopakují.
+
+  Krok 3: ukládání do Neonu
+  - api/lead.js:
+    - Na serveru kontroluje e-mail a povinný souhlas.
+    - Když robot vyplní skryté pole, odpoví „ok“, ale nic neuloží.
+    - Opakované odeslání stejné adresy nevytvoří nový řádek: obnoví souhlas a
+      navýší počet odeslání. utm_* zůstanou z prvního odeslání.
+    - Do logu nikdy nejde e-mail ani připojovací řetězec.
+  - Databáze: tabulku leads jsem vytvořil přes npm run db:migrate.
+  - Lokální spuštění bez Vercel CLI: npm run dev obslouží stránku i API.
+
+  Jak jsem to ověřil
+  - API přes curl:
+    - Odmítne požadavek GET, data, která nejsou JSON, rozbitý JSON, neplatný
+      e-mail i chybějící souhlas.
+    - Robota neuloží.
+    - Platný požadavek uloží, opakovaný jen aktualizuje stávající řádek.
+  - Celý průchod v prohlížeči na 375 × 667: reklama B → přepnutí na SPY → lišta
+    → e-mail a souhlas → odeslání. Kontakt se uložil, objevilo se „Hotovo, PDF
+    je vaše“, fokus se přesunul na potvrzení a lišta zmizela.
+  - Úklid: testovací adresy lead-test-*@example.com jsem z databáze smazal,
+    tabulka je prázdná.
+  - Tajné údaje: hodnotu DATABASE_URL jsem nikde nečetl ani nevypsal. Před
+    commitem jsem diff zkontroloval na připojovací řetězce a nic nenašel.
+
+  Test se mi chvíli zasekával, ale chyba byla v testovacím skriptu (čekání na
+  síťovou událost v puppeteeru), ne ve stránce. V databázi bylo vidět, že se
+  kontakty ukládaly.
+
+  Do omezení pro README jsem připsal, že formulář chrání jen skryté pole, bez
+  omezení počtu požadavků a bez CAPTCHA. Při skutečné kampani by se databáze
+  dala zaplnit falešnými adresami.
+
+  Otevřený bod: odkaz „Otevřít PDF“ zatím vede na soubor, který neexistuje. PDF
+  vznikne v kroku 4.
+
+  Další je krok 4: obsah PDF z data/*.csv s nejméně 3 stranami podle plánu,
+  export z HTML přes headless Chrome a náhled první strany nad formulářem. Mám
+  pokračovat?
+
+✻ Brewed for 10m 6s · done 10:47 PM
+
+❯ Krok 3 schvaluji. Pokračuj krokem 4. K PDF:                                   
+  - Je to odměna, za kterou lidé dávají e-mail. První strana musí sama o sobě   
+  působit hodnotně, protože je zároveň náhledem nad formulářem.                 
+  - Stejný styl jako stránka (Archivo, černá, bílá, žlutá), čitelné na telefonu 
+  bez zoomování.                                                                
+  - Všechna čísla z data/*.csv přes stejný build, ať je npm run check hlídá i v 
+  PDF.                                                                          
+  - Žádné doporučení konkrétního fondu ani brokera. Na první i poslední straně  
+  "nejde o investiční doporučení".                                              
+  - Do omezení pro README: PDF leží veřejně v public/, kdo zná odkaz, stáhne ho 
+  i bez formuláře.                                                              
+    Po kroku 4 se zastav, PDF a náhled zkontroluju.                             
+
+⏺ Než začnu PDF stavět, ověřím registraci VWCE v ČR na stránce Vanguardu stejně
+  jako u VUAA. V PDF budou všechny 4 evropské fondy a recenzent VWCE neověřil.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ VWCE jsem ověřil – Česko je v registru zemí u Vanguardu, zapíšu to do
+  zdroje-dat.md. Teď doplním do etf.csv sloupec zamereni s krátkým popisem, co
+  který fond sleduje, aby PDF nemuselo vypisovat dlouhé názvy indexů.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Doplním do buildu dat sloupce, které PDF potřebuje (zaměření a ISIN).
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Teď se pustím do generátoru PDF: stránky navrhnu na rozměr telefonu (100 × 178
+  mm, ~378 × 673 CSS px), aby se text 14 px zobrazil čitelně bez zoomování. To
+  vyjde na 6 stran místo původně plánovaných 2–4.
+⏺ Write(scripts/build-pdf.mjs)
+  ⎿  Wrote 262 lines to scripts/build-pdf.mjs
+       1 // Odměna za kontakt: PDF "VOO, SPY a evropské fondy na stejný i
+       2 // Všechna čísla bere z public/data.js (tedy z data/*.csv) a ze 
+         vzorce v public/calc.js.
+       4 // npm run pdf
+       5 //   1. vygeneruje reward/tahak.html (HTML zdroj PDF, v gitu, ko
+       6 //   2. headless Chrome z něj vytiskne public/srovnani-etf.pdf
+       7 //   3. vyfotí první stranu jako náhled nad formulářem: public/o
+       8 //   4. zapíše otisk HTML do reward/tahak.sha256, aby check pozn
+         al neaktuální PDF
+      10 import { writeFileSync, mkdirSync } from "node:fs";
+     … +371 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ PDF i náhled vznikly. PDF má 412 kB, na to se podívám později. Nejdřív
+  zkontroluji počet stran a jak vypadají. Strany vyrenderuji do obrázků přes
+  PyMuPDF ve scratchpadu.
+
+  Read 2 files, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Zjistil jsem, že tři strany přetékají (chybí upozornění na str. 1 a 6, nevešel
+  se VYM na str. 2), navíc je duplicitní „ESMA“, nepřesná věta o kurzu a PDF má
+  412 kB. Opravím rozvržení, přeformuluji větu o měně a do buildu doplním
+  automatickou kontrolu přetečení stran.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Python skript selhal hned u druhé náhrady, takže soubor zůstal beze změny (PDF
+  se vygenerovalo ze staré verze). Podívám se na přesné znění řádku.
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+⏺ Soubor obsahuje místo zápisu \u00a0 přímo znak nezlomitelné mezery. Pro
+  JavaScript je to totéž, jen moje náhrada musí hledat ten znak. Opravím to a
+  spustím úpravy znovu.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Neviditelné nezlomitelné mezery jsou i v app.js a check.mjs. Fungují, ale ve
+  zdrojovém kódu jsou zrádné, proto je všude nahradím čitelným zápisem \u00a0.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Teď úpravy PDF znovu, jako čistý skript v souboru.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Kontrola přetečení funguje a zachytila stranu 6. Změřím, o kolik se obsah
+  nevejde.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Strana 6 přetéká o 27 px. Zkrátím úvodní větu a zhustím seznam zdrojů.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Všechny strany se vejdou. PDF ale má pořád 424 kB, snížení počtu řezů
+  nepomohlo. Podívám se, co v něm zabírá místo.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Chrome vložil proměnné písmo jako 17 Type3 fontů (vektorové obrázky znaků),
+  proto je PDF tak velké. Teď ověřím, jestli se z něj dá aspoň zkopírovat text,
+  například ISIN.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Text se dá kopírovat i s ISIN a diakritikou, PDF tedy funguje. Zmenším ho tak,
+  že místo variabilního fontu vyrobím čtyři statické řezy (400, 700, 850 a 850
+  zúžený), aby je Chrome vložil jako běžné fonty, ne jako Type3.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Čtyři statické řezy mají dohromady asi 34 kB. Napojím je do CSS v PDF místo
+  variabilního písma.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ PDF se zmenšil ze 424 kB na 103 kB, obsahuje čtyři běžné vložené fonty a text
+  i ISIN jde dál kopírovat — název „SemiBold“ u všech řezů je jen kosmetická
+  záležitost nástroje. Teď si znovu prohlédnu stránky.
+
+  Read 2 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ Zbývá doladit drobnosti – ořezaná jména emitentů na straně 2 a opakované „za
+  obchod“ na straně 4. Opravím to, napojím náhled na stránku a doplním npm run 
+  check o kontrolu PDF.
+
+  Searched for 1 pattern, read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Teď rozšíření npm run check o PDF:
+  - HTML zdroj musí odpovídat datům,
+  - PDF musí být vytištěné z aktuálního HTML,
+  - upozornění musí být na první i poslední straně.
+
+⏺ Update(scripts/check.mjs)
+  ⎿  Added 12 lines
+      56    else if (norm(m[1]) !== norm(want)) fail(`public/index.html $
+          {attr}: v HTML "${norm(m[1])}", z dat "${norm(want)}"`);
+      57  }
+      58  
+      59 +// 2c. PDF: zdroj odpovídá datům, PDF je vytištěné z aktuálního
+         + zdroje, upozornění na první a poslední straně                 
+      60 +const { renderTahak, sha256, HTML_PATH, SHA_PATH } = await impo
+         +rt("./build-pdf.mjs");                                         
+      61 +const tahak = existsSync(HTML_PATH) ? readFileSync(HTML_PATH, "
+         +utf8") : "";                                                   
+      62 +if (tahak !== renderTahak()) fail("reward/tahak.html neodpovídá
+         + datům, spusťte npm run pdf");                                 
+      63 +else if (!existsSync(SHA_PATH) || readFileSync(SHA_PATH, "utf8"
+         +).trim() !== sha256(tahak)) fail("PDF není vytištěné z aktuální
+         +ho reward/tahak.html, spusťte npm run pdf");                   
+      64 +for (const f of ["public/srovnani-etf.pdf", "public/odmena-nahl
+         +ed.png"]) if (!existsSync(root + f)) fail(`chybí ${f}, spusťte 
+         +npm run pdf`);                                                 
+      65 +const pagesHtml = tahak.split('<section class="page">').slice(1
+         +);                                                             
+      66 +const disclaimer = "nejde o investiční doporučení";            
+      67 +if (!pagesHtml.length || !pagesHtml[0].includes(disclaimer) || 
+         +!pagesHtml.at(-1).includes(disclaimer)) {                      
+      68 +  fail(`PDF: "${disclaimer}" musí být na první i poslední stran
+         +ě`);                                                           
+      69 +}                                                              
+      70 +                                                               
+      71  // 3. Dlouhé pomlčky (U+2013, U+2014)
+      72  function files(dir, exts) {
+      73    if (!existsSync(dir)) return [];
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Negativní test: dočasně změním číslo v esma.csv a přegeneruji jen data, ne
+  PDF. Kontrola musí selhat. Pak změnu vrátím.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Kontrola odhalí změněné číslo na stránce i v PDF. Teď náhled první strany nad
+  formulářem.
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+⏺ Ověřím sekci s náhledem na 375 px a znovu si prohlédnu opravenou stranu 2 a 4
+  v PDF.
+  Read 2 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ Náhled stojí přímo nad formulářem a PDF se servíruje správně (200,
+  application/pdf, 103 kB). Strany 2 a 4 jsou v pořádku. Commitnu krok 4.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Krok 4 je hotový, commitnutý a pushnutý (dc79609). npm run check prošel. Podle
+  vaší instrukce se tady zastavuji.
+
+  Ke kontrole
+  - PDF: public/srovnani-etf.pdf (open public/srovnani-etf.pdf)
+  - Náhled na stránce: http://127.0.0.1:8765/#odmena (lokální server pořád běží)
+
+  Rozhodl jsem jinak, než stálo ve strategii: 6 stran velikosti telefonu místo 2
+  až 4 stran A5. Strana má 378 × 673 px, takže ji prohlížeč PDF v mobilu ukáže
+  zhruba 1:1 a text 14 px je čitelný bez zoomování. Strana A5 by se na telefonu
+  zmenšila asi na dvě třetiny. Ve strategii je to zapsané se zdůvodněním. Pokud
+  chcete radši méně stran, řekněte.
+
+  Obsah PDF
+
+  ┌────────┬─────────────────────────────────────────────────────────────────┐
+  │ Strana │                           Co na ní je                           │
+  ├────────┼─────────────────────────────────────────────────────────────────┤
+  │        │ 6 fondů na S&P 500 (sídlo, TER, výplata výnosů) a žlutý souhrn  │
+  │ 1      │ „1 443 až 4 528 Kč“ za 20 let proti 61 171 Kč u průměrného      │
+  │        │ fondu. Funguje sama o sobě a je zároveň náhledem nad            │
+  │        │ formulářem.                                                     │
+  ├────────┼─────────────────────────────────────────────────────────────────┤
+  │ 2      │ Všech 7 fondů z NYSE Arca                                       │
+  ├────────┼─────────────────────────────────────────────────────────────────┤
+  │ 3      │ 4 evropské fondy s ISIN a registrací v ČR                       │
+  ├────────┼─────────────────────────────────────────────────────────────────┤
+  │ 4      │ Brokeři DEGIRO, Fio a XTB s citací a datem ověření              │
+  ├────────┼─────────────────────────────────────────────────────────────────┤
+  │ 5      │ Jak číst TER a co kalkulačka nepočítá                           │
+  ├────────┼─────────────────────────────────────────────────────────────────┤
+  │ 6      │ Zdroje a autor                                                  │
+  └────────┴─────────────────────────────────────────────────────────────────┘
+
+  - Doporučení: žádné. Fondy i brokeři jsou všude v abecedním pořadí. „Nejde o
+    investiční doporučení“ je na první i poslední straně a npm run check to
+    hlídá.
+  - Výkonnost v PDF není, protože u fondů Vanguardu nebyla ověřená druhou
+    kontrolou.
+
+  Jak jsou hlídaná čísla
+  - Všechna čísla v PDF jdou přes stejný build z data/*.csv a ze vzorce
+    kalkulačky.
+  - npm run check hlídá, že zdroj PDF odpovídá datům a že PDF je vytištěné z
+    aktuálního zdroje. Zkusil jsem změnit číslo v CSV a kontrola selhala na
+    stránce i v PDF.
+  - npm run pdf odmítne PDF vytvořit, když se obsah některé strany nevejde.
+    Tahle kontrola už zachytila přetečení, které by v PDF tiše schovalo
+    upozornění a jeden fond.
+
+  Co jsem po cestě opravil nebo ověřil
+  - Velikost PDF: první verze měla 424 kB, protože Chrome vložil variabilní
+    písmo jako 17 fontů Type3. Se statickými řezy má 103 kB. Text, ISIN i
+    diakritika jdou dál kopírovat.
+  - Registrace VWCE v ČR: ověřil jsem ji na stránce Vanguardu stejně jako u VUAA
+    a je zapsaná v zdroje-dat.md.
+  - Neověřené tvrzení: větu, že všechny fondy „vedou hodnotu v USD“, jsem
+    nahradil obecným „pohyb kurzu koruny vůči měně fondu“.
+  - Popis fondů: do etf.csv přibyl sloupec zamereni s krátkým českým popisem, co
+    fond sleduje. Je označený jako popis, ne číslo ze zdroje.
+
+  Omezení do README: PDF leží veřejně v public/, kdo zná odkaz, stáhne ho i bez
+  formuláře. Je zapsané ve strategie.md.
+
+  Na stránce: nad formulářem je teď seznam 6 stran a pod ním náhled první strany
+  s popiskem „1. strana ze 6“. Odkaz „Otevřít PDF“ po odeslání vede na skutečný
+  soubor.
+
+  Zbývá krok 5 (eventy v Umami a docs/mereni.md) a krok 6 (nasazení náhledu na
+  Vercel). Pokračuji, až PDF schválíte.
+
+✻ Baked for 8m 56s · done 10:57 PM
+
+※ recap: Stavíme ETF landing page, která sbírá kontakty výměnou za PDF. Krok 4 (PDF z dat a jeho náhled nad formulářem) je hotový a pushnutý. Teď je na vás zkontrolovat `public/srovnani-etf.pdf` a schválit ho, pak pokračuji měřením v Umami.
+
+❯ PDF schvaluji. Pokračuj krokem 5                                              
+
+⏺ Krok 5: měření v Umami. Nejdřív ověřím v dokumentaci Umami aktuální adresu
+  skriptu, API pro vlastní eventy a to, jak Umami zpracovává UTM parametry.
+
+⏺ Fetch(https://umami.is/docs/tracker-functions)
+  ⎿  Received 707 bytes (307 Temporary Redirect)
+
+⏺ Fetch(https://umami.is/docs/tracker-configuration)
+  ⎿  Received 743 bytes (307 Temporary Redirect)
+
+⏺ Fetch(https://docs.umami.is/docs/tracker-functions)
+  ⎿  Received 102KB (200 OK)
+
+⏺ Fetch(https://docs.umami.is/docs/tracker-configuration)
+  ⎿  Received 110.9KB (200 OK)
+
+⏺ Fetch(https://docs.umami.is/docs/track-events)
+  ⎿  Received 75.9KB (200 OK)
+
+⏺ Fetch(https://docs.umami.is/docs/cloud/collect-data)
+  ⎿  Received 0 bytes (404 Not Found)
+
+⏺ Fetch(https://docs.umami.is/docs/funnels)
+  ⎿  Received 0 bytes (404 Not Found)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Fetch(https://docs.umami.is/docs/collect-data)
+  ⎿  Received 57.4KB (200 OK)
+
+⏺ Fetch(https://docs.umami.is/docs/funnel)
+  ⎿  Received 62.1KB (200 OK)
+
+⏺ Fetch(https://docs.umami.is/docs/utm)
+  ⎿  Received 60.1KB (200 OK)
+
+⏺ Kroky funnelu můžou být adresa i vlastní event a pořadí kroků se dodržuje.
+  Ověřím ještě adresu skriptu Umami Cloud, protože dokumentace ji ukazuje jen na
+  obrázku.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Použiji Umami Cloud skript z https://cloud.umami.is/script.js s atributem
+  data-tag pro rozlišení reklam A/B (ad-a, ad-b), vloženým dynamicky přes
+  document.currentScript; lokální vývoj neměřím.
+
+⏺ Update(public/index.html)
+  ⎿  Added 19 lines
+      15      var c = new URLSearchParams(location.search).get("utm_conte
+          nt");
+      16      document.documentElement.setAttribute("data-ad", c === "b_s
+          rovnani" ? "b" : "a");
+      17    })();
+      18 +  // Měření: Umami Cloud, bez cookies (tracking plán v docs/mer
+         +eni.md).                                                       
+      19 +  // Tag ad-a / ad-b odliší návštěvy z reklamy A a B ve všech p
+         +řehledech. Lokální vývoj se neměří.                            
+      20 +  // Eventy z app.js se do načtení skriptu řadí do fronty windo
+         +w.__trackQueue.                                                
+      21 +  (function () {                                               
+      22 +    var host = location.hostname;                              
+      23 +    if (host === "localhost" || host === "127.0.0.1") return;  
+      24 +    window.__trackQueue = [];                                  
+      25 +    var s = document.createElement("script");                  
+      26 +    s.defer = true;                                            
+      27 +    s.src = "https://cloud.umami.is/script.js";                
+      28 +    s.setAttribute("data-website-id", "95649497-86b4-4a56-9ecb-
+         +1e2eadf99268");                                                
+      29 +    s.setAttribute("data-tag", "ad-" + document.documentElement
+         +.getAttribute("data-ad"));                                     
+      30 +    s.onload = function () {                                   
+      31 +      var q = window.__trackQueue || [];                       
+      32 +      window.__trackQueue = null;                              
+      33 +      q.forEach(function (e) { window.umami && window.umami.tra
+         +ck(e[0], e[1]); });                                            
+      34 +    };                                                         
+      35 +    document.head.appendChild(s);                              
+      36 +  })();                                                        
+      37  </script>
+      38  <style>
+      39    @font-face {
+
+⏺ Teď eventy v app.js.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Eventy jsou napojené, teď je ověřím přes skutečný Umami skript – stránku
+  otevřu na doméně etf.test a požadavky na cloud.umami.is/api/send v puppeteeru
+  zachytím a odpovím si na ně sám, aby se nezanesly do statistik. Projdu celý
+  funnel včetně chyby ve formuláři.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Do Umami neodešlo nic, ani zobrazení stránky. Zjistím, jestli se skript vůbec
+  načetl a jestli existuje window.umami.
+
+  Ran 1 shell command (ctrl+o to expand)
+⏺ Umami odesílá data na gateway.umami.is/api/send, ne na cloud.umami.is, proto
+  to test nezachytil – bohužel při tom unikl jeden skutečný pageview z etf.test
+  do Umami, což zaznamenám v mereni.md. Teď opravím zachytávání a test zopakuji.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Zachytávání spadlo na předběžném požadavku OPTIONS, který nemá tělo. Nic se
+  přitom neodeslalo, protože požadavek neprošel dál. Přepíšu obsluhu požadavků
+  přehledně.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Úprava souboru se rozbila o vnořené závorky. Napíšu testovací skript celý
+  znovu.
+
+  Made 1 scratchpad edit +52, ran 1 shell command (ctrl+o to expand)
+
+⏺ Všech 14 záznamů prošlo správně s tagem ad-b, ale test odhalil dva problémy:
+  nevhodné pořadí eventu první sekce ve funnelu (budu sledovat jen dočtení druhé
+  sekce) a chybné odrolování na skryté pole formuláře kvůli náhledu PDF.
+  Opravím odrolování, aby bylo vidět celý formulář, a přestanu automaticky
+  umisťovat kurzor do pole.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Pořadí teď odpovídá cestě návštěvníka. Ověřím screenshotem, co návštěvník
+  uvidí po klepnutí na lištu.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Po klepnutí na lištu je vidět celý formulář a nad ním tabulka z náhledu PDF.
+  Teď tracking plán docs/mereni.md.
+
+⏺ Write(docs/mereni.md)
+  ⎿  Wrote 80 lines to docs/mereni.md
+       1 # Měření (tracking plán)
+       3 Stav: implementováno 12. 10. 2026 (fáze 2, krok 5). Nastavení fu
+         nnelů v Umami a kontrola na produkci jsou ve fázi 3 (záznam kont
+       4 
+       5 ## Nástroj
+       7 **Umami Cloud, tarif Hobby** (výběr a zdroje viz [vizualni-styl.
+         md](vizualni-styl.md), Stack). Bez cookies, proto stránka nemá c
+          (vidí ho každý návštěvník).
+       8 
+      10 |---|---|
+     … +138 lines (ctrl+o to expand)
+
+⏺ Tracking plán je hotový. Smažu testovací kontakt z databáze a zapíšu do
+  ai-notes.md dvě chyby agenta z tohoto kroku.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ V tabulce leads zůstal jeden řádek, který nepochází z mých testů - nejspíš jde
+  o váš test na lokálním serveru. Obsah jsem neprohlížel, jedná se o osobní
+  údaj, teď commitnu krok 5.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Krok 5 je hotový, commitnutý a pushnutý (a76ebcf). npm run check prošel.
+
+  Měření
+  - Načítání: skript Umami se načítá z <head>. Na localhost se nenačte, takže
+    vývoj statistiky neplete. Eventy, které vzniknou dřív, než se skript načte,
+    počkají ve frontě a odešlou se potom.
+  - Reklama A a B: každá návštěva i event nese tag ad-a nebo ad-b a vlastnost
+    ad. Adresa s utm_* se ukládá u zobrazení stránky.
+  - Eventy: fund_switch, calc_change, second_section_view, cta_click, form_view,
+    form_start, form_error (s důvodem, třeba chybějící souhlas), form_submit,
+    lead_saved (konverze), lead_error, pdf_open, details_open.
+  - docs/mereni.md:
+    - tabulka eventů,
+    - 4 funnely k nastavení v Umami,
+    - ukazatele: konverze z Umami, kontrolní počet kontaktů z Neonu,
+    - záznam testu.
+
+  Ověřeno testem: prohlížeč načetl skutečný skript Umami pod testovací doménou a
+  test všechny požadavky zachytil, než odešly. Celá cesta dala 13 záznamů ve
+  správném pořadí, všechny s tagem ad-b a UTM. E-mail v datech pro Umami není.
+
+  Test odhalil dvě chyby, obě jsem opravil a zapsal do ai-notes.md (12 a 13):
+  1. Lišta: od přidání náhledu PDF dávala kurzor do pole e-mailu, které bylo
+     mimo obrazovku. Na mobilu by vyskočila klávesnice nad skrytým polem. Teď
+     lišta posune tak, aby byl vidět celý formulář a nad ním spodek náhledu, a
+     kurzor do pole nedává.
+  2. Testovací data v Umami: při ladění testu odešlo do vašeho Umami jedno
+     skutečné zobrazení stránky z domény etf.test (dnes kolem 23:05). Při
+     vyhodnocení ho vyfiltrujte podle hostitele. Po nasazení omezím měření na
+     produkční doménu.
+
+  Neověřeno: jestli jde funnel v Umami filtrovat podle tagu. Zjistím to při
+  nastavování funnelů ve fázi 3.
+
+  V databázi je jeden kontakt, který není z mých testů. Svoje testovací adresy
+  jsem smazal, tenhle jsem nečetl ani nemazal. Pokud je to váš test, smažte ho
+  nebo mi napište a smažu ho.
+
+  Krok 6 (nasazení náhledu) potřebuje vědět, jestli je projekt ve Vercelu
+  propojený s GitHub repozitářem:
+  - Pokud ano: každý push se nasazuje sám a stránka už možná běží. Pošlete mi
+    prosím URL.
+  - Pokud ne: projekt importujte z GitHubu. Build command je npm run build,
+    výstupní složka public.
+
+  Po nasazení s URL udělám:
+  - omezím Umami na produkční doménu (data-domains),
+  - projdu celý funnel na produkci,
+  - zkontroluji uložený kontakt v Neonu a smažu ho,
+  - připomenu export ai-log/02-stranka.txt.
+
+✻ Sautéed for 9m 44s · done 11:10 PM
+
+※ recap: Stavíme konverzní landing page s porovnáním ETF a fáze 2 je hotová až po krok 5: stránka, ukládání do Neonu, PDF i měření v Umami. Teď potřebuji vědět, jestli je projekt ve Vercelu propojený s GitHubem, a jeho URL, abych mohl nasadit náhled.
+
+❯ Projekt ve Vercelu je propojený s GitHubem, build npm run build, výstup       
+  public. Produkční URL: https://etf-landing-sigma.vercel.app/ Kontakt v        
+  databázi je testovací, smaž ho. Pokračuj krokem 6.                            
+
+⏺ Nejdřív smažu testovací kontakt a zkontroluji, co na produkční URL teď běží.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Na produkci běží poslední commit a API odpovídá (405 na GET je správně).
+  Testovací kontakt je smazaný, tabulka je prázdná. Teď omezím měření na
+  produkční doménu.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Teď spustím celý produkční test v headless Chrome – reklamy A i B, formulář s
+  testovacím kontaktem i otevření PDF – přičemž požadavky do Umami zachytím, aby
+  nezkreslily statistiky. Skutečné měření pak ověříme ve fázi 3 z telefonu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Test se opět zastavil na čekání na API odpověď, podobně jako v kroku 3.
+  Zkontroluji databázi, jestli kontakt dorazil, a upravím test, aby čekal na
+  potvrzení na stránce.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Formulář funguje správně — kontakt z reklamy B je uložen v Neonu se správnými
+  UTM parametry. Teď doplním zbytek testu (potvrzení, PDF, měření), přitom budu
+  čekat na stav stránky místo síťové události.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Produkční test prošel bez problémů – potvrzení, stažení PDF i měření s tagy
+  ad-a/ad-b fungují správně. Zapíšu drobnost o second_section_view do mereni.md
+  a teď se podívám na produkční první obrazovky.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Produkce funguje, právě kontroluji screenshoty první obrazovky z produkční URL
+  a pak uklidím testovací data.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Obě první obrazovky na produkci odpovídají schválenému návrhu. Smažu testovací
+  kontakt z produkce, zapíšu ověření do mereni.md a ukončím lokální server.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Background command "Start local dev server with API" failed with exit code 143
+
+⏺ Krok 6 je hotový a tím i celá fáze 2 (poslední commit 00f99b0). Lokální server
+  jsem ukončil záměrně.
+
+  Produkce: https://etf-landing-sigma.vercel.app/
+  - Testovací kontakt: smazaný, tabulka leads je prázdná.
+  - Měření jen na produkci: Umami teď měří jen produkční doménu (data-domains).
+    Náhledová nasazení Vercelu a testy se do statistik nedostanou.
+  - Průchod na produkci v Chrome na 375 × 667 (automaticky):
+    - Reklama A ukazuje nahoře kalkulačku, reklama B srovnání. Obě první
+      obrazovky odpovídají schválenému návrhu.
+    - Formulář přes funkci Vercelu uložil kontakt do Neonu, s ad=b a správnými
+      UTM.
+    - Zobrazilo se potvrzení a odkaz na PDF funguje (103 kB).
+    - Měření dalo 9 záznamů s tagy ad-a / ad-b, s produkční doménou a bez
+      e-mailu. Požadavky do Umami test zachytil, takže ve statistikách nejsou.
+
+  Záznam je v docs/mereni.md. Doplnil jsem tam i poznámku k vyhodnocení:
+  second_section_view se započítá i tehdy, když návštěvník sekcí jen projede po
+  klepnutí na lištu.
+
+  Fáze 2 podle harmonogramu
+  - [x] docs/vizualni-styl.md, schválený styl
+  - [x] kód stránky, formulář napojený na Neon, měření v Umami
+  - [x] odměna: PDF a náhled nad formulářem
+  - [x] docs/mereni.md (tracking plán a ověření)
+  - [x] produkční URL
+  - [ ] ai-log/02-stranka.txt
+
+  Export konverzace: spusťte prosím /export ai-log/02-stranka.txt. Commitnu ho a
+  pushnu. Pozor, export jde do veřejného repozitáře. V této konverzaci jsem
+  .env ani DATABASE_URL nevypisoval. Pokud jste ale sám vložil do chatu něco
+  tajného, zkontrolujte export před commitem.
+
+  Na fázi 3 zbývá:
+  - proklikání na skutečném telefonu včetně prohlížeče uvnitř Instagramu, hlavně
+    otevření PDF,
+  - ověření eventů přímo v Umami a nastavení 4 funnelů,
+  - rychlost a přístupnost,
+  - vizuály obou reklam a koncept README.
+
+✻ Baked for 4m 30s · done 11:23 PM
