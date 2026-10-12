@@ -15,6 +15,25 @@
     var c = new URLSearchParams(location.search).get("utm_content");
     document.documentElement.setAttribute("data-ad", c === "b_srovnani" ? "b" : "a");
   })();
+  // Měření: Umami Cloud, bez cookies (tracking plán v docs/mereni.md).
+  // Tag ad-a / ad-b odliší návštěvy z reklamy A a B ve všech přehledech. Lokální vývoj se neměří.
+  // Eventy z app.js se do načtení skriptu řadí do fronty window.__trackQueue.
+  (function () {
+    var host = location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return;
+    window.__trackQueue = [];
+    var s = document.createElement("script");
+    s.defer = true;
+    s.src = "https://cloud.umami.is/script.js";
+    s.setAttribute("data-website-id", "95649497-86b4-4a56-9ecb-1e2eadf99268");
+    s.setAttribute("data-tag", "ad-" + document.documentElement.getAttribute("data-ad"));
+    s.onload = function () {
+      var q = window.__trackQueue || [];
+      window.__trackQueue = null;
+      q.forEach(function (e) { window.umami && window.umami.track(e[0], e[1]); });
+    };
+    document.head.appendChild(s);
+  })();
 </script>
 <style>
   @font-face {
@@ -309,14 +328,14 @@
 
   <section id="metodika" aria-labelledby="met-title">
     <h2 class="sr-only" id="met-title">Jak počítáme a odkud jsou čísla</h2>
-    <details>
+    <details data-topic="vypocet">
       <summary>Jak kalkulačka počítá</summary>
       <div>
         <p>Každý měsíc vložíte zadanou částku. Fond si z hodnoty investice bere roční náklady (TER nebo průběžné náklady) rozpočítané po měsících. Kalkulačka počítá bez zhodnocení, takže výsledek nic neslibuje o výnosech: ukazuje jen, kolik z vložených peněz spotřebují náklady fondu.</p>
         <p>Nejsou v tom poplatky brokera, směna korun na dolary nebo eura ani daně.</p>
       </div>
     </details>
-    <details>
+    <details data-topic="zdroje">
       <summary>Odkud jsou čísla</summary>
       <div>
         <ul id="sources">
@@ -326,7 +345,7 @@
         </ul>
       </div>
     </details>
-    <details>
+    <details data-topic="nyse">
       <summary>Proč NYSE Arca</summary>
       <div>
         <p>VOO, SPY, IVV i další známé americké ETF se obchodují na NYSE Arca. Je to burza skupiny NYSE určená hlavně pro ETF. Evropské fondy (CSPX, SPYL, VUAA) na NYSE nejsou, mají sídlo v Irsku a obchodují se na evropských burzách.</p>

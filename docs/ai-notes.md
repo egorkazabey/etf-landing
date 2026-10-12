@@ -83,3 +83,15 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Chyba agenta: pod kalkulačkou i pod srovnáním nechal tlačítko "Stáhněte si srovnání... v PDF", přestože stejnou výzvu nese pevná lišta. Na první obrazovce A tak byly dvě stejné výzvy a tlačítko bylo napůl pod lištou. Sbalené sekce (`details`) měly skrytou výchozí značku a nic nenaznačovalo, že jdou rozbalit. Agent měl screenshoty 375 × 667 a hlásil "všechno nad lištou", ale kontroloval jen, jestli se obsah vejde, ne jestli se výzvy neopakují a jestli jsou ovládací prvky poznat.
 - Jak jsem ji odhalil: při vlastní kontrole stránky na 375 × 667.
 - Oprava: tlačítka pod prvky odstraněna, k formuláři vede jen lišta (strategie upravená). Sbalené sekce mají vpravo čtvercovou značku "+", po rozbalení "−" (znak minus) na černém poli.
+
+### 12. Skok z lišty k formuláři rozbitý přidáním náhledu PDF
+- Datum a fáze: 12. 10. 2026, fáze 2 (stránka, krok 5)
+- Chyba agenta: v kroku 2 nastavil lištu tak, že posune na začátek sekce s odměnou a dá fokus do pole e-mailu bez dalšího posunu. V kroku 4 přidal mezi nadpis a formulář náhled PDF a chování lišty znovu neověřil. Pole s fokusem tak bylo mimo obrazovku; na mobilu by vyskočila klávesnice nad skrytým polem.
+- Jak jsem ji odhalil: agent sám, při testu měření v kroku 5: event `form_view` přišel až po `form_start`, což při správném chování nejde.
+- Oprava: lišta posune tak, aby byl vidět celý formulář a nad ním spodek náhledu, bez automatického fokusu. Ověřeno screenshotem na 375 × 667.
+
+### 13. Testovací návštěva odeslaná do skutečného Umami
+- Datum a fáze: 12. 10. 2026, fáze 2 (stránka, krok 5)
+- Chyba agenta: test měl zachytávat požadavky na `cloud.umami.is/api/send`, ale skript posílá na `gateway.umami.is`. Ladicí běh, který nic nezachytával, poslal do produkčního Umami jedno zobrazení stránky z testovací domény `etf.test`.
+- Jak jsem ji odhalil: agent sám, z výpisu síťových požadavků při ladění.
+- Oprava: test zachytává vše na `*.umami.is/api/send` a vypisuje, že nic neodešlo. Záznam z `etf.test` je popsaný v [mereni.md](mereni.md) k vyfiltrování; na produkci se měření omezí atributem `data-domains`.
