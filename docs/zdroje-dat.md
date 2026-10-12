@@ -1,6 +1,13 @@
 # Zdroje dat a kontrola čísel
 
-Data ETF jsou v jednom souboru: [data/etf.csv](../data/etf.csv). Tento dokument popisuje, odkud čísla jsou, jak byla získána a kde je na stránce zdroje najdete při kontrole.
+Data jsou ve třech souborech:
+- [data/etf.csv](../data/etf.csv): fondy,
+- [data/esma.csv](../data/esma.csv): průměrné náklady fondů v EU podle ESMA (dosud jen v tabulce níže, převedeno 12. 10. 2026 beze změny čísel),
+- [data/brokeri.csv](../data/brokeri.csv): co který broker umožňuje s US ETF (dosud jen v [strategie.md](strategie.md), převedeno beze změny; sloupec `overeno` odlišuje ověřené z primárního zdroje).
+
+Stránka čísla nepřepisuje ručně: `npm run build` z nich vygeneruje `public/data.js` a `npm run check` ověří, že je soubor aktuální a že vzorec kalkulačky (`public/calc.js`) dává stejné částky jako tabulka v sekci Výpočty.
+
+Tento dokument popisuje, odkud čísla jsou, jak byla získána a kde je na stránce zdroje najdete při kontrole.
 
 ## Jak byla data získána
 

@@ -47,6 +47,7 @@ Odevzdání **pátek 16. 10. 2026**: odkaz na veřejný repozitář na GitHubu a
    Při práci na stránce přidat do kontroly i zdrojové soubory s texty.
 6. **Export konverzace na konci každé fáze.** Agent na konci fáze připomene, uživatel spustí `/export ai-log/NN-nazev.txt` (např. `ai-log/00-zalozeni.txt`, `ai-log/01-strategie.txt`), agent export commitne a pushne.
 7. **Vizuální styl vždy nejdřív ke schválení, teprve potom kód.** Stránka nesmí vypadat jako výchozí výstup od Claude.
+8. **Tajné údaje nikdy nevypisovat.** Export konverzace jde do veřejného repozitáře. Agent nikdy nečte ani nevypisuje obsah `.env`, `DATABASE_URL` ani jiné klíče a hesla: ani v příkazech, ani ve výstupech, ani v commitech. `.env` vytváří a spravuje jen uživatel. Agent smí ověřit jen to, že proměnná existuje (např. `test -n "$DATABASE_URL" && echo nastaveno`), nikdy její hodnotu. Kód čte tajné údaje jen z proměnných prostředí. V repozitáři je jen `.env.example` s názvy proměnných bez hodnot.
 
 ## Harmonogram
 

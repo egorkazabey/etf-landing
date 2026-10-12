@@ -169,7 +169,8 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
   4. zdroje a data.
 - **Hodnota viditelná před formulářem:** náhled stran taháku (obrázky) a výsledek kalkulačky zdarma přímo na stránce.
 - **Kdy žádáme o kontakt:** až když návštěvník vidí hodnotu, tedy výsledek kalkulačky (A) nebo srovnání (B). Protože výsledek i srovnání jsou vidět **už na první obrazovce bez interakce**, je pevná lišta s výzvou vidět **od načtení** (upřesněno 12. 10. 2026). Zdůvodnění: (1) hodnota je zřejmá dřív než výzva, i když návštěvník nic nevyplní; (2) část návštěvníků z reklamy počítat nechce a lišta jim ukazuje odměnu hned; (3) lišta je jen odkaz na odměnu, ne formulář: pole pro e-mail se objeví až pod výsledkem nebo po klepnutí na lištu. Lišta až po první interakci je hypotéza na A/B test (viz Hypotézy).
-- **Formulář:** jen e-mail a nezaškrtnutý souhlas se zasíláním (GDPR).
+- **Formulář (upřesněno 12. 10. 2026):** jen e-mail a **povinný** nezaškrtnutý souhlas. Bez souhlasu formulář neodejde. Souhlas je transparentní: přímo nad tlačítkem jedna věta, k čemu e-mail použijeme a že se lze jedním klikem odhlásit, a odkaz na zásady zpracování osobních údajů.
+  - **Alternativa (nezvolená):** PDF dostane každý, e-mail se uloží jen se zaškrtnutým souhlasem, bez souhlasu se zaznamená jen anonymní event. Měřená konverze by byla "lead se souhlasem".
 - **Doručení (rozhodnuto 12. 10. 2026):** ve fázi 2 **jen stažení PDF hned po odeslání**, žádný e-mail. Kontakt se uloží do databáze. Texty nesmí slibovat zaslání e-mailem ("pošleme"), jen okamžité stažení. Doručení e-mailem je hypotéza na A/B test (viz Hypotézy).
 
 ## 3. Interaktivní prvky
@@ -234,6 +235,7 @@ Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklam
 - Bez Meta Pixelu (rozhodnuto 12. 10. 2026): skutečná kampaň optimalizovaná na leady ho potřebuje, spolu s cookie lištou. Doplní se ve fázi 3, pokud zbude čas.
 - Vercel Hobby je podle podmínek Vercelu jen pro nekomerční použití, placená kampaň by potřebovala tarif Pro (viz [vizualni-styl.md](vizualni-styl.md), Stack).
 - Umami uvádí, že nepoužívá cookies a nepotřebuje cookie lištu. Právní posouzení jsme nedělali.
+- Povinný souhlas jako podmínka pro získání PDF je podmíněný souhlas (GDPR čl. 7 odst. 4). Právně neověřeno, před ostrým spuštěním konzultovat s právníkem. Alternativa je popsaná v Rozhodnutí 2.
 
 ## 8. Hypotézy na A/B test (podklad pro README)
 
