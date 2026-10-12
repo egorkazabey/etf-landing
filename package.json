@@ -4,9 +4,14 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-data.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "dev": "node --env-file-if-exists=.env scripts/dev-server.mjs",
+    "db:migrate": "node --env-file-if-exists=.env scripts/db-migrate.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0"
   }
 }

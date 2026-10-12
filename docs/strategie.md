@@ -236,6 +236,7 @@ Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklam
 - Vercel Hobby je podle podmínek Vercelu jen pro nekomerční použití, placená kampaň by potřebovala tarif Pro (viz [vizualni-styl.md](vizualni-styl.md), Stack).
 - Umami uvádí, že nepoužívá cookies a nepotřebuje cookie lištu. Právní posouzení jsme nedělali.
 - Povinný souhlas jako podmínka pro získání PDF je podmíněný souhlas (GDPR čl. 7 odst. 4). Právně neověřeno, před ostrým spuštěním konzultovat s právníkem. Alternativa je popsaná v Rozhodnutí 2.
+- Formulář chrání proti robotům jen skryté pole. Omezení počtu požadavků (rate limiting) ani CAPTCHA nejsou: při skutečné kampani by bylo potřeba doplnit, jinak lze databázi zaplnit falešnými adresami.
 
 ## 8. Hypotézy na A/B test (podklad pro README)
 
