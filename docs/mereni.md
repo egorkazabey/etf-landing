@@ -12,6 +12,7 @@ Stav: implementováno 12. 10. 2026 (fáze 2, krok 5). Nastavení funnelů v Umam
 | Reklama A / B | Atribut `data-tag` = `ad-a` nebo `ad-b` podle `utm_content` (`b_srovnani` = B, cokoli jiného = A). Tag nese zobrazení stránky i všechny eventy. Navíc má každý event vlastnost `ad`. |
 | UTM | Umami ukládá adresu včetně `utm_*` u zobrazení stránky. Přehled UTM v Umami rozkládá všech 5 standardních parametrů. |
 | Lokální vývoj | Na `localhost` a `127.0.0.1` se skript nenačte. |
+| Jen produkce | `data-domains="etf-landing-sigma.vercel.app"`: skript měří jen produkční doménu, náhledová nasazení Vercelu a testy ne (doplněno 12. 10. 2026 po nasazení). |
 | Fronta | Eventy, které vzniknou před načtením skriptu, čekají ve `window.__trackQueue` a odešlou se po načtení. |
 | Vlastní návštěvy | Skript Umami kontroluje v `localStorage` klíč `umami.disabled` (ověřeno v kódu skriptu 12. 10. 2026). Na vlastním telefonu: `localStorage.setItem("umami.disabled", 1)` v konzoli, nebo měřit testovací návštěvy přes UTM `utm_source=test`. |
 
@@ -73,7 +74,7 @@ Výsledek: 13 záznamů v tomto pořadí: zobrazení stránky, `fund_switch` (SP
 Co test odhalil a co se opravilo:
 - Event pro první sekci (vidět hned po načtení) odešel dřív než zobrazení stránky. Funnel vyžaduje pořadí, proto se měří jen dočtení druhé sekce.
 - Lišta posouvala na začátek sekce s odměnou a dávala fokus do pole e-mailu bez posunu. Od přidání náhledu PDF (krok 4) bylo pole mimo obrazovku a `form_view` přišel až po `form_start`. Lišta teď posune tak, aby byl vidět celý formulář a nad ním spodek náhledu, bez automatického fokusu.
-- Při ladění testu odešlo do skutečného Umami **jedno zobrazení stránky z hostitele `etf.test`** (12. 10. 2026 kolem 23:05), než test zachytával správnou adresu `gateway.umami.is`. Při vyhodnocení ho vyfiltrovat podle hostitele. Na produkci se omezí atributem `data-domains` na produkční doménu (fáze 3, po nasazení).
+- Při ladění testu odešlo do skutečného Umami **jedno zobrazení stránky z hostitele `etf.test`** (12. 10. 2026 kolem 23:05), než test zachytával správnou adresu `gateway.umami.is`. Při vyhodnocení ho vyfiltrovat podle hostitele. Od nasazení je měření omezené atributem `data-domains` na produkční doménu.
 
 ## Kontrola funnelu na produkci (fáze 3)
 

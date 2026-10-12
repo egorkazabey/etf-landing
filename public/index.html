@@ -27,6 +27,8 @@
     s.src = "https://cloud.umami.is/script.js";
     s.setAttribute("data-website-id", "95649497-86b4-4a56-9ecb-1e2eadf99268");
     s.setAttribute("data-tag", "ad-" + document.documentElement.getAttribute("data-ad"));
+    // Měřit jen produkční doménu (ne náhledová nasazení Vercelu ani testy)
+    s.setAttribute("data-domains", "etf-landing-sigma.vercel.app");
     s.onload = function () {
       var q = window.__trackQueue || [];
       window.__trackQueue = null;
