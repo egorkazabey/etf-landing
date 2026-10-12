@@ -77,3 +77,9 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Chyba agenta: kontroloval jen to, jestli se obsah vejde do 375 × 667 (screenshot z headless Chrome), ne jestli se dá přečíst za pár vteřin. Nadpis měl 4 řádky a poznámka s hvězdičkou byla těsně nad lištou, v mém prohlížeči pod ní.
 - Jak jsem ji odhalil: při otevření náhledu v prohlížeči.
 - Oprava: nadpis zkrácený na doslovný titulek reklamy B ("VOO vedle evropského fondu na stejný index", 2 řádky), hvězdička nahrazená popiskem přímo pod číslem, poznámka je s rezervou nad lištou.
+
+### 11. Dvě stejné výzvy na první obrazovce a sbalené sekce, které nevypadají klikatelně
+- Datum a fáze: 12. 10. 2026, fáze 2 (stránka)
+- Chyba agenta: pod kalkulačkou i pod srovnáním nechal tlačítko "Stáhněte si srovnání... v PDF", přestože stejnou výzvu nese pevná lišta. Na první obrazovce A tak byly dvě stejné výzvy a tlačítko bylo napůl pod lištou. Sbalené sekce (`details`) měly skrytou výchozí značku a nic nenaznačovalo, že jdou rozbalit. Agent měl screenshoty 375 × 667 a hlásil "všechno nad lištou", ale kontroloval jen, jestli se obsah vejde, ne jestli se výzvy neopakují a jestli jsou ovládací prvky poznat.
+- Jak jsem ji odhalil: při vlastní kontrole stránky na 375 × 667.
+- Oprava: tlačítka pod prvky odstraněna, k formuláři vede jen lišta (strategie upravená). Sbalené sekce mají vpravo čtvercovou značku "+", po rozbalení "−" (znak minus) na černém poli.

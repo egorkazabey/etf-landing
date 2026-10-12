@@ -71,12 +71,6 @@
   [data-ad="a"] #kalkulacka .title, [data-ad="b"] #srovnani .title { font-size: 35px; }
   .sub { font-size: 15px; line-height: 1.35; margin-top: 8px; }
   .note { font-size: 12px; line-height: 1.4; color: var(--muted); margin-top: 8px; }
-  .more {
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
-    margin-top: 14px; min-height: 48px; padding: 0 14px; border: var(--rule);
-    font-weight: 800; font-size: 15px; text-decoration: none;
-  }
-  .more:active { background: var(--tag); }
 
   /* Kalkulačka */
   .inputs { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; margin-top: 14px; }
@@ -155,7 +149,16 @@
   /* Metodika */
   details { border-top: var(--rule); margin-top: 10px; }
   details:first-of-type { margin-top: 0; }
-  summary { min-height: 48px; display: flex; align-items: center; font-weight: 800; font-size: 16px; cursor: pointer; }
+  summary {
+    min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    font-weight: 800; font-size: 16px; cursor: pointer; list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+"; flex: none; width: 32px; height: 32px; border: var(--rule);
+    display: grid; place-items: center; font-size: 22px; font-weight: 700; line-height: 1;
+  }
+  details[open] summary::after { content: "\2212"; background: var(--ink); color: var(--paper); }
   details > div { padding-bottom: 12px; font-size: 14px; line-height: 1.45; }
   details p + p, details ul { margin-top: 8px; }
   details ul { padding-left: 18px; }
@@ -226,7 +229,6 @@
       </div>
     </div>
     <p class="note" id="calc-note">I kdyby se peníze vůbec nezhodnotily. Jde jen o roční náklady fondu (TER, průběžné náklady). Nejsou v tom poplatky brokera, směna měn ani daně. Zdroj: emitenti fondů, ESMA 3. 3. 2026.</p>
-    <a class="more" href="#odmena" data-cta="calc">Stáhněte si srovnání všech fondů v PDF <span aria-hidden="true">↓</span></a>
   </section>
 
   <section id="srovnani" aria-labelledby="cmp-title">
@@ -260,7 +262,6 @@
       </div>
     </div>
     <p class="note">Srovnání slouží pro informaci, nejde o doporučení. Stav u brokerů ověřen 12. 10. 2026.</p>
-    <a class="more" href="#odmena" data-cta="cmp">Celé srovnání 7 fondů z NYSE Arca a 4 evropských v PDF <span aria-hidden="true">↓</span></a>
   </section>
 
   <section id="odmena" aria-labelledby="pdf-title">

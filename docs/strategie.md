@@ -167,7 +167,7 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
   2. co který broker dostupný v ČR umožňuje (US ETF ano/ne/jen CFD), s datem ověření,
   3. jak číst TER a co kalkulačka nepočítá (poplatky brokera, směna měn, daně),
   4. zdroje a data.
-- **Hodnota viditelná před formulářem:** náhled stran taháku (obrázky) a výsledek kalkulačky zdarma přímo na stránce.
+- **Hodnota viditelná před formulářem:** náhled stran taháku (obrázky) a výsledek kalkulačky zdarma přímo na stránce. **Upřesněno 12. 10. 2026:** náhled první strany PDF stojí přímo nad formulářem, aby byla hodnota vidět, ne jen popsaná.
 - **Kdy žádáme o kontakt:** až když návštěvník vidí hodnotu, tedy výsledek kalkulačky (A) nebo srovnání (B). Protože výsledek i srovnání jsou vidět **už na první obrazovce bez interakce**, je pevná lišta s výzvou vidět **od načtení** (upřesněno 12. 10. 2026). Zdůvodnění: (1) hodnota je zřejmá dřív než výzva, i když návštěvník nic nevyplní; (2) část návštěvníků z reklamy počítat nechce a lišta jim ukazuje odměnu hned; (3) lišta je jen odkaz na odměnu, ne formulář: pole pro e-mail se objeví až pod výsledkem nebo po klepnutí na lištu. Lišta až po první interakci je hypotéza na A/B test (viz Hypotézy).
 - **Formulář (upřesněno 12. 10. 2026):** jen e-mail a **povinný** nezaškrtnutý souhlas. Bez souhlasu formulář neodejde. Souhlas je transparentní: přímo nad tlačítkem jedna věta, k čemu e-mail použijeme a že se lze jedním klikem odhlásit, a odkaz na zásady zpracování osobních údajů.
   - **Alternativa (nezvolená):** PDF dostane každý, e-mail se uloží jen se zaškrtnutým souhlasem, bez souhlasu se zaznamená jen anonymní event. Měřená konverze by byla "lead se souhlasem".
@@ -185,12 +185,12 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
 - **Výpočet:** výchozí bez zhodnocení ("i kdyby se peníze vůbec nezhodnotily"), takže výsledek nic neslibuje o výnosech. Volitelný vlastní předpoklad výnosu označený jako hypotetický rozhodneme ve fázi 2.
 - **Ilustrace s výchozími hodnotami:** VOO asi 1 440 Kč, evropské fondy na S&P 500 asi 1 440 až 3 360 Kč, průměrný akciový fond asi 61 170 Kč. Z výsledku je vidět, že evropský fond může stát stejně jako VOO; hlavní rozdíl je mezi ETF a běžným fondem.
 - **Text pod výsledkem (povinný):** "Jde jen o roční náklady fondu (TER, průběžné náklady). Nejsou v tom poplatky brokera, směna měn ani daně."
-- **Cesta ke kontaktu:** pod výsledkem "Stáhněte si srovnání všech fondů v PDF" a formulář.
+- **Cesta ke kontaktu:** pevná lišta "Chci PDF" vede k formuláři. Samostatné tlačítko pod výsledkem bylo vyřazeno 12. 10. 2026: na první obrazovce by byly dvě stejné výzvy a tlačítko bylo napůl pod lištou.
 
 ### b) Přepínač "US ETF z NYSE Arca vs. evropský fond se stejným indexem"
 
 - Dvě karty vedle sebe: VOO a karta "Evropské fondy na S&P 500" se třemi řádky (CSPX, SPYL, VUAA, abecedně). Fakta: TER, velikost, domicil, výplata výnosů a "Koupím ho z ČR?" podle zjištění u brokerů s datem ověření.
-- **Cesta ke kontaktu:** "Celé srovnání 7 fondů z NYSE Arca a 4 evropských v PDF".
+- **Cesta ke kontaktu:** pevná lišta, stejně jako u kalkulačky (samostatné tlačítko vyřazeno ze stejného důvodu).
 
 ### Vyřazeno
 
@@ -253,7 +253,7 @@ Zapsáno 12. 10. 2026 při stavbě stránky (fáze 2).
 
 1. **Sekce, kterou slíbila reklama:** u reklamy A (a bez `utm_content`) kalkulačka, u reklamy B srovnání VOO / SPY / IVV s evropskými fondy. První obrazovka plní slib reklamy a ukazuje hodnotu bez jakékoli akce.
 2. **Druhý interaktivní prvek:** u A srovnání, u B kalkulačka. Kdo nereagoval na výzvu, dostane další hodnotu z jiného úhlu.
-3. **Odměna a formulář:** obsah PDF (4 body), e-mail a souhlas. Je až za oběma prvky, protože hodnotu už návštěvník viděl. Pod každým prvkem je odkaz na tuto sekci a pevná lišta vede sem odkudkoli.
+3. **Odměna a formulář:** obsah PDF (4 body), e-mail a souhlas. Je až za oběma prvky, protože hodnotu už návštěvník viděl. Vede sem pevná lišta, která je vidět odkudkoli (samostatná tlačítka pod prvky byla vyřazena, aby na první obrazovce nebyly dvě stejné výzvy).
 4. **Jak počítáme a odkud jsou čísla:** sbalené, pro ty, kdo chtějí ověřit. Neodvádí pozornost od formuláře, ale je k dispozici.
 5. **Patička:** upozornění, že nejde o doporučení, správce osobních údajů, označení ukázkového projektu.
 
