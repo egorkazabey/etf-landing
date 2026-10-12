@@ -27,7 +27,7 @@ Všechny eventy mají vlastnost `ad` (`a` / `b`). Názvy do 50 znaků (limit Uma
 | (zobrazení stránky) | automaticky při načtení | adresa s `utm_*`, tag | vstup do funnelu, počet návštěvníků |
 | `fund_switch` | klepnutí na VOO / SPY / IVV | `fund` | zájem o srovnání (prvek B) |
 | `calc_change` | první změna částky nebo počtu let (jednou za návštěvu) | `field` | zájem o kalkulačku (prvek A) |
-| `second_section_view` | druhá sekce je z poloviny vidět (jednou) | `section` | kolik lidí doroluje za první obrazovku |
+| `second_section_view` | druhá sekce je z poloviny vidět (jednou) | `section` | kolik lidí doroluje za první obrazovku. Pozor: započítá se i průjezd sekcí po klepnutí na lištu, při vyhodnocení brát spolu s `cta_click`. |
 | `cta_click` | klepnutí na lištu "Chci PDF" | `where: bar` | síla výzvy, hypotéza "lišta hned vs. po interakci" |
 | `form_view` | formulář je z poloviny vidět (jednou) | | kolik lidí formulář vůbec vidí |
 | `form_start` | první klepnutí do pole e-mailu (jednou) | | zájem o odměnu |
@@ -75,6 +75,18 @@ Co test odhalil a co se opravilo:
 - Event pro první sekci (vidět hned po načtení) odešel dřív než zobrazení stránky. Funnel vyžaduje pořadí, proto se měří jen dočtení druhé sekce.
 - Lišta posouvala na začátek sekce s odměnou a dávala fokus do pole e-mailu bez posunu. Od přidání náhledu PDF (krok 4) bylo pole mimo obrazovku a `form_view` přišel až po `form_start`. Lišta teď posune tak, aby byl vidět celý formulář a nad ním spodek náhledu, bez automatického fokusu.
 - Při ladění testu odešlo do skutečného Umami **jedno zobrazení stránky z hostitele `etf.test`** (12. 10. 2026 kolem 23:05), než test zachytával správnou adresu `gateway.umami.is`. Při vyhodnocení ho vyfiltrovat podle hostitele. Od nasazení je měření omezené atributem `data-domains` na produkční doménu.
+
+## Ověření na produkci (12. 10. 2026, automaticky)
+
+Produkční URL: **https://etf-landing-sigma.vercel.app/** (Vercel, napojeno na GitHub, každý push na `main` se nasadí sám, nasazení trvalo asi 30 s).
+
+Headless Chrome 375 × 667 přímo proti produkci, požadavky do Umami opět zachycené (do statistik nic neodešlo):
+- reklama A (`utm_content=a_naklady`): nahoře kalkulačka, nadpis "Kolik vás za 20 let stojí samotný fond?", načtení 0,9 až 1,4 s (headless, bez omezení sítě, není to měření pro mobil),
+- reklama B (`utm_content=b_srovnani`): nahoře srovnání, nadpis "VOO vedle evropského fondu na stejný index",
+- B: přepnutí SPY → lišta → e-mail a souhlas → odeslání: potvrzení zobrazeno, kontakt v Neonu uložen s `ad=b`, `utm_source=meta`, `utm_content=b_srovnani`,
+- odkaz na PDF: 200, `application/pdf`, 103 189 B,
+- Umami: 9 záznamů (zobrazení `ad-a`, zobrazení `ad-b`, `fund_switch`, `cta_click`, `second_section_view`, `form_view`, `form_start`, `form_submit`, `lead_saved`), hostitel `etf-landing-sigma.vercel.app`, e-mail v datech není,
+- testovací kontakt z databáze smazán, tabulka `leads` je prázdná.
 
 ## Kontrola funnelu na produkci (fáze 3)
 
