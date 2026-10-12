@@ -27,8 +27,8 @@ Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čí
 
 **Navazující první obrazovka (`utm_content=a_naklady`):**
 - Nadpis: "Kolik vás za 20 let stojí samotný fond?"
-- Podnadpis: "2 000 Kč měsíčně: asi 1 400 Kč u ETF, asi 61 000 Kč u průměrného akciového fondu. Zadejte svou částku."
-- Hned pod tím kalkulačka s předvyplněnými hodnotami 2 000 Kč a 20 let, výsledek je vidět bez scrollování.
+- Bez podnadpisu (změna schválená 12. 10. 2026). Původně "2 000 Kč měsíčně: asi 1 400 Kč u ETF, asi 61 000 Kč u průměrného akciového fondu. Zadejte svou částku." Stejná čísla ukazuje výsledek kalkulačky hned pod nadpisem a podnadpis by ho odsunul pod ohyb.
+- Hned pod nadpisem kalkulačka s předvyplněnými hodnotami 2 000 Kč a 20 let, výsledek je vidět bez scrollování.
 
 ---
 
@@ -48,9 +48,9 @@ Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čí
 **Vizuál (koncept):** dvě "karty" fondů vedle sebe jako ve srovnávači: vlevo "VOO, NYSE Arca, USA, TER 0,03 %", vpravo "Evropské fondy na S&P 500, Irsko, TER 0,03 až 0,07 %", obě s indexem "S&P 500". Žádný konkrétní evropský fond se v reklamě nevyzdvihuje. Mezi nimi znak "vs". Dole "Koupíte ho z Česka? Srovnání brokerů uvnitř."
 
 **Navazující první obrazovka (`utm_content=b_srovnani`):**
-- Nadpis: "VOO, SPY a evropské fondy na stejný index vedle sebe"
-- Podnadpis: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů k říjnu 2026."
-- Hned pod tím přepínač karet (VOO vs. evropské fondy na S&P 500: CSPX, SPYL, VUAA abecedně) s řádkem "Koupím ho z ČR?".
+- Nadpis: "VOO vedle evropského fondu na stejný index", doslova titulek reklamy (změna schválená 12. 10. 2026). Původní "VOO, SPY a evropské fondy na stejný index vedle sebe" měl na mobilu 4 řádky.
+- Podnadpis: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů." (změna schválená 12. 10. 2026: datum dat je v hlavičce stránky, proto bez "k říjnu 2026").
+- Hned pod tím přepínač amerického fondu (VOO / SPY / IVV) a srovnání s evropskými fondy na S&P 500 (CSPX, SPYL, VUAA abecedně) včetně řádku "Koupím ho z Česka?".
 
 ---
 

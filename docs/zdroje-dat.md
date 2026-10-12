@@ -95,7 +95,7 @@ Legenda: **OK** = sedí přesně, **≈** = sedí řádově (jiné datum zdroje)
 | VT | OK (0,06 %) | OK | ≈ | neověřeno | neověřeno | n/a | factsheet Vanguard F3141, stav k 30. 6. 2026 |
 | VYM | OK (0,04 %) | OK | ≈ | neověřeno | neověřeno | n/a | factsheet Vanguard F0923, stav k 30. 6. 2026 |
 | CSPX | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | OK | stránka emitenta |
-| VUAA | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | neověřeno | stránka emitenta |
+| VUAA | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | OK* | stránka emitenta |
 | SPYL | OK (0,03 %) | OK | OK | neověřeno (jen 1 rok) | neověřeno | OK | stránka emitenta |
 | VWCE | OK (0,14 %) | OK | OK | (v CSV není) | neověřeno | neověřeno | stránka emitenta |
 
@@ -104,6 +104,7 @@ ISIN a domicil u všech čtyř UCITS fondů: OK.
 **Poznámky ke kontrole**
 - Vanguard US (VOO, VTI, VT, VYM): stránka investor.vanguard.com se recenzentovi bez prohlížeče nenačetla, proto kontrola přes oficiální factsheety na fund-docs.vanguard.com. Aktiva v CSV jsou k 30. 9. 2026, factsheety k 30. 6. 2026, proto jen řádová shoda. Výkonnost těchto čtyř fondů zůstává neověřená recenzentem: na stránce ji použít až po kontrole, nebo jen u SPY a IVV.
 - "n/a" u US fondů: registrace v ČR je v CSV vedená jako NEOVĚŘENO.
+- \* Registraci VUAA v ČR recenzent neověřil. Na upozornění uživatele ji 12. 10. 2026 znovu ověřil agent přímo na stránce emitenta (Vanguard NL, Fund facts, řádek "Register countries", v seznamu "Czech Republic"). Na stránce proto smí stát "registrované v ČR" u všech tří evropských fondů na S&P 500 (CSPX, SPYL, VUAA). VWCE zůstává neověřený.
 
 **Ostatní zdroje**
 

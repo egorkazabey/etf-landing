@@ -96,6 +96,7 @@
   .cmp-label { font-size: 12px; font-weight: 600; color: var(--muted); }
   .cmp-vals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 15px; font-weight: 700; line-height: 1.25; }
   .cmp-vals .num { font-stretch: 80%; font-weight: 850; font-size: 19px; }
+  .cmp-vals small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
 
   /* Pevná lišta s výzvou */
   .cta {
@@ -156,7 +157,7 @@
         <p class="note">I kdyby se peníze vůbec nezhodnotily. Jen náklady fondu, bez poplatků brokera, směny měn a daní. Zdroj: emitenti fondů, ESMA 3. 3. 2026.</p>
       </div>
       <div class="cta">
-        <p>Srovnání 11 fondů v PDF<small>zdarma, pošleme na e-mail</small></p>
+        <p>Srovnání 11 fondů v PDF<small>zdarma, stáhnete hned</small></p>
         <a href="#">Chci PDF</a>
       </div>
     </div>
@@ -171,7 +172,7 @@
         <div class="asof">data k 12. 10. 2026</div>
       </header>
       <div class="body">
-        <h1>VOO, SPY a evropské fondy na stejný index vedle sebe</h1>
+        <h1>VOO vedle evropského fondu na stejný index</h1>
         <p class="sub">Náklady, velikost a kde je v Česku koupíte. Data od emitentů.</p>
         <div class="tabs" role="group" aria-label="Americký fond">
           <button aria-pressed="true" data-fund="VOO">VOO</button>
@@ -193,17 +194,17 @@
           </div>
           <div class="cmp-row">
             <div class="cmp-label">Velikost (čistá aktiva)</div>
-            <div class="cmp-vals"><div data-f="size">1 000 mld. USD*</div><div>20 až 158 mld. USD*</div></div>
+            <div class="cmp-vals"><div data-f="size">1 000 mld. USD<small>jen třída ETF</small></div><div>20 až 158 mld. USD<small>jen třídy Acc</small></div></div>
           </div>
           <div class="cmp-row">
             <div class="cmp-label">Koupím ho z Česka?</div>
-            <div class="cmp-vals"><div>Fio ano, DEGIRO ne, XTB jen CFD</div><div>registrované v ČR podle emitentů</div></div>
+            <div class="cmp-vals"><div>Fio ano, DEGIRO ne, XTB jen CFD</div><div>registrované v ČR (podle emitentů)</div></div>
           </div>
         </div>
-        <p class="note">* jen třída ETF, resp. třída Acc. Srovnání slouží pro informaci, nejde o doporučení.</p>
+        <p class="note">Srovnání slouží pro informaci, nejde o doporučení.</p>
       </div>
       <div class="cta">
-        <p>Všech 11 fondů v PDF<small>zdarma, pošleme na e-mail</small></p>
+        <p>Všech 11 fondů v PDF<small>zdarma, stáhnete hned</small></p>
         <a href="#">Chci PDF</a>
       </div>
     </div>
@@ -251,7 +252,7 @@
 
   // Data z data/etf.csv (aktiva celého fondu, u VOO jen třída ETF)
   const US = {
-    VOO: { ter: "0,03\u00a0%", size: "1 000 mld. USD*" },
+    VOO: { ter: "0,03\u00a0%", size: "1 000 mld. USD<small>jen třída ETF</small>" },
     SPY: { ter: "0,0945\u00a0%", size: "822 mld. USD" },
     IVV: { ter: "0,03\u00a0%", size: "896 mld. USD" }
   };
@@ -261,7 +262,7 @@
       root.querySelectorAll("[data-fund]").forEach(b => b.setAttribute("aria-pressed", b === btn));
       root.querySelector('[data-f="ticker"]').firstChild.textContent = k;
       root.querySelector('[data-f="ter"]').textContent = US[k].ter;
-      root.querySelector('[data-f="size"]').textContent = US[k].size;
+      root.querySelector('[data-f="size"]').innerHTML = US[k].size;
     }));
   });
 </script>

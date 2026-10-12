@@ -168,9 +168,9 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
   3. jak číst TER a co kalkulačka nepočítá (poplatky brokera, směna měn, daně),
   4. zdroje a data.
 - **Hodnota viditelná před formulářem:** náhled stran taháku (obrázky) a výsledek kalkulačky zdarma přímo na stránce.
-- **Kdy žádáme o kontakt:** až po zobrazení výsledku kalkulačky nebo srovnání. Výzva bude i v pevné liště pro ty, kdo nechtějí počítat.
+- **Kdy žádáme o kontakt:** až když návštěvník vidí hodnotu, tedy výsledek kalkulačky (A) nebo srovnání (B). Protože výsledek i srovnání jsou vidět **už na první obrazovce bez interakce**, je pevná lišta s výzvou vidět **od načtení** (upřesněno 12. 10. 2026). Zdůvodnění: (1) hodnota je zřejmá dřív než výzva, i když návštěvník nic nevyplní; (2) část návštěvníků z reklamy počítat nechce a lišta jim ukazuje odměnu hned; (3) lišta je jen odkaz na odměnu, ne formulář: pole pro e-mail se objeví až pod výsledkem nebo po klepnutí na lištu. Lišta až po první interakci je hypotéza na A/B test (viz Hypotézy).
 - **Formulář:** jen e-mail a nezaškrtnutý souhlas se zasíláním (GDPR).
-- **Doručení:** hlavní cesta je **stažení PDF hned na děkovací obrazovce**. E-mail je doplněk, technicky to bez domény jde (Zjištění 6). Kterou službou, rozhodneme při volbě stacku ve fázi 2; omezení e-mailu bez domény půjde do README.
+- **Doručení (rozhodnuto 12. 10. 2026):** ve fázi 2 **jen stažení PDF hned po odeslání**, žádný e-mail. Kontakt se uloží do databáze. Texty nesmí slibovat zaslání e-mailem ("pošleme"), jen okamžité stažení. Doručení e-mailem je hypotéza na A/B test (viz Hypotézy).
 
 ## 3. Interaktivní prvky
 
@@ -184,7 +184,7 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
 - **Výpočet:** výchozí bez zhodnocení ("i kdyby se peníze vůbec nezhodnotily"), takže výsledek nic neslibuje o výnosech. Volitelný vlastní předpoklad výnosu označený jako hypotetický rozhodneme ve fázi 2.
 - **Ilustrace s výchozími hodnotami:** VOO asi 1 440 Kč, evropské fondy na S&P 500 asi 1 440 až 3 360 Kč, průměrný akciový fond asi 61 170 Kč. Z výsledku je vidět, že evropský fond může stát stejně jako VOO; hlavní rozdíl je mezi ETF a běžným fondem.
 - **Text pod výsledkem (povinný):** "Jde jen o roční náklady fondu (TER, průběžné náklady). Nejsou v tom poplatky brokera, směna měn ani daně."
-- **Cesta ke kontaktu:** pod výsledkem "Pošleme vám srovnání všech fondů v PDF" a formulář.
+- **Cesta ke kontaktu:** pod výsledkem "Stáhněte si srovnání všech fondů v PDF" a formulář.
 
 ### b) Přepínač "US ETF z NYSE Arca vs. evropský fond se stejným indexem"
 
@@ -224,11 +224,23 @@ Omezení: dva zdroje, oba ze zahraničí, s jinou definicí konverze než naše 
 
 Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklama B na srovnání US ETF s evropským fondem se stejným indexem. Text v hlavičce stránky navazuje podle `utm_content`.
 
-## 7. Omezení do README (z fáze 1)
+## 7. Omezení do README (z fáze 1 a 2)
 
 - Registr ČNB (JERRS), pravidla Meta pro finanční reklamy a Meta Ad Library nejsou ověřené.
 - Kontrolu čísel dělala druhá instance Claude, ne člověk; výkonnost Vanguard US fondů (VOO, VTI, VT, VYM) zůstala neověřená (viz [zdroje-dat.md](zdroje-dat.md)).
 - ESMA neuvádí náklady fondů za ČR zvlášť a KID českého bankovního fondu se nepodařilo získat.
 - Benchmark konverze nemá data za ČR.
-- Doručení e-mailem bez vlastní domény je omezené.
+- Doručení e-mailem bez vlastní domény je omezené. Ve fázi 2 se PDF jen stahuje, e-mail se neposílá, takže adresa není ověřená.
+- Bez Meta Pixelu (rozhodnuto 12. 10. 2026): skutečná kampaň optimalizovaná na leady ho potřebuje, spolu s cookie lištou. Doplní se ve fázi 3, pokud zbude čas.
+- Vercel Hobby je podle podmínek Vercelu jen pro nekomerční použití, placená kampaň by potřebovala tarif Pro (viz [vizualni-styl.md](vizualni-styl.md), Stack).
+- Umami uvádí, že nepoužívá cookies a nepotřebuje cookie lištu. Právní posouzení jsme nedělali.
+
+## 8. Hypotézy na A/B test (podklad pro README)
+
+Sbíráno průběžně, pořadí podle očekávaného dopadu se určí v README.
+
+| Hypotéza | Varianta A | Varianta B | Co měříme | Zapsáno |
+|---|---|---|---|---|
+| Doručení odměny | okamžité stažení PDF po odeslání (vyšší konverze, víc falešných adres) | PDF jen e-mailem (ověřený kontakt, nižší konverze) | konverze na odeslání; podíl platných adres | 12. 10. 2026 |
+| Kdy ukázat lištu s výzvou | lišta od načtení | lišta až po první interakci (změna vstupu, přepnutí fondu, scroll) | konverze na odeslání; klik na lištu | 12. 10. 2026 |
 - Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.

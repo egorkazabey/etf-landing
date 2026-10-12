@@ -59,3 +59,21 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Chyba agenta: u Unbounce, podkategorie investování (3,9 %) ve strategii psal "medián?" a v návrhu rozhodnutí ji v chatu nazval mediánem. Stránka Unbounce u této hodnoty neuvádí, zda jde o medián, nebo průměr.
 - Jak jsem ji odhalil: při kontrole zdrojů druhou instancí Claude.
 - Oprava: v [strategie.md](strategie.md) je u hodnoty uvedeno, že zdroj typ statistiky neuvádí.
+
+### 8. Tvrzení o registraci v ČR rozšířené na neověřený fond
+- Datum a fáze: 12. 10. 2026, fáze 2 (návrh vizuálního stylu)
+- Chyba agenta: v náhledu obrazovky B napsal u všech tří evropských fondů (CSPX, SPYL, VUAA) "registrované v ČR podle emitentů". Recenzent to ověřil jen u CSPX a SPYL, u VUAA je v tabulce kontroly "neověřeno". Agent převzal hodnotu z CSV a tabulku kontroly přehlédl.
+- Jak jsem ji odhalil: při revizi náhledu proti tabulce kontroly v [zdroje-dat.md](zdroje-dat.md).
+- Oprava: agent registraci VUAA ověřil na stránce Vanguardu (Fund facts, "Register countries", v seznamu "Czech Republic") a zapsal to do [zdroje-dat.md](zdroje-dat.md) s datem a místem na stránce.
+
+### 9. Lišta s výzvou a texty v rozporu se schválenou strategií
+- Datum a fáze: 12. 10. 2026, fáze 2 (návrh vizuálního stylu)
+- Chyba agenta: v náhledu dal pevnou lištu s výzvou hned od načtení, přestože strategie říkala "až po zobrazení výsledku", a rozpor neuvedl mezi odchylkami. V liště navíc slíbil "pošleme na e-mail", přestože doručení e-mailem nebylo rozhodnuté a strategie jako hlavní cestu uváděla stažení PDF.
+- Jak jsem ji odhalil: při revizi náhledu proti [strategie.md](strategie.md).
+- Oprava: strategie upřesněná a zdůvodněná (výsledek je vidět bez interakce, proto lišta od načtení), lišta až po interakci zapsaná jako hypotéza na A/B test. Texty opravené na "zdarma, stáhnete hned".
+
+### 10. Obrazovka B "se vejde", ale na pár vteřin je moc hutná
+- Datum a fáze: 12. 10. 2026, fáze 2 (návrh vizuálního stylu)
+- Chyba agenta: kontroloval jen to, jestli se obsah vejde do 375 × 667 (screenshot z headless Chrome), ne jestli se dá přečíst za pár vteřin. Nadpis měl 4 řádky a poznámka s hvězdičkou byla těsně nad lištou, v mém prohlížeči pod ní.
+- Jak jsem ji odhalil: při otevření náhledu v prohlížeči.
+- Oprava: nadpis zkrácený na doslovný titulek reklamy B ("VOO vedle evropského fondu na stejný index", 2 řádky), hvězdička nahrazená popiskem přímo pod číslem, poznámka je s rezervou nad lištou.
