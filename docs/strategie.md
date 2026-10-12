@@ -1,6 +1,6 @@
 # Strategie
 
-Stav: **krok A (zjištění) hotový, krok B (rozhodnutí) čeká na schválení.**
+Stav: **zjištění i rozhodnutí hotová, rozhodnutí schválena 12. 10. 2026 s úpravami z revize** (viz [ai-notes.md](ai-notes.md), záznamy 4 a 5).
 
 Všechny zdroje získány **12. 10. 2026**, pokud není uvedeno jinak. Co není ověřené z primárního zdroje, je označené **NEOVĚŘENO** a nepoužívá se jako podklad pro rozhodnutí.
 
@@ -35,7 +35,10 @@ Emitenti uvádějí Českou republiku mezi zeměmi registrace u všech čtyř vy
 
 ### Burza: NYSE vs. NYSE Arca
 
-Všechny vybrané US ETF (SPY, IVV, VOO, VTI, VT, VYM, AGG) jsou kótované na **NYSE Arca**, burze skupiny NYSE pro ETF. Zdroj: stránky emitentů (viz [zdroje-dat.md](zdroje-dat.md)). Fio to potvrzuje: NYSE Arca je "trh pro obchodování s ETF". Zadání říká "ETF obchodované na NYSE": vykládám jako skupinu NYSE včetně NYSE Arca (rozhodnutí do README).
+- Všechny vybrané US ETF (SPY, IVV, VOO, VTI, VT, VYM, AGG) jsou kótované na **NYSE Arca**. Zdroj u každého fondu: stránka emitenta, přesné místo ve sloupci `burza_zdroj` v [data/etf.csv](../data/etf.csv).
+- NYSE o sobě: "NYSE Group operates five equities markets with distinct trading and pricing models" a NYSE Arca je "the leading U.S. exchange for the listing and trading of exchange-traded products (ETPs)". Zdroj: [nyse.com/markets/nyse-arca](https://www.nyse.com/markets/nyse-arca).
+- Fio: NYSE Arca je "trh pro obchodování s ETF" ze skupiny NYSE. Zdroj: [fio.cz akcie USA](https://www.fio.cz/akcie-investice/akcie/akcie-usa).
+- Rozhodnutí viz sekce Rozhodnutí, bod 4.
 
 ### Daně
 
@@ -47,6 +50,15 @@ Viz [data/etf.csv](../data/etf.csv) a [zdroje-dat.md](zdroje-dat.md). Nejzajíma
 
 - **Stejný index, různá cena:** SPY má TER 0,0945 %, IVV a VOO 0,03 %. Průměrná roční výkonnost za 10 let k 30. 9. 2026 (NAV): SPY 15,18 %, IVV 15,30 %, VOO 15,29 %. SPY tedy zaostal o 0,11 až 0,12 p. b. ročně, rozdíl v TER je 0,0645 p. b. Zbytek rozdílu má jinou příčinu, kterou jsem neověřoval, proto na stránce ukazovat jen TER a výkonnost, ne vysvětlení rozdílu.
 - **UCITS S&P 500 pro Čechy:** SPYL 0,03 %, CSPX 0,07 %, VUAA 0,07 %.
+- **V korunách je rozdíl mezi levnými ETF malý.** 2 000 Kč měsíčně, 20 let, bez zhodnocení: náklady fondu asi 1 440 Kč (TER 0,03 %) vs. asi 4 530 Kč (SPY, 0,0945 %). Výpočet viz [zdroje-dat.md](zdroje-dat.md), sekce Výpočty.
+
+### Náklady běžných fondů (srovnání pro kalkulačku)
+
+- **ESMA, Costs and Performance of EU Retail Investment Products 2025** (ESMA50-1949966494-4065, publikováno 3. 3. 2026), tabulka "Essential statistics - UCITS", EU27, retailoví investoři, 5letý horizont 2020 až 2024:
+  - akciové UCITS fondy (bez ETF): **průběžné náklady 1,38 % ročně**, vstupní poplatky 0,51 % ročně, náklady celkem 1,9 % ročně,
+  - akciová ETF: průběžné náklady 0,22 % ročně.
+  - Zdroj: [ESMA report (PDF)](https://www.esma.europa.eu/sites/default/files/2026-03/ESMA50-1949966494-4065_Market_Report_-_Costs_and_Performance_of_EU_Retail_Investment_Products.pdf), strana 6.
+- **Omezení:** ESMA neuvádí náklady za ČR zvlášť (v přílohách je ČR jen u inflace a obchodů s ETF). KID konkrétního českého bankovního fondu (Erste AM: SPOROTREND, TOP STOCKS) se nepodařilo získat, stránky Erste AM se vykreslují JavaScriptem a odkazy na KID nejsou v HTML. Na stránce proto píšeme "průměrný akciový fond v EU (ESMA)", ne "fond z české banky".
 
 ## 3. Cílová skupina: data o českých investorech
 
@@ -93,18 +105,129 @@ Viz [data/etf.csv](../data/etf.csv) a [zdroje-dat.md](zdroje-dat.md). Nejzajíma
 | finanční služby, čtenost 5. až 7. třída | 18,1 % | medián |
 | doporučená délka stránky | 195 až 715 slov | |
 
-**Výhrady:** (1) Unbounce počítá i konverze typu klik, my měříme odeslaný formulář, reálná čísla budou nižší. (2) Investování je nejbližší podkategorie a je výrazně pod průměrem financí. (3) Jediný primární zdroj; ostatní "2026 benchmarky" v článcích jsou převyprávěná data Unbounce.
+**Druhý nezávislý zdroj: Ruler Analytics, Conversion Rate Benchmarks 2026** (publikováno 26. 5. 2026): 110 mil.+ sessions, 5 mil.+ konverzí, 13 odvětví, data klientů platformy Ruler. Konverze = "a qualified lead or sale". Období dat neuvedeno. Zdroj: [ruleranalytics.com](https://www.ruleranalytics.com/blog/insight/conversion-rate-by-industry/).
 
-Tři varianty očekávané konverze navrhnu v kroku B.
+| Ukazatel (finance) | Hodnota |
+|---|---|
+| celkem | 6,3 % |
+| placené vyhledávání | 6,3 % |
+| organické vyhledávání | 5,4 % |
+| **placené sociální sítě** | **3,7 %** |
 
-## 6. Regulace obsahu a pravidla reklamy
+**Výhrady:** (1) Unbounce počítá i konverze typu klik, my měříme odeslaný formulář, reálná čísla budou nižší. (2) Investování je nejbližší podkategorie Unbounce a je výrazně pod průměrem financí. (3) Ruler měří kvalifikované leady (přísnější definice než náš e-mail), data jsou z jeho klientů (převážně UK, neověřeno), ne z ČR. (4) Žádný z obou zdrojů nemá data za Českou republiku ani za lead magnety ve financích zvlášť. (5) Další nalezené "benchmarky 2026" jsou převyprávěná data Unbounce nebo nemají metodiku (např. Focus Digital), nepoužity.
+
+Oba nezávislé zdroje se pro náš případ (finance/investování, placené sociální sítě) shodují kolem 3,7 až 3,9 %.
+
+## 6. Doručení odměny e-mailem bez vlastní domény
+
+| Služba | Bez vlastní domény? | Zdroj |
+|---|---|---|
+| Resend | **Ne.** "You must add and verify at least one domain to send emails with Resend." | [resend.com/docs](https://resend.com/docs/dashboard/domains/introduction) |
+| Brevo | **Částečně.** Doménu typu gmail.com nelze ověřit; Brevo odesílatele dočasně přepíše na adresu `@brevosend.com` ("stopgap measure"). Limity bezplatného tarifu **NEOVĚŘENO** (ceník se bez prohlížeče nenačetl). | [help.brevo.com, požadavky Gmail/Yahoo](https://help.brevo.com/hc/en-us/articles/14925263522578-Comply-with-Gmail-Yahoo-and-Microsoft-s-requirements-for-email-senders), [Create a new sender](https://help.brevo.com/hc/en-us/articles/208836149-Create-a-new-sender-From-name-and-From-email) |
+| EmailJS | **Ano**, odesílá přes připojený osobní Gmail. Bezplatně 200 požadavků měsíčně, nad limit se požadavky zahazují. EmailJS sám uvádí, že osobní účty jsou "for development purposes or very low volume usage" a při překročení denního limitu poskytovatele hrozí blokace účtu. | [emailjs.com/pricing](https://www.emailjs.com/pricing/), [Connecting email services](https://www.emailjs.com/docs/user-guide/connecting-email-services/) |
+
+Závěr: bez domény to jde jen s omezeními (malý objem, cizí odesílatel, horší doručitelnost). Pro skutečnou kampaň je potřeba vlastní doména (omezení do README).
+
+## 7. Regulace obsahu a pravidla reklamy
 
 - **Investiční doporučení vs. poradenství**, [ČNB RS2018-08](https://www.cnb.cz/cs/dohled-financni-trh/legislativni-zakladna/stanoviska-k-regulaci-financniho-trhu/RS2018-08) (25. 5. 2018): doporučení může být osobní i když jde více lidem najednou (např. e-mailem), pokud je prezentované jako vhodné pro danou osobu. Příklady z ČNB: "tento produkt je pro Vás nejlepším řešením Vašich financí", nepřímo "lidé Vám podobní si pořizují tento produkt" nebo doporučení založené na okolnostech osoby.
 - **Důsledek pro stránku:** kalkulačka a srovnání můžou ukazovat fakta (poplatky, dopad TER) pro zadanou částku. **Nesmí** vybrat "váš ETF" podle odpovědí návštěvníka. Kvíz typu "který ETF je pro vás" vypadá jako poradenství, nepoužít.
-- **Meta, pravidla pro finanční produkty: NEOVĚŘENO.** Stránka [Financial and Insurance Products and Services](https://transparency.meta.com/policies/ad-standards/restricted-goods-services/financial-services/) se bez prohlížeče nenačte. Z výsledků vyhledávání: investiční produkty mohou v některých zemích vyžadovat licenci, CFD a binární opce jsou zakázané. K ruční kontrole před spuštěním reklamy.
+- **Meta, pravidla pro finanční produkty: NEOVĚŘENO.** Stránka [Financial and Insurance Products and Services](https://transparency.meta.com/policies/ad-standards/restricted-goods-services/financial-services/) se bez prohlížeče nenačte. Z výsledků vyhledávání: investiční produkty mohou v některých zemích vyžadovat licenci, CFD a binární opce jsou zakázané. Ruční kontrola se nedělá, do README jako omezení (stejně jako registr ČNB JERRS).
 
 ---
 
 # Rozhodnutí
 
-Doplní se v kroku B po schválení.
+Schváleno uživatelem 12. 10. 2026. Body 1, 2 a 4 v původní podobě, ostatní s úpravami z revize.
+
+## Pravidlo pro všechny texty: srovnáváme, nedoporučujeme
+
+Stránka, tahák, e-mail i reklamy fakta **srovnávají**, nic **nedoporučují** (ČNB RS2018-08, viz Zjištění 7).
+
+| Nepoužívat | Použít místo toho |
+|---|---|
+| "co koupit místo VOO", "kupte", "doporučujeme" | "evropský fond se stejným indexem", "srovnání" |
+| "nejlepší ETF", "nejvýhodnější volba" | "nejnižší TER v tomto srovnání" (jen když to plyne z dat) |
+| "pro vás", "hodí se vám", "lidé jako vy" | "pro částku, kterou jste zadali" (jen u výpočtu) |
+| výběr fondu podle odpovědí návštěvníka | návštěvník si sám vybere, co chce srovnat |
+
+Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o investiční doporučení." Podle ČNB samotné upozornění nestačí, rozhoduje forma textu, proto platí tabulka výše.
+
+## 1. Cílová skupina: rozhodnutý začátečník (varianta B)
+
+- **Kdo:** 25 až 40 let, chytrý telefon, do ETF investovat chce nebo už má první investiční aplikaci. Pojem S&P 500 zná. Na sociálních sítích vídá tickery VOO a SPY.
+- **Co neví:** který z fondů na stejný index vybrat, jestli je z Česka vůbec koupí a u koho, kolik ho stojí náklady fondu.
+- **Čeho se bojí:** že přeplatí, že koupí "špatný" fond, že udělá chybu (strach ze ztráty a ze špatného rozhodnutí jsou podle Indexu prosperity 2026 hlavní bariéry hned po nedostatku peněz).
+- **Proč tahle skupina:** ETF nejčastěji uvádějí lidé ve věku 27 až 35 let (Ipsos pro Home Credit 2026). Srovnání ETF z NYSE má hodnotu právě pro toho, kdo se už rozhodl. Na otázku "VOO z Česka a evropský fond se stejným indexem" nikdo z nalezené konkurence neodpovídá. Varianta A (začátečník se spořicím účtem, "jak začít") je širší, ale obsazená (Fondee, Portu, XTB) a srovnání konkrétních fondů pro ni přichází příliš brzy.
+
+## 2. Odměna a moment žádosti o kontakt
+
+- **Odměna:** PDF tahák "VOO, SPY a evropské fondy se stejným indexem: srovnání pro Čechy", 2 až 4 strany čitelné na mobilu:
+  1. tabulka US fondů z NYSE Arca a UCITS fondů se stejným indexem (TER, velikost, akumulace/výplata, registrace v ČR),
+  2. co který broker dostupný v ČR umožňuje (US ETF ano/ne/jen CFD), s datem ověření,
+  3. jak číst TER a co kalkulačka nepočítá (poplatky brokera, směna měn, daně),
+  4. zdroje a data.
+- **Hodnota viditelná před formulářem:** náhled stran taháku (obrázky) a výsledek kalkulačky zdarma přímo na stránce.
+- **Kdy žádáme o kontakt:** až po zobrazení výsledku kalkulačky nebo srovnání. Výzva bude i v pevné liště pro ty, kdo nechtějí počítat.
+- **Formulář:** jen e-mail a nezaškrtnutý souhlas se zasíláním (GDPR).
+- **Doručení:** hlavní cesta je **stažení PDF hned na děkovací obrazovce**. E-mail je doplněk, technicky to bez domény jde (Zjištění 6). Kterou službou, rozhodneme při volbě stacku ve fázi 2; omezení e-mailu bez domény půjde do README.
+
+## 3. Interaktivní prvky
+
+### a) Kalkulačka nákladů fondu (hlavní prvek)
+
+- **Srovnává tři položky:**
+  1. VOO, US ETF z NYSE Arca, TER 0,03 %,
+  2. UCITS fond se stejným indexem, výchozí VUAA (0,07 %, stejný emitent), volitelně CSPX (0,07 %) nebo SPYL (0,03 %),
+  3. průměrný akciový fond v EU podle ESMA, průběžné náklady 1,38 %.
+- **Vstupy:** měsíční částka (výchozí 2 000 Kč) a počet let (výchozí 20).
+- **Výpočet:** výchozí bez zhodnocení ("i kdyby se peníze vůbec nezhodnotily"), takže výsledek nic neslibuje o výnosech. Volitelný vlastní předpoklad výnosu označený jako hypotetický rozhodneme ve fázi 2.
+- **Ilustrace s výchozími hodnotami:** VOO asi 1 440 Kč, VUAA asi 3 360 Kč, průměrný akciový fond asi 61 170 Kč.
+- **Text pod výsledkem (povinný):** "Jde jen o roční náklady fondu (TER, průběžné náklady). Nejsou v tom poplatky brokera, směna měn ani daně."
+- **Cesta ke kontaktu:** pod výsledkem "Pošleme vám srovnání všech fondů v PDF" a formulář.
+
+### b) Přepínač "US ETF z NYSE Arca vs. evropský fond se stejným indexem"
+
+- Dvě karty vedle sebe (např. VOO a VUAA), fakta: TER, velikost, domicil, výplata výnosů a "Koupím ho z ČR?" podle zjištění u brokerů s datem ověření.
+- **Cesta ke kontaktu:** "Celé srovnání 7 fondů z NYSE Arca a 4 evropských v PDF".
+
+### Vyřazeno
+
+- Kvíz "který ETF je pro vás": podle ČNB by to bylo osobní doporučení.
+
+Události k měření (podrobně v `docs/mereni.md` ve fázi 2): zobrazení kalkulačky, změna vstupu, zobrazení výsledku, přepnutí karet, klik na výzvu, začátek vyplňování formuláře, odeslání, stažení PDF.
+
+## 4. Fondy a burza
+
+- **Srovnávané fondy z NYSE Arca (7):** SPY, IVV, VOO (S&P 500), VTI (celý US trh), VT (celý svět), VYM (dividendy), AGG (dluhopisy).
+- **UCITS fondy se stejným nebo podobným indexem (4), jasně odlišené jako ekvivalenty, ne fondy z NYSE:** CSPX, VUAA, SPYL (S&P 500), VWCE (FTSE All-World, podobný index jako VT).
+- **Na stránce:** kalkulačka a přepínač s fondy na S&P 500, celá tabulka v taháku. V `data/etf.csv` odlišuje sloupec `role`.
+- **SCHD vyřazen:** web Schwabu vrací 403, čísla nejdou ověřit. **QQQ vyřazen:** je kótovaný na Nasdaqu.
+
+**NYSE Arca bereme jako "NYSE" ze zadání.** Zdůvodnění pro README:
+1. NYSE Arca je jedna z burz skupiny NYSE ("NYSE Group operates five equities markets") a podle NYSE je "the leading U.S. exchange for the listing and trading of exchange-traded products" ([nyse.com](https://www.nyse.com/markets/nyse-arca)).
+2. Všechny velké ETF, které čeští investoři znají (SPY, IVV, VOO, VTI, VT), mají primární kótaci na NYSE Arca (stránky emitentů). Při doslovném výkladu (jen hlavní trh NYSE) by srovnání nemělo smysl, protože by v něm chyběly všechny známé ETF.
+3. Fondy z Nasdaqu (QQQ) nezahrnujeme, aby výklad zůstal v rámci skupiny NYSE.
+4. Na stránce píšeme přesně "NYSE Arca (burza skupiny NYSE)", nic nezamlčujeme.
+
+## 5. Očekávaná konverze (návštěva stránky → odeslaný formulář)
+
+| Varianta | Konverze | Odkud |
+|---|---|---|
+| Pesimistická | 2 % | **Odhad autora (uživatele), ne benchmark.** Pod oběma zdroji, protože měříme jen odeslaný formulář ze studeného mobilního provozu. |
+| Realistická | 3,7 až 3,9 % | Ruler Analytics 2026, finance, placené sociální sítě 3,7 %. Unbounce 2024, podkategorie investování 3,9 %. |
+| Optimistická | 6,3 až 8,3 % | Ruler, finance celkem 6,3 %. Unbounce, medián finančních služeb 8,3 %. |
+
+Omezení: dva zdroje, oba ze zahraničí, s jinou definicí konverze než naše (viz Zjištění 5).
+
+## 6. Reklamy
+
+Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklama B na srovnání US ETF s evropským fondem se stejným indexem. Text v hlavičce stránky navazuje podle `utm_content`.
+
+## 7. Omezení do README (z fáze 1)
+
+- Registr ČNB (JERRS) a pravidla Meta pro finanční reklamy jsme ručně neověřili.
+- ESMA neuvádí náklady fondů za ČR zvlášť a KID českého bankovního fondu se nepodařilo získat.
+- Benchmark konverze nemá data za ČR.
+- Doručení e-mailem bez vlastní domény je omezené.
+- Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.

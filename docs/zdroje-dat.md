@@ -13,7 +13,9 @@ Data ETF jsou v jednom souboru: [data/etf.csv](../data/etf.csv). Tento dokument 
 
 | Sloupec | Význam |
 |---|---|
-| `typ` | `US` = fond domicilovaný v USA, kótovaný na NYSE Arca. `UCITS` = evropský (irský) fond se stejným nebo podobným indexem |
+| `role` | **srovnávaný fond z NYSE Arca** (předmět srovnání podle zadání) nebo **UCITS ekvivalent, není na NYSE** (evropský fond se stejným nebo podobným indexem, jen pro srovnání) |
+| `typ` | `US` = fond domicilovaný v USA. `UCITS` = evropský (irský) fond |
+| `burza_primarni`, `burza_zdroj` | burza podle emitenta a přesné místo na stránce emitenta, kde je uvedená |
 | `ter_pct` | roční nákladovost v % (expense ratio / TER / OCF podle terminologie emitenta). U SPY jde o "Gross Expense Ratio" |
 | `ter_as_of` | datum, ke kterému emitent TER uvádí. "prospekt" = emitent uvádí "as stated in the prospectus" bez data |
 | `aktiva_usd` | čistá aktiva v USD. **Pozor, nejsou srovnatelná 1:1:** iShares a SSGA u US fondů uvádějí celý fond, Vanguard uvádí zvlášť ETF třídu a celý fond (ten má i podílové třídy pro neETF investory). Úroveň je ve sloupci `aktiva_uroven` |
@@ -32,7 +34,7 @@ Data ETF jsou v jednom souboru: [data/etf.csv](../data/etf.csv). Tento dokument 
 | Vanguard UCITS (VUAA, VWCE) | hlavička "OCF/TER" | Fund facts, "Share Class Assets" a "Total Assets" (bez data) | v HTML není: nevyplněno | "Number of stocks" |
 | SSGA UCITS (SPYL) | "TER" | "Share Class Assets" a "Total Fund Assets" | Fund Performance, Annualised, Month End, "Fund Net" | Fund Characteristics |
 
-## Výběr fondů (pracovní, finální zdůvodnění v kroku B)
+## Výběr fondů (schváleno, zdůvodnění v [strategie.md](strategie.md), Rozhodnutí 4)
 
 - **S&P 500 od tří emitentů (SPY, IVV, VOO):** stejný index, různé poplatky. Nejsilnější srovnání pro stránku: rozdíl v TER je vidět i ve výkonnosti za 10 let.
 - **VTI, VT:** celý americký trh a celý svět, typická volba pasivního investora.
@@ -47,6 +49,31 @@ Data ETF jsou v jednom souboru: [data/etf.csv](../data/etf.csv). Tento dokument 
 - UCITS fondy nemají ve stažené stránce průměrnou roční výkonnost (načítá se skriptem). Výjimka je SPYL (jen 1 rok, fond existuje od 10/2023).
 - `registrace_cz` u US fondů je NEOVĚŘENO: neověřoval jsem po jednotlivých fondech, že nejsou v ČR registrované.
 - Výkonnost je v USD. Českého investora ovlivní i kurz USD/CZK, který tu není zahrnut.
+
+## Srovnávací náklady mimo ETF (pro kalkulačku)
+
+| Položka | Hodnota | Zdroj | Kde v dokumentu |
+|---|---|---|---|
+| Akciové UCITS fondy (bez ETF), EU27, retail, průběžné náklady | 1,38 % ročně | [ESMA, Costs and Performance of EU Retail Investment Products 2025](https://www.esma.europa.eu/sites/default/files/2026-03/ESMA50-1949966494-4065_Market_Report_-_Costs_and_Performance_of_EU_Retail_Investment_Products.pdf), publikováno 3. 3. 2026, období 2020 až 2024, 5letý horizont | strana 6, tabulka "Essential statistics - UCITS", sloupec Equity (Funds non-ETF), řádek "Ongoing charges" |
+| Akciová ETF, EU27, průběžné náklady | 0,22 % ročně | tamtéž | tamtéž, sloupec ETFs Equity |
+
+ESMA neuvádí hodnotu za ČR zvlášť.
+
+## Výpočty
+
+Model: měsíční vklad na začátku měsíce, náklad fondu strhávaný měsíčně jako `(1 - TER)^(1/12)`, výnos 0 %. "Náklady" = rozdíl mezi konečnou hodnotou bez nákladů a s náklady. Při 0 % výnosu je konečná hodnota bez nákladů rovna součtu vkladů (480 000 Kč).
+
+2 000 Kč měsíčně, 20 let, 0 % výnos:
+
+| Fond | TER | Náklady fondu za 20 let |
+|---|---|---|
+| VOO, SPYL | 0,03 % | 1 443 Kč |
+| CSPX, VUAA | 0,07 % | 3 359 Kč |
+| SPY | 0,0945 % | 4 528 Kč |
+| průměr akciových ETF (ESMA) | 0,22 % | 10 461 Kč |
+| průměr akciových fondů bez ETF (ESMA) | 1,38 % | 61 171 Kč |
+
+Pro představu, s hypotetickým výnosem 5 % ročně (jen ilustrace, na stránce ne jako výchozí): VOO 2 841 Kč, CSPX/VUAA 6 611 Kč, SPY 8 910 Kč, průměrný fond 119 582 Kč.
 
 ## Ostatní zdroje (regulace, brokeři, průzkumy, benchmark)
 
@@ -69,3 +96,4 @@ Vyplňuje uživatel: projde hodnotu proti zdroji a zapíše výsledek. Agent pak
 | VUAA | | | (nevyplněno) | | | |
 | SPYL | | | jen 1 rok | | | |
 | VWCE | | | (nevyplněno) | | | |
+| ESMA 1,38 % | (průběžné náklady, str. 6) | | | | | |
