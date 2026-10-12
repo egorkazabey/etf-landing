@@ -28,7 +28,7 @@ for (const [, label, ter, amount] of rows) {
 // 2b. Výchozí čísla v public/index.html (vidět před načtením skriptu) sedí s daty a vzorcem
 const { FUNDS, ESMA, BROKERS } = await import("../public/data.js");
 const html = readFileSync(root + "public/index.html", "utf8");
-const norm = s => s.replace(/&nbsp;| /g, " ").replace(/&amp;/g, "&").trim();
+const norm = s => s.replace(/&nbsp;|\u00a0/g, " ").replace(/&amp;/g, "&").trim();
 const fmt = n => Math.round(n).toLocaleString("cs-CZ");
 const pct = n => n.toLocaleString("cs-CZ", { maximumFractionDigits: 4 }) + " %";
 const fund = t => FUNDS.find(f => f.ticker === t);
@@ -54,6 +54,18 @@ for (const [attr, want] of Object.entries(expected)) {
   const m = html.match(new RegExp(attr + "[^>]*>([^<]*)"));
   if (!m) fail(`public/index.html: chybí prvek ${attr}`);
   else if (norm(m[1]) !== norm(want)) fail(`public/index.html ${attr}: v HTML "${norm(m[1])}", z dat "${norm(want)}"`);
+}
+
+// 2c. PDF: zdroj odpovídá datům, PDF je vytištěné z aktuálního zdroje, upozornění na první a poslední straně
+const { renderTahak, sha256, HTML_PATH, SHA_PATH } = await import("./build-pdf.mjs");
+const tahak = existsSync(HTML_PATH) ? readFileSync(HTML_PATH, "utf8") : "";
+if (tahak !== renderTahak()) fail("reward/tahak.html neodpovídá datům, spusťte npm run pdf");
+else if (!existsSync(SHA_PATH) || readFileSync(SHA_PATH, "utf8").trim() !== sha256(tahak)) fail("PDF není vytištěné z aktuálního reward/tahak.html, spusťte npm run pdf");
+for (const f of ["public/srovnani-etf.pdf", "public/odmena-nahled.png"]) if (!existsSync(root + f)) fail(`chybí ${f}, spusťte npm run pdf`);
+const pagesHtml = tahak.split('<section class="page">').slice(1);
+const disclaimer = "nejde o investiční doporučení";
+if (!pagesHtml.length || !pagesHtml[0].includes(disclaimer) || !pagesHtml.at(-1).includes(disclaimer)) {
+  fail(`PDF: "${disclaimer}" musí být na první i poslední straně`);
 }
 
 // 3. Dlouhé pomlčky (U+2013, U+2014)
@@ -83,4 +95,4 @@ if (errors.length) {
   console.error("CHYBY:\n- " + errors.join("\n- "));
   process.exit(1);
 }
-console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, ${textFiles.length} souborů bez dlouhých pomlček`);
+console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, PDF aktuální (${pagesHtml.length} stran), ${textFiles.length} souborů bez dlouhých pomlček`);

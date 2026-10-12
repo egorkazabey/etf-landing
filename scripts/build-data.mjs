@@ -39,6 +39,8 @@ export function buildData() {
     exchange: r.burza_primarni,
     domicile: r.domicil,
     index: r.index,
+    focus: r.zamereni,
+    identifier: r.identifikator, // ISIN nebo CUSIP
     ter: num(r.ter_pct),
     terAsOf: r.ter_as_of,
     assetsUsd: num(r.aktiva_usd),

@@ -3,8 +3,8 @@ import { feeCost } from "/calc.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const fmt = n => Math.round(n).toLocaleString("cs-CZ");
-const kc = n => fmt(n) + " Kč";
-const pct = n => n.toLocaleString("cs-CZ", { maximumFractionDigits: 4 }) + " %";
+const kc = n => fmt(n) + "\u00a0Kč";
+const pct = n => n.toLocaleString("cs-CZ", { maximumFractionDigits: 4 }) + "\u00a0%";
 const digits = s => parseInt(String(s).replace(/\D/g, ""), 10) || 0;
 const fund = t => FUNDS.find(f => f.ticker === t);
 
@@ -59,7 +59,7 @@ yearsEl.addEventListener("blur", () => { yearsEl.value = readInputs().years; ren
 
 // TER v popiscích z dat (výchozí text v HTML je stejný, kontroluje ho npm run check)
 $('[data-ter="voo"]').textContent = pct(VOO.ter);
-$('[data-ter="eu"]').textContent = pct(euTer[0]).replace(" %", "") + " až " + pct(euTer[1]);
+$('[data-ter="eu"]').textContent = pct(euTer[0]).replace("\u00a0%", "") + " až " + pct(euTer[1]);
 $('[data-ter="avg"]').textContent = pct(AVG.ter);
 renderCalc();
 
@@ -81,7 +81,7 @@ function renderFund(ticker) {
 document.querySelectorAll("[data-fund]").forEach(btn =>
   btn.addEventListener("click", () => renderFund(btn.dataset.fund)));
 
-$('[data-f="eu-ter"]').textContent = pct(euTer[0]).replace(" %", "") + " až " + pct(euTer[1]);
+$('[data-f="eu-ter"]').textContent = pct(euTer[0]).replace("\u00a0%", "") + " až " + pct(euTer[1]);
 $('[data-f="eu-size"]').innerHTML = fmt(euSize[0] / 1e9) + " až " + mld(euSize[1]) + "<small>jen třídy Acc</small>";
 $('[data-f="brokers"]').textContent = brokersLine;
 renderFund("VOO");

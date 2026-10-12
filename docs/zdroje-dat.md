@@ -28,6 +28,7 @@ Tento dokument popisuje, odkud čísla jsou, jak byla získána a kde je na str�
 | `aktiva_usd` | čistá aktiva v USD. **Pozor, nejsou srovnatelná 1:1:** iShares a SSGA u US fondů uvádějí celý fond, Vanguard uvádí zvlášť ETF třídu a celý fond (ten má i podílové třídy pro neETF investory). Úroveň je ve sloupci `aktiva_uroven` |
 | `vynos_*_pct` | průměrná roční celková výkonnost (NAV, s reinvesticí výplat, po nákladech fondu) v USD, ke konci měsíce |
 | `pocet_pozic` | počet držených cenných papírů |
+| `zamereni` | krátký český popis, co fond sleduje (odvozený z indexu, přidáno 12. 10. 2026 pro PDF). Není to číslo ze zdroje. |
 | `registrace_cz` | zda emitent uvádí Českou republiku mezi zeměmi registrace k nabízení |
 
 ## Kde hodnotu na stránce zdroje najdete
@@ -104,14 +105,14 @@ Legenda: **OK** = sedí přesně, **≈** = sedí řádově (jiné datum zdroje)
 | CSPX | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | OK | stránka emitenta |
 | VUAA | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | OK* | stránka emitenta |
 | SPYL | OK (0,03 %) | OK | OK | neověřeno (jen 1 rok) | neověřeno | OK | stránka emitenta |
-| VWCE | OK (0,14 %) | OK | OK | (v CSV není) | neověřeno | neověřeno | stránka emitenta |
+| VWCE | OK (0,14 %) | OK | OK | (v CSV není) | neověřeno | OK* | stránka emitenta |
 
 ISIN a domicil u všech čtyř UCITS fondů: OK.
 
 **Poznámky ke kontrole**
 - Vanguard US (VOO, VTI, VT, VYM): stránka investor.vanguard.com se recenzentovi bez prohlížeče nenačetla, proto kontrola přes oficiální factsheety na fund-docs.vanguard.com. Aktiva v CSV jsou k 30. 9. 2026, factsheety k 30. 6. 2026, proto jen řádová shoda. Výkonnost těchto čtyř fondů zůstává neověřená recenzentem: na stránce ji použít až po kontrole, nebo jen u SPY a IVV.
 - "n/a" u US fondů: registrace v ČR je v CSV vedená jako NEOVĚŘENO.
-- \* Registraci VUAA v ČR recenzent neověřil. Na upozornění uživatele ji 12. 10. 2026 znovu ověřil agent přímo na stránce emitenta (Vanguard NL, Fund facts, řádek "Register countries", v seznamu "Czech Republic"). Na stránce proto smí stát "registrované v ČR" u všech tří evropských fondů na S&P 500 (CSPX, SPYL, VUAA). VWCE zůstává neověřený.
+- \* Registraci VUAA v ČR recenzent neověřil. Na upozornění uživatele ji 12. 10. 2026 znovu ověřil agent přímo na stránce emitenta (Vanguard NL, Fund facts, řádek "Register countries", v seznamu "Czech Republic"). Na stránce proto smí stát "registrované v ČR" u všech tří evropských fondů na S&P 500 (CSPX, SPYL, VUAA). Stejně agent 12. 10. 2026 ověřil VWCE (Vanguard NL, Fund facts, "Register countries", v seznamu "Czech Republic"), kvůli tabulce evropských fondů v PDF.
 
 **Ostatní zdroje**
 

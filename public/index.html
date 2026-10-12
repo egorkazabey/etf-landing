@@ -115,13 +115,16 @@
 
   /* Odměna a formulář */
   .contents { list-style: none; margin-top: 14px; border-top: var(--rule); }
-  .contents li { padding: 9px 0 9px 30px; border-bottom: 1px solid var(--ink); position: relative; font-size: 15px; line-height: 1.3; }
+  .contents li { padding: 7px 0 7px 30px; border-bottom: 1px solid var(--ink); position: relative; font-size: 15px; line-height: 1.3; }
   .contents li::before {
-    content: counter(list-item); position: absolute; left: 0; top: 9px;
+    content: counter(list-item); position: absolute; left: 0; top: 7px;
     width: 20px; height: 20px; background: var(--ink); color: var(--paper);
     font-size: 12px; font-weight: 800; display: grid; place-items: center;
   }
-  form { margin-top: 18px; }
+  .preview { margin-top: 18px; }
+  .preview img { display: block; width: 100%; height: auto; border: var(--rule); }
+  .preview figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  form { margin-top: 14px; }
   .email { border: var(--rule); padding: 6px 10px 6px; }
   .email:focus-within { box-shadow: 0 0 0 3px var(--tag); }
   .email label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); }
@@ -266,13 +269,20 @@
 
   <section id="odmena" aria-labelledby="pdf-title">
     <h2 class="title" id="pdf-title">Celé srovnání v PDF, zdarma</h2>
-    <p class="sub">Pár stran čitelných na mobilu. Stáhnete hned po zadání e-mailu.</p>
+    <p class="sub">6 stran ve formátu telefonu, čitelné bez zoomování. Stáhnete hned po zadání e-mailu.</p>
     <ol class="contents">
-      <li>Tabulka 7 fondů z NYSE Arca a 4 evropských se stejným nebo podobným indexem: náklady, velikost, výplata výnosů, registrace v ČR</li>
-      <li>Co s americkými ETF umožňují Fio, DEGIRO a XTB, s datem ověření</li>
-      <li>Jak číst TER a co kalkulačka nepočítá: poplatky brokera, směna měn, daně</li>
+      <li>6 fondů na S&amp;P&nbsp;500 vedle sebe a co stojí v korunách</li>
+      <li>Všech 7 fondů z NYSE Arca: náklady, velikost, výplata výnosů</li>
+      <li>4 evropské fondy s ISIN a registrací v ČR</li>
+      <li>Co s americkými ETF umožňují DEGIRO, Fio a XTB</li>
+      <li>Jak číst TER a co kalkulačka nepočítá</li>
       <li>Zdroj a datum u každého čísla</li>
     </ol>
+    <figure class="preview">
+      <img src="/odmena-nahled.png" width="378" height="673" loading="lazy" decoding="async"
+        alt="První strana PDF: tabulka šesti fondů na S&amp;P 500 (CSPX, IVV, SPY, SPYL, VOO, VUAA) se sídlem, ročními náklady a výplatou výnosů a souhrn nákladů v korunách.">
+      <figcaption>1. strana ze 6</figcaption>
+    </figure>
 
     <form id="lead" novalidate>
       <div class="email">

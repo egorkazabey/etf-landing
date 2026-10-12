@@ -162,7 +162,8 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
 
 ## 2. Odměna a moment žádosti o kontakt
 
-- **Odměna:** PDF tahák "VOO, SPY a evropské fondy se stejným indexem: srovnání pro Čechy", 2 až 4 strany čitelné na mobilu:
+- **Odměna:** PDF tahák "VOO, SPY a evropské fondy se stejným indexem: srovnání pro Čechy", 2 až 4 strany čitelné na mobilu.
+  - **Upřesněno 12. 10. 2026 (fáze 2):** 6 stran ve formátu telefonu (378 × 673 px) místo 2 až 4 stran A5. Mobilní prohlížeč PDF zobrazí stranu zhruba 1:1, takže text 14 px je čitelný bez zoomování; strana A5 by se zmenšila asi na dvě třetiny. První strana stojí sama o sobě (srovnání šesti fondů na S&P 500 a náklady v Kč) a slouží jako náhled nad formulářem. Výkonnost v PDF není, u Vanguard US fondů nebyla ověřena druhou kontrolou. Obsah:
   1. tabulka US fondů z NYSE Arca a UCITS fondů se stejným indexem (TER, velikost, akumulace/výplata, registrace v ČR),
   2. co který broker dostupný v ČR umožňuje (US ETF ano/ne/jen CFD), s datem ověření,
   3. jak číst TER a co kalkulačka nepočítá (poplatky brokera, směna měn, daně),
@@ -236,6 +237,7 @@ Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklam
 - Vercel Hobby je podle podmínek Vercelu jen pro nekomerční použití, placená kampaň by potřebovala tarif Pro (viz [vizualni-styl.md](vizualni-styl.md), Stack).
 - Umami uvádí, že nepoužívá cookies a nepotřebuje cookie lištu. Právní posouzení jsme nedělali.
 - Povinný souhlas jako podmínka pro získání PDF je podmíněný souhlas (GDPR čl. 7 odst. 4). Právně neověřeno, před ostrým spuštěním konzultovat s právníkem. Alternativa je popsaná v Rozhodnutí 2.
+- PDF leží veřejně v `public/` (`/srovnani-etf.pdf`): kdo zná odkaz, stáhne ho i bez formuláře. Pro skutečnou kampaň by bylo potřeba podepsaný odkaz s omezenou platností nebo doručení e-mailem.
 - Formulář chrání proti robotům jen skryté pole. Omezení počtu požadavků (rate limiting) ani CAPTCHA nejsou: při skutečné kampani by bylo potřeba doplnit, jinak lze databázi zaplnit falešnými adresami.
 
 ## 8. Hypotézy na A/B test (podklad pro README)
