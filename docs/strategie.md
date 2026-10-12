@@ -178,17 +178,17 @@ Na stránce a v taháku bude věta: "Srovnání slouží pro informaci, nejde o 
 
 - **Srovnává tři položky:**
   1. VOO, US ETF z NYSE Arca, TER 0,03 %,
-  2. UCITS fond se stejným indexem, výchozí VUAA (0,07 %, stejný emitent), volitelně CSPX (0,07 %) nebo SPYL (0,03 %),
+  2. evropské (UCITS) fondy na S&P 500 jako **rozsah 0,03 až 0,07 %**, žádný fond není výchozí ani zvýrazněný; pod řádkem výpis v abecedním pořadí: CSPX 0,07 %, SPYL 0,03 %, VUAA 0,07 % (abecedně, ne podle nákladů, aby nevznikl dojem "vítěze"),
   3. průměrný akciový fond v EU podle ESMA, průběžné náklady 1,38 %.
 - **Vstupy:** měsíční částka (výchozí 2 000 Kč) a počet let (výchozí 20).
 - **Výpočet:** výchozí bez zhodnocení ("i kdyby se peníze vůbec nezhodnotily"), takže výsledek nic neslibuje o výnosech. Volitelný vlastní předpoklad výnosu označený jako hypotetický rozhodneme ve fázi 2.
-- **Ilustrace s výchozími hodnotami:** VOO asi 1 440 Kč, VUAA asi 3 360 Kč, průměrný akciový fond asi 61 170 Kč.
+- **Ilustrace s výchozími hodnotami:** VOO asi 1 440 Kč, evropské fondy na S&P 500 asi 1 440 až 3 360 Kč, průměrný akciový fond asi 61 170 Kč. Z výsledku je vidět, že evropský fond může stát stejně jako VOO; hlavní rozdíl je mezi ETF a běžným fondem.
 - **Text pod výsledkem (povinný):** "Jde jen o roční náklady fondu (TER, průběžné náklady). Nejsou v tom poplatky brokera, směna měn ani daně."
 - **Cesta ke kontaktu:** pod výsledkem "Pošleme vám srovnání všech fondů v PDF" a formulář.
 
 ### b) Přepínač "US ETF z NYSE Arca vs. evropský fond se stejným indexem"
 
-- Dvě karty vedle sebe (např. VOO a VUAA), fakta: TER, velikost, domicil, výplata výnosů a "Koupím ho z ČR?" podle zjištění u brokerů s datem ověření.
+- Dvě karty vedle sebe: VOO a karta "Evropské fondy na S&P 500" se třemi řádky (CSPX, SPYL, VUAA, abecedně). Fakta: TER, velikost, domicil, výplata výnosů a "Koupím ho z ČR?" podle zjištění u brokerů s datem ověření.
 - **Cesta ke kontaktu:** "Celé srovnání 7 fondů z NYSE Arca a 4 evropských v PDF".
 
 ### Vyřazeno

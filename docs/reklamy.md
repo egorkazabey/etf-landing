@@ -36,7 +36,7 @@ Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čí
 
 **Úhel:** návštěvník zná VOO nebo SPY ze sociálních sítí. Ukazujeme mu fakta: kde fond kótuje, jestli ho v ČR koupí, a že na stejný index existuje evropský fond. Nic mu nedoporučujeme, srovnáváme.
 
-**Fakta za reklamou:** VOO a SPY jsou kótované na NYSE Arca. U Fio jdou US ETF koupit (7,95 USD za obchod), DEGIRO je bez KID nenabízí, XTB jen jako CFD. Evropské fondy na S&P 500: SPYL (0,03 %), VUAA a CSPX (0,07 %), všechny registrované v ČR.
+**Fakta za reklamou:** VOO a SPY jsou kótované na NYSE Arca. U Fio jdou US ETF koupit (7,95 USD za obchod), DEGIRO je bez KID nenabízí, XTB jen jako CFD. Evropské fondy na S&P 500: CSPX (0,07 %), SPYL (0,03 %), VUAA (0,07 %), podle stránek emitentů všechny registrované v ČR.
 
 | Prvek | Text |
 |---|---|
@@ -45,12 +45,12 @@ Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čí
 | Popis | Srovnání podle dat emitentů, říjen 2026. |
 | Tlačítko | Learn more (přesný český popisek ověříme v Ads Manageru) |
 
-**Vizuál (koncept):** dvě "karty" fondů vedle sebe jako ve srovnávači: vlevo "VOO, NYSE Arca, USA, TER 0,03 %", vpravo "VUAA, Irsko, TER 0,07 %", obě s indexem "S&P 500". Mezi nimi znak "vs". Dole "Koupíte ho z Česka? Srovnání brokerů uvnitř."
+**Vizuál (koncept):** dvě "karty" fondů vedle sebe jako ve srovnávači: vlevo "VOO, NYSE Arca, USA, TER 0,03 %", vpravo "Evropské fondy na S&P 500, Irsko, TER 0,03 až 0,07 %", obě s indexem "S&P 500". Žádný konkrétní evropský fond se v reklamě nevyzdvihuje. Mezi nimi znak "vs". Dole "Koupíte ho z Česka? Srovnání brokerů uvnitř."
 
 **Navazující první obrazovka (`utm_content=b_srovnani`):**
 - Nadpis: "VOO, SPY a evropské fondy na stejný index vedle sebe"
 - Podnadpis: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů k říjnu 2026."
-- Hned pod tím přepínač karet (VOO vs. VUAA) s řádkem "Koupím ho z ČR?".
+- Hned pod tím přepínač karet (VOO vs. evropské fondy na S&P 500: CSPX, SPYL, VUAA abecedně) s řádkem "Koupím ho z ČR?".
 
 ---
 

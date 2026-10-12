@@ -52,7 +52,7 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Datum a fáze: 12. 10. 2026, fáze 1 (strategie a data)
 - Chyba agenta: v kalkulačce nastavil jako výchozí evropský fond VUAA (TER 0,07 %), přestože ve vlastních datech měl SPYL se stejným TER jako VOO (0,03 %). Výsledek by vyzněl tak, že evropská verze je vždy dražší než americká, a to neplatí. Stejný problém měl koncept vizuálu reklamy B (VOO vs. VUAA). Navíc výběr jednoho konkrétního fondu jako výchozího může působit jako doporučení.
 - Jak jsem ji odhalil: při kontrole čísel druhou instancí Claude (recenzent bez kontextu agenta).
-- Oprava: agent navrhl místo jednoho fondu ukazovat rozsah evropských fondů na S&P 500 (0,03 až 0,07 %, fondy v neutrálním pořadí). Čeká na rozhodnutí uživatele.
+- Oprava: agent navrhl místo jednoho fondu ukazovat rozsah evropských fondů na S&P 500 (0,03 až 0,07 %, fondy v neutrálním pořadí). Uživatel schválil 12. 10. 2026, promítnuto do [strategie.md](strategie.md) a [reklamy.md](reklamy.md).
 
 ### 7. Hodnota z benchmarku označená jako medián bez opory ve zdroji
 - Datum a fáze: 12. 10. 2026, fáze 1 (strategie a data)
