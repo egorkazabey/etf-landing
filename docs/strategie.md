@@ -27,7 +27,7 @@ Všechny zdroje získány **12. 10. 2026**, pokud není uvedeno jinak. Co není 
 | Interactive Brokers | Podle IBKR knowledge base blokuje PRIIPs produkty bez KID pro retail. **NEOVĚŘENO**: stránka vrací HTTP 403, informace jen z výsledků vyhledávání. | [ibkr.info/de/node/3324](https://www.ibkr.info/de/node/3324) |
 | Patria, Revolut, Portu | **NEOVĚŘENO**, nekontrolováno. | |
 
-Licence brokerů v registru ČNB (JERRS) **NEOVĚŘENO**: registr je webová aplikace, kterou nelze načíst bez prohlížeče. K ruční kontrole.
+Licence brokerů v registru ČNB (JERRS) **NEOVĚŘENO**: registr je webová aplikace, kterou nelze načíst bez prohlížeče. Nekontroluje se, do README jako omezení.
 
 ### UCITS ekvivalenty jsou v ČR registrované
 
@@ -83,7 +83,7 @@ Viz [data/etf.csv](../data/etf.csv) a [zdroje-dat.md](zdroje-dat.md). Nejzajíma
 | [XTB](https://www.xtb.com/cz/videokurzy) | videokurzy, e-booky | registrace | e-book o ETF v nabídce nenalezen |
 | Portu | | | **NEOVĚŘENO**: stránka se bez prohlížeče nenačetla |
 
-**Meta Ad Library: NEOVĚŘENO.** Knihovna vrací HTTP 403 (vyžaduje prohlížeč). K ruční kontrole, dotazy:
+**Meta Ad Library: NEOVĚŘENO.** Knihovna vrací HTTP 403 (vyžaduje prohlížeč), nenačetla se ani recenzentovi (druhá instance Claude, 12. 10. 2026). Do README jako omezení. Dotazy pro budoucí kontrolu v prohlížeči:
 - https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=CZ&q=ETF&search_type=keyword_unordered
 - totéž s `q=investování`, `q=Portu`, `q=Fondee`, `q=XTB`, `q=porovnejfondy`
 
@@ -97,7 +97,7 @@ Viz [data/etf.csv](../data/etf.csv) a [zdroje-dat.md](zdroje-dat.md). Nejzajíma
 |---|---|---|
 | všechna odvětví | 6,6 % | medián |
 | finanční služby | 8,3 % | medián |
-| finanční služby, podkategorie investování | 3,9 % | neoznačeno (medián?) |
+| finanční služby, podkategorie investování | 3,9 % | stránka neuvádí, zda jde o medián, nebo průměr |
 | investování, nejlepší stránky | až 20,6 % | |
 | finanční služby, provoz z Facebooku | 10,1 % | medián |
 | finanční služby, provoz z Instagramu | 15,5 % | medián |
@@ -215,7 +215,7 @@ Události k měření (podrobně v `docs/mereni.md` ve fázi 2): zobrazení kalk
 | Varianta | Konverze | Odkud |
 |---|---|---|
 | Pesimistická | 2 % | **Odhad autora (uživatele), ne benchmark.** Pod oběma zdroji, protože měříme jen odeslaný formulář ze studeného mobilního provozu. |
-| Realistická | 3,7 až 3,9 % | Ruler Analytics 2026, finance, placené sociální sítě 3,7 %. Unbounce 2024, podkategorie investování 3,9 %. |
+| Realistická | 3,7 až 3,9 % | Ruler Analytics 2026, finance, placené sociální sítě 3,7 %. Unbounce 2024, podkategorie investování 3,9 % (stránka neuvádí, zda medián, nebo průměr). |
 | Optimistická | 6,3 až 8,3 % | Ruler, finance celkem 6,3 %. Unbounce, medián finančních služeb 8,3 %. |
 
 Omezení: dva zdroje, oba ze zahraničí, s jinou definicí konverze než naše (viz Zjištění 5).
@@ -226,7 +226,8 @@ Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklam
 
 ## 7. Omezení do README (z fáze 1)
 
-- Registr ČNB (JERRS) a pravidla Meta pro finanční reklamy jsme ručně neověřili.
+- Registr ČNB (JERRS), pravidla Meta pro finanční reklamy a Meta Ad Library nejsou ověřené.
+- Kontrolu čísel dělala druhá instance Claude, ne člověk; výkonnost Vanguard US fondů (VOO, VTI, VT, VYM) zůstala neověřená (viz [zdroje-dat.md](zdroje-dat.md)).
 - ESMA neuvádí náklady fondů za ČR zvlášť a KID českého bankovního fondu se nepodařilo získat.
 - Benchmark konverze nemá data za ČR.
 - Doručení e-mailem bez vlastní domény je omezené.

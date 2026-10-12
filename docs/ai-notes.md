@@ -4,7 +4,7 @@ Podklad pro sekci README o tom, jak jsem pracoval s AI: kde se agent spletl, jak
 
 ## Metoda kontroly
 
-Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v chatu, která nevidí kontext agenta: dostane jen výstup a zadání. Námitky obou instancí posuzuji a o úpravách rozhoduji já. Čísla kontroluji ručně proti zdroji (tabulka v [zdroje-dat.md](zdroje-dat.md)).
+Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v chatu, která nevidí kontext agenta: dostane jen výstup a zadání. Námitky obou instancí posuzuji a o úpravách rozhoduji já. Čísla proti zdrojům kontroluje také druhá instance Claude (ne člověk), výsledek je v tabulce v [zdroje-dat.md](zdroje-dat.md).
 
 ## Formát záznamu
 
@@ -47,3 +47,15 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Chyba agenta: v reklamě B navrhl text "Tady je, co koupit místo něj". Je to formulace investičního doporučení, přestože agent sám o pár odstavců dříve citoval stanovisko ČNB RS2018-08 o hranici mezi informací a doporučením. Pravidlo z rešerše nepřenesl do vlastních textů.
 - Jak jsem ji odhalil: při revizi návrhu reklam (s druhou instancí Claude).
 - Oprava: reklama B je přeformulovaná na srovnání ("evropský fond na stejný index"). Do strategie přibylo pravidlo "srovnáváme, nedoporučujeme" s tabulkou zakázaných a povolených formulací. Platí pro stránku, tahák, e-mail i reklamy.
+
+### 6. Výchozí evropský fond v kalkulačce zkresluje srovnání
+- Datum a fáze: 12. 10. 2026, fáze 1 (strategie a data)
+- Chyba agenta: v kalkulačce nastavil jako výchozí evropský fond VUAA (TER 0,07 %), přestože ve vlastních datech měl SPYL se stejným TER jako VOO (0,03 %). Výsledek by vyzněl tak, že evropská verze je vždy dražší než americká, a to neplatí. Stejný problém měl koncept vizuálu reklamy B (VOO vs. VUAA). Navíc výběr jednoho konkrétního fondu jako výchozího může působit jako doporučení.
+- Jak jsem ji odhalil: při kontrole čísel druhou instancí Claude (recenzent bez kontextu agenta).
+- Oprava: agent navrhl místo jednoho fondu ukazovat rozsah evropských fondů na S&P 500 (0,03 až 0,07 %, fondy v neutrálním pořadí). Čeká na rozhodnutí uživatele.
+
+### 7. Hodnota z benchmarku označená jako medián bez opory ve zdroji
+- Datum a fáze: 12. 10. 2026, fáze 1 (strategie a data)
+- Chyba agenta: u Unbounce, podkategorie investování (3,9 %) ve strategii psal "medián?" a v návrhu rozhodnutí ji v chatu nazval mediánem. Stránka Unbounce u této hodnoty neuvádí, zda jde o medián, nebo průměr.
+- Jak jsem ji odhalil: při kontrole zdrojů druhou instancí Claude.
+- Oprava: v [strategie.md](strategie.md) je u hodnoty uvedeno, že zdroj typ statistiky neuvádí.

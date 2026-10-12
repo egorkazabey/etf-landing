@@ -1,12 +1,12 @@
-# Zdroje dat a ruční kontrola
+# Zdroje dat a kontrola čísel
 
-Data ETF jsou v jednom souboru: [data/etf.csv](../data/etf.csv). Tento dokument popisuje, odkud čísla jsou, jak byla získána a kde je na stránce zdroje najdete při ruční kontrole.
+Data ETF jsou v jednom souboru: [data/etf.csv](../data/etf.csv). Tento dokument popisuje, odkud čísla jsou, jak byla získána a kde je na stránce zdroje najdete při kontrole.
 
 ## Jak byla data získána
 
 - Datum získání: **12. 10. 2026** (sloupec `ziskano`).
 - Zdroj: výhradně oficiální stránka fondu u emitenta (iShares/BlackRock, Vanguard, State Street SSGA). Žádné agregátory (justETF, ETF.com, Morningstar) jako zdroj čísel.
-- Postup: stránka stažena přes `curl`, převedena na text a hodnoty přepsány ručně. U Vanguardu jsou data vložená ve stránce jako JSON (stejná čísla, jaká stránka zobrazuje v prohlížeči).
+- Postup: stránka stažena přes `curl`, převedena na text a hodnoty přepsal agent do CSV. U Vanguardu jsou data vložená ve stránce jako JSON (stejná čísla, jaká stránka zobrazuje v prohlížeči).
 - Každá hodnota má vlastní datum "as of" podle zdroje. Emitenti uvádějí různá data pro různá pole (aktiva denně, výkonnost ke konci měsíce, počet pozic ke konci předchozího měsíce).
 
 ## Co znamenají sloupce
@@ -79,21 +79,38 @@ Pro představu, s hypotetickým výnosem 5 % ročně (jen ilustrace, na stránce
 
 Jsou uvedené přímo u jednotlivých zjištění v [strategie.md](strategie.md) s URL a datem získání.
 
-## Ruční kontrola
+## Kontrola čísel
 
-Vyplňuje uživatel: projde hodnotu proti zdroji a zapíše výsledek. Agent pak opraví chyby a zapíše je do [ai-notes.md](ai-notes.md).
+**Kdo a jak:** kontrolu neprováděl člověk, ale **druhá instance Claude v chatu** (recenzent bez kontextu agenta), **12. 10. 2026**, přímo na stránkách emitentů a v původních dokumentech. Výsledek předal uživatel, který rozhodoval o úpravách. Hodnoty označené "neověřeno" recenzent nepotvrdil a stojí jen na sběru agenta.
 
-| Ticker | TER | Aktiva | Výkonnost 1/3/5/10 | Počet pozic | Zkontroloval / datum | Poznámka |
-|---|---|---|---|---|---|---|
-| SPY | | | | | | |
-| IVV | | | | | | |
-| VOO | | | | | | |
-| VTI | | | | | | |
-| VT | | | | | | |
-| VYM | | | | | | |
-| AGG | | | | | | |
-| CSPX | | | (nevyplněno) | | | |
-| VUAA | | | (nevyplněno) | | | |
-| SPYL | | | jen 1 rok | | | |
-| VWCE | | | (nevyplněno) | | | |
-| ESMA 1,38 % | (průběžné náklady, str. 6) | | | | | |
+Legenda: **OK** = sedí přesně, **≈** = sedí řádově (jiné datum zdroje), **neověřeno** = recenzent nekontroloval nebo nemohl načíst.
+
+| Ticker | TER | Burza / listing | Aktiva | Výkonnost 1/3/5/10 | Počet pozic | Registrace ČR | Zdroj kontroly |
+|---|---|---|---|---|---|---|---|
+| SPY | OK | OK | OK | OK | OK | n/a | stránka emitenta |
+| IVV | OK | OK | OK | OK | OK | n/a | stránka emitenta |
+| AGG | OK | OK | OK | OK | OK | n/a | stránka emitenta |
+| VOO | OK (0,03 %) | OK | ≈ | neověřeno | neověřeno | n/a | factsheet Vanguard F0968, stav k 30. 6. 2026 |
+| VTI | OK (0,03 %) | OK | ≈ | neověřeno | neověřeno | n/a | factsheet Vanguard F0970, stav k 30. 6. 2026 |
+| VT | OK (0,06 %) | OK | ≈ | neověřeno | neověřeno | n/a | factsheet Vanguard F3141, stav k 30. 6. 2026 |
+| VYM | OK (0,04 %) | OK | ≈ | neověřeno | neověřeno | n/a | factsheet Vanguard F0923, stav k 30. 6. 2026 |
+| CSPX | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | OK | stránka emitenta |
+| VUAA | OK (0,07 %) | OK | OK | (v CSV není) | neověřeno | neověřeno | stránka emitenta |
+| SPYL | OK (0,03 %) | OK | OK | neověřeno (jen 1 rok) | neověřeno | OK | stránka emitenta |
+| VWCE | OK (0,14 %) | OK | OK | (v CSV není) | neověřeno | neověřeno | stránka emitenta |
+
+ISIN a domicil u všech čtyř UCITS fondů: OK.
+
+**Poznámky ke kontrole**
+- Vanguard US (VOO, VTI, VT, VYM): stránka investor.vanguard.com se recenzentovi bez prohlížeče nenačetla, proto kontrola přes oficiální factsheety na fund-docs.vanguard.com. Aktiva v CSV jsou k 30. 9. 2026, factsheety k 30. 6. 2026, proto jen řádová shoda. Výkonnost těchto čtyř fondů zůstává neověřená recenzentem: na stránce ji použít až po kontrole, nebo jen u SPY a IVV.
+- "n/a" u US fondů: registrace v ČR je v CSV vedená jako NEOVĚŘENO.
+
+**Ostatní zdroje**
+
+| Údaj | Výsledek |
+|---|---|
+| ESMA 2025 (report z 3. 3. 2026), str. 6: akciové fondy bez ETF 1,38 %, akciová ETF 0,22 % | OK |
+| Ruler Analytics (26. 5. 2026): finance 6,3 %, placené sociální sítě 3,7 % | OK |
+| Unbounce 2024: finanční služby 8,3 % (medián) | OK |
+| Unbounce 2024: podkategorie investování 3,9 % | OK, ale stránka **neuvádí, zda jde o medián**. Formulace v [strategie.md](strategie.md) opravena. |
+| Meta Ad Library | **neověřeno**, nenačte se ani recenzentovi. Do README jako omezení. |
