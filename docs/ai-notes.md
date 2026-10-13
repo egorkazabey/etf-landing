@@ -101,3 +101,9 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Chyba agenta: místo pro pevnou lištu držel `padding-bottom` na `body` s bílým pozadím. Když lišta zajela (u formuláře a po odeslání), zůstal pod černou patičkou bílý pruh 68 px. Agent kontroloval jen první obrazovku a formulář, konec stránky ve stavu se skrytou lištou ne. Stránku navíc testoval jen na šířce 375 px, i když ji hodnotitel nejspíš otevře na počítači.
 - Jak jsem ji odhalil: při testu na iPhonu (Safari i prohlížeč v aplikaci). Desktop při úvaze, kdo bude stránku hodnotit.
 - Oprava: místo pro lištu je v odsazení patičky (černé) a `html` má černé pozadí, takže pod patičkou není bílá ani při pružení stránky na iOS. Ověřeno měřením v headless Chrome na 375 × 667 a 390 × 844 ve stavech lišta viditelná, skrytá u formuláře a po odeslání (spodní hrana patičky = spodní hrana okna). Desktop od 1024 px viz [vizualni-styl.md](vizualni-styl.md), sekce 8.
+
+### 15. Neviditelná lišta v pořadí fokusu a pořadí sekcí u B jen v CSS
+- Datum a fáze: 13. 10. 2026, fáze 3 (kontrola přístupnosti); chyby vznikly ve fázi 2
+- Chyba agenta: skrytou lištu jen vysunul transformací z obrazovky, takže odkaz "Chci PDF" zůstal dostupný tabulátorem i čtečce obrazovky. Pořadí sekcí u reklamy B změnil jen vlastností CSS `order`, takže klávesnice a čtečka šly v jiném pořadí, než jaké bylo vidět. Testoval jen dotykové ovládání.
+- Jak jsem ji odhalil: agent sám, při kontrole přístupnosti průchodem tabulátorem (axe-core ani Lighthouse ani jednu chybu nenašly).
+- Oprava: skrytá lišta má po dojetí `visibility: hidden`, u B skript přesune srovnání i v DOM. Detail v [kontrola.md](kontrola.md).
