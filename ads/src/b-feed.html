@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="cs" data-ad="b" data-format="feed">
+<head>
+<meta charset="utf-8">
+<title>Reklama B, feed</title>
+<style>
+  @font-face {
+    font-family: "Archivo";
+    src: url("../../public/fonts/archivo-cs.woff2") format("woff2");
+    font-weight: 400 900;
+    font-stretch: 72% 100%;
+  }
+  :root { --ink: #111111; --paper: #ffffff; --muted: #4a4a4a; --tag: #ffd400; --red: #b3261e; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1440px; height: 1800px; overflow: hidden; }
+  body {
+    font-family: "Archivo", sans-serif; font-variant-numeric: tabular-nums; color: var(--ink); background: var(--paper);
+    line-height: 1.25; position: relative;
+  }
+  /* Obsah jen uvnitř bezpečné zóny */
+  .band {
+    position: absolute; top: 108px; bottom: 108px; left: 86px; right: 86px;
+    padding: 24px 16px; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 40px; }
+  .logo b { background: var(--ink); color: var(--paper); padding: 4px 10px; font-stretch: 75%; font-weight: 900; }
+  .q {
+    font-stretch: 72%; font-weight: 850; font-size: 230px; line-height: .95; letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  /* Hlavní obsah vycentrovaný mezi logem a poznámkou dole */
+  .main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 40px 0; }
+  .ctx { font-size: 54px; font-weight: 700; margin-top: 48px; }
+
+  /* A: dva řádky jako výsledek kalkulačky na stránce */
+  .rows { margin-top: 44px; border-top: 6px solid var(--ink); }
+  .row { padding: 32px 0 34px; border-bottom: 3px solid var(--ink); }
+  .row-top { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+  .name { font-size: 48px; font-weight: 700; line-height: 1.15; }
+  .name small { display: block; font-size: 40px; font-weight: 400; color: var(--muted); margin-top: 8px; }
+  .amount { font-stretch: 75%; font-weight: 850; font-size: 150px; line-height: 1; white-space: nowrap; }
+  .row.big .amount { background: var(--tag); padding: 10px 18px 4px; }
+  .track { height: 36px; margin-top: 26px; position: relative; }
+  .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--ink); min-width: 12px; }
+  .row.big .fill { background: var(--red); }
+
+  /* B: VOO a evropský fond pod sebou, vlevo název, vpravo jen TER */
+  .vs { margin-top: 64px; }
+  .card {
+    border: 6px solid var(--ink); padding: 36px 44px;
+    display: flex; justify-content: space-between; align-items: center; gap: 40px;
+  }
+  .fund { font-stretch: 72%; font-weight: 850; font-size: 150px; line-height: .95; }
+  .fund.eu { font-size: 84px; line-height: 1; max-width: 560px; }
+  .ter { font-stretch: 75%; font-weight: 850; font-size: 120px; line-height: 1; text-align: right; white-space: nowrap; }
+  .ter small { display: block; font-stretch: 100%; font-weight: 700; font-size: 40px; color: var(--muted); margin-bottom: 10px; }
+  .vs-mark { text-align: center; font-stretch: 72%; font-weight: 850; font-size: 72px; line-height: 1; padding: 20px 0; }
+
+  .foot { margin-top: auto; font-size: 30px; line-height: 1.35; color: var(--muted); }
+  .foot .disc { color: var(--ink); font-weight: 700; margin-top: 10px; }
+
+  /* Kontrolní vrstva: bezpečné zóny Mety (jen v ads/kontrola/) */
+  .zone { position: absolute; background: rgba(179, 38, 30, .28); }
+  .zone-label { position: absolute; font: 700 32px/1 sans-serif; color: #fff; background: var(--red); padding: 6px 10px; }
+</style>
+</head>
+<body>
+<div class="band">
+  <p class="logo"><b>ETF</b>v korunách</p>
+  
+  <div class="main">
+  <h1 class="q">Koupíte VOO z&nbsp;Česka?</h1>
+  <div class="vs">
+    <div class="card"><p class="fund">VOO</p><p class="ter"><small>TER</small>0,03 %</p></div>
+    <p class="vs-mark">vs</p>
+    <div class="card"><p class="fund eu">Evropský fond na stejný index</p><p class="ter"><small>TER</small>0,03 až 0,07 %</p></div>
+  </div>
+  </div>
+  <div class="foot">
+    <p>TER = roční náklady fondu. Index S&amp;P&nbsp;500. Zdroj: emitenti fondů, 12. 10. 2026.</p>
+    <p class="disc">Nejde o investiční doporučení.</p>
+  </div>
+</div>
+
+<script>
+  // Pro build: přetéká obsah z bezpečné zóny? Snímek neovlivní.
+  document.fonts.ready.then(() => {
+    const b = document.querySelector(".band");
+    document.body.setAttribute("data-overflow", b.scrollHeight > b.clientHeight + 1 || b.scrollWidth > b.clientWidth + 1 ? "yes" : "none");
+  });
+</script>
+</body>
+</html>

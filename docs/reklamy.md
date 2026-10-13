@@ -1,9 +1,9 @@
 # Reklamy (Instagram a Facebook, mobil)
 
-Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čísla mají zdroj v [strategie.md](strategie.md) a [zdroje-dat.md](zdroje-dat.md).
+Dvě verze s jiným úhlem. Vizuály a podklady pro Ads Manager jsou v [ads/](../ads/README.md) (fáze 3, 13. 10. 2026). Všechna čísla mají zdroj v [strategie.md](strategie.md) a [zdroje-dat.md](zdroje-dat.md).
 
 **Společná pravidla**
-- Formáty: Feed 4:5 (1080 × 1350) a Stories/Reels 9:16 (1080 × 1920). Rozměry jsou pracovní, při tvorbě vizuálů je ověříme v dokumentaci Meta.
+- Formáty podle Meta Ads Guide (ověřeno 13. 10. 2026): Feed 4:5 (1440 × 1800) a Stories/Reels 9:16 (1440 × 2560, volné asi 14 % nahoře, 35 % dole a 6 % po stranách). Zdroje v [ads/README.md](../ads/README.md).
 - Texty srovnávají a nic nedoporučují (pravidlo v [strategie.md](strategie.md), sekce Rozhodnutí).
 - Žádné sliby výnosu. Čísla v korunách počítáme **bez zhodnocení**, jsou to jen náklady fondu.
 - Odkaz na stránku obsahuje `utm_source=meta&utm_medium=paid_social&utm_campaign=etf_srovnani&utm_content=a_naklady` (nebo `b_srovnani`). Podle `utm_content` se přepne text v hlavičce stránky.
@@ -23,7 +23,7 @@ Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čí
 | Popis | Kalkulačka nákladů fondů. Zdarma, bez registrace. |
 | Tlačítko | Learn more (přesný český popisek ověříme v Ads Manageru) |
 
-**Vizuál (koncept):** dvě čísla pod sebou přes celou plochu: "1 400 Kč" (malý sloupec) a "61 000 Kč" (vysoký sloupec), nad nimi "2 000 Kč měsíčně, 20 let, jen náklady fondu". Dole drobně "ETF na S&P 500, TER 0,03 % / průměrný akciový fond v EU, 1,38 % (ESMA 2026). Bez poplatků brokera a daní." Žádné grafy růstu ani fotky lidí s mobilem.
+**Vizuál (hotový, [ads/a-feed-4x5.png](../ads/a-feed-4x5.png)):** změna proti konceptu schválená 13. 10. 2026: nahoře velká otázka "Kolik vás stojí samotný fond?" jako háček, protože ve Feedu člověk vidí nejdřív obrázek a text reklamy často nečte. Pod ní "2 000 Kč měsíčně, 20 let, i bez zhodnocení" a dva řádky jako výsledek kalkulačky na stránce. Původní koncept: dvě čísla pod sebou přes celou plochu: "1 400 Kč" (malý sloupec) a "61 000 Kč" (vysoký sloupec), nad nimi "2 000 Kč měsíčně, 20 let, jen náklady fondu". Dole drobně "ETF na S&P 500, TER 0,03 % / průměrný akciový fond v EU, 1,38 % (ESMA 2026). Bez poplatků brokera a daní." Žádné grafy růstu ani fotky lidí s mobilem.
 
 **Navazující první obrazovka (`utm_content=a_naklady`):**
 - Nadpis: "Kolik vás za 20 let stojí samotný fond?"
@@ -45,7 +45,7 @@ Dvě verze s jiným úhlem. Vizuály vzniknou ve fázi 3 (`ads/`). Všechna čí
 | Popis | Srovnání podle dat emitentů, říjen 2026. |
 | Tlačítko | Learn more (přesný český popisek ověříme v Ads Manageru) |
 
-**Vizuál (koncept):** dvě "karty" fondů vedle sebe jako ve srovnávači: vlevo "VOO, NYSE Arca, USA, TER 0,03 %", vpravo "Evropské fondy na S&P 500, Irsko, TER 0,03 až 0,07 %", obě s indexem "S&P 500". Žádný konkrétní evropský fond se v reklamě nevyzdvihuje. Mezi nimi znak "vs". Dole "Koupíte ho z Česka? Srovnání brokerů uvnitř."
+**Vizuál (hotový, [ads/b-feed-4x5.png](../ads/b-feed-4x5.png)):** změna proti konceptu schválená 13. 10. 2026: dvě karty se čtyřmi řádky byly na Feed moc hutné. Nahoře velká otázka "Koupíte VOO z Česka?", pod ní VOO a "evropský fond na stejný index" jen s TER. Odpověď na otázku je na stránce (řádek "Koupím ho z Česka?"). Původní koncept: dvě "karty" fondů vedle sebe jako ve srovnávači: vlevo "VOO, NYSE Arca, USA, TER 0,03 %", vpravo "Evropské fondy na S&P 500, Irsko, TER 0,03 až 0,07 %", obě s indexem "S&P 500". Žádný konkrétní evropský fond se v reklamě nevyzdvihuje. Mezi nimi znak "vs". Dole "Koupíte ho z Česka? Srovnání brokerů uvnitř."
 
 **Navazující první obrazovka (`utm_content=b_srovnani`):**
 - Nadpis: "VOO vedle evropského fondu na stejný index", doslova titulek reklamy (změna schválená 12. 10. 2026). Původní "VOO, SPY a evropské fondy na stejný index vedle sebe" měl na mobilu 4 řádky.
@@ -61,4 +61,4 @@ Použije se verze reklamy A. Kalkulačka je hlavní prvek stránky a funguje i p
 ## Otevřené body
 
 - Pravidla Meta pro finanční reklamy jsme neověřili (omezení do README). Před spuštěním je potřeba projít [Financial and Insurance Products and Services](https://transparency.meta.com/policies/ad-standards/restricted-goods-services/financial-services/).
-- Formáty a bezpečné zóny ověříme při tvorbě vizuálů ve fázi 3.
+- Formáty a bezpečné zóny ověřeny 13. 10. 2026 (viz [ads/README.md](../ads/README.md)). Titulek B má 42 znaků, Meta doporučuje do 40.

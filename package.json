@@ -7,7 +7,8 @@
     "check": "node scripts/check.mjs",
     "dev": "node --env-file-if-exists=.env scripts/dev-server.mjs",
     "db:migrate": "node --env-file-if-exists=.env scripts/db-migrate.mjs",
-    "pdf": "node scripts/build-pdf.mjs"
+    "pdf": "node scripts/build-pdf.mjs",
+    "ads": "node scripts/build-ads.mjs"
   },
   "engines": {
     "node": ">=22"

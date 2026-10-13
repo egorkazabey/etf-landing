@@ -68,6 +68,18 @@ if (!pagesHtml.length || !pagesHtml[0].includes(disclaimer) || !pagesHtml.at(-1)
   fail(`PDF: "${disclaimer}" musí být na první i poslední straně`);
 }
 
+// 2d. Vizuály reklam: zdroj odpovídá datům a PNG jsou vyfocené z aktuálního zdroje
+const ads = await import("./build-ads.mjs");
+let adCount = 0;
+for (const ad of ads.ADS) for (const [format, F] of Object.entries(ads.FORMATS)) {
+  const src = ads.SRC_DIR + `${ad}-${format}.html`;
+  if (!existsSync(src) || readFileSync(src, "utf8") !== ads.renderAd(ad, format)) fail(`ads/src/${ad}-${format}.html neodpovídá datům, spusťte npm run ads`);
+  if (!existsSync(root + `ads/${ad}-${F.file}.png`)) fail(`chybí ads/${ad}-${F.file}.png, spusťte npm run ads`);
+  if (!ads.renderAd(ad, format).includes("Nejde o investiční doporučení")) fail(`reklama ${ad} ${format}: chybí "Nejde o investiční doporučení"`);
+  adCount++;
+}
+if (!existsSync(ads.SHA_PATH) || readFileSync(ads.SHA_PATH, "utf8").trim() !== ads.sha256(ads.allSources())) fail("PNG reklam nejsou vyfocené z aktuálních ads/src/*.html, spusťte npm run ads");
+
 // 3. Dlouhé pomlčky (U+2013, U+2014)
 function files(dir, exts) {
   if (!existsSync(dir)) return [];
@@ -83,7 +95,8 @@ const textFiles = [
   ...files("public", [".html", ".js"]),
   ...files("reward", [".html"]),
   ...files("api", [".js"]),
-  ...files("design", [".html"])
+  ...files("design", [".html"]),
+  ...files("ads", [".html", ".md"])
 ].filter(f => existsSync(root + f));
 for (const f of textFiles) {
   readFileSync(root + f, "utf8").split("\n").forEach((line, i) => {
@@ -95,4 +108,4 @@ if (errors.length) {
   console.error("CHYBY:\n- " + errors.join("\n- "));
   process.exit(1);
 }
-console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, PDF aktuální (${pagesHtml.length} stran), ${textFiles.length} souborů bez dlouhých pomlček`);
+console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, PDF aktuální (${pagesHtml.length} stran), ${adCount} vizuály reklam aktuální, ${textFiles.length} souborů bez dlouhých pomlček`);
