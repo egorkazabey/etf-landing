@@ -1,0 +1,130 @@
+# ETF v korunách
+
+Landing page pro českého drobného investora, který přijde z reklamy na Instagramu: kalkulačka nákladů fondu a srovnání ETF z NYSE Arca s evropskými fondy na stejný index. Za e-mail dostane PDF srovnání 11 fondů.
+
+- **Stránka:** https://etf-landing-sigma.vercel.app/ (reklama A je výchozí, verze B: [`?utm_content=b_srovnani`](https://etf-landing-sigma.vercel.app/?utm_content=b_srovnani))
+- **Reklamy:** [ads/README.md](ads/README.md) (texty, odkazy s UTM, vizuály pro Feed a Stories)
+- **Odměna:** [srovnani-etf.pdf](public/srovnani-etf.pdf) (6 stran ve formátu telefonu)
+
+## Dala by se zítra pustit reklama?
+
+**Ano, po dvou formálních krocích (asi 2 h).** Právní kontrola povinného souhlasu je riziko, které by před ostrým spuštěním měl posoudit právník.
+
+Celá cesta funguje a je změřená: reklama → první obrazovka podle reklamy → formulář → kontakt v databázi → PDF. Prošel jsem ji na iPhonu v Safari i v prohlížeči Instagramu.
+
+| Chybí | Kdy | Odhad času |
+|---|---|---|
+| Tarif Vercel Pro (Hobby je podle Vercelu jen pro nekomerční použití) | formální krok před spuštěním | 15 min |
+| Projít pravidla Meta pro finanční reklamy | formální krok před spuštěním | 1 až 2 h, schválení Metou neodhadnu |
+| Právní posouzení povinného souhlasu jako podmínky pro PDF (GDPR čl. 7 odst. 4) a měření bez cookie lišty | riziko, posoudit před ostrým spuštěním | 1 až 3 dny podle právníka |
+| Meta Pixel s cookie lištou, aby kampaň mohla optimalizovat na leady | před škálováním | 4 h |
+| Ochrana formuláře proti robotům (rate limiting, CAPTCHA) | před škálováním | 2 h |
+| PDF mimo veřejnou adresu (podepsaný odkaz nebo e-mail) | před škálováním | 3 h |
+| Test na Androidu | doporučeno před spuštěním | 30 min |
+
+Odhady času jsou moje, ne měření.
+
+![Stránka A a B na mobilu a obě reklamy](docs/img/prehled.png)
+
+Další screenshoty (formulář, stav po odeslání, desktop) jsou v [docs/img/](docs/img/).
+
+## Pro koho, co dostane a kdy žádáme kontakt
+
+**Cílová skupina:** rozhodnutý začátečník, 25 až 40 let. Chce investovat do ETF nebo má první investiční aplikaci, zná S&P 500 a na sítích vídá VOO a SPY. Neví, jestli je z Česka koupí, který fond na stejný index vybrat a kolik ho stojí náklady.
+
+**Odměna:** PDF se srovnáním 11 fondů (7 z NYSE Arca, 4 evropské), co umožňují brokeři v ČR a jak číst TER. Stáhne se hned po odeslání.
+
+**Kdy žádáme:** až když hodnotu vidí. Výsledek kalkulačky (A) nebo srovnání (B) je na první obrazovce bez jakékoli akce. Pevná lišta "Chci PDF" vede k formuláři, nad kterým je náhled první strany PDF. Formulář má jen e-mail a souhlas.
+
+Podrobně: [docs/strategie.md](docs/strategie.md), Rozhodnutí 1 a 2.
+
+## Pořadí sekcí
+
+1. **To, co slíbila reklama.** A: kalkulačka s předvyplněnými 2 000 Kč a 20 lety, tedy čísla z reklamy. B: VOO vedle evropského fondu s odpovědí, u kterého brokera ho koupíte. Hodnota bez jediného klepnutí.
+2. **Druhý prvek z jiného úhlu.** A dostane srovnání, B kalkulačku. Kdo nereagoval na první, má další důvod.
+3. **Odměna a formulář.** Až za oběma prvky, protože hodnotu už návštěvník viděl. Lišta sem vede odkudkoli.
+4. **Jak počítáme a odkud jsou čísla.** Sbalené, pro ty, kdo chtějí ověřit.
+5. **Patička:** nejde o doporučení, správce údajů.
+
+Pořadí 1 a 2 přepíná `utm_content` ještě před vykreslením. Na desktopu (od 1024 px) je nadpis vlevo a obsah vpravo, formulář vedle náhledu PDF.
+
+## Očekávaná konverze
+
+Konverze = odeslaný formulář (`lead_saved`) / návštěvníci.
+
+| Varianta | Konverze | Zdroj |
+|---|---|---|
+| Pesimistická | 2 % | můj odhad: měříme jen formulář ze studeného mobilního provozu |
+| **Realistická** | **3,7 až 3,9 %** | [Ruler Analytics 2026](https://www.ruleranalytics.com/blog/insight/conversion-rate-by-industry/): finance, placené sociální sítě 3,7 %. [Unbounce 2024](https://unbounce.com/conversion-benchmark-report/finance-insurance-conversion-rate/): investování 3,9 % |
+| Optimistická | 6,3 až 8,3 % | Ruler: finance celkem 6,3 %. Unbounce: medián finančních služeb 8,3 % |
+
+Oba zdroje jsou zahraniční a počítají konverzi jinak než my (Unbounce i kliky, Ruler kvalifikované leady). Data za ČR ani za lead magnety ve financích jsem nenašel.
+
+## Tři hypotézy na A/B test
+
+Seřazené podle očekávaného dopadu. Pořadí je můj odhad, ne měření.
+
+| # | Hypotéza | A | B | Měříme |
+|---|---|---|---|---|
+| 1 | Doručení odměny mění konverzi i kvalitu kontaktů nejvíc | PDF hned po odeslání | PDF jen e-mailem | konverze; podíl platných adres |
+| 2 | Povinný souhlas brzdí formulář | souhlas je podmínka pro PDF | PDF dostane každý, e-mail se uloží jen se souhlasem | konverze; `form_error` s důvodem `consent` |
+| 3 | Lišta od načtení předbíhá zájem | lišta od načtení | lišta až po první interakci | `cta_click`; konverze |
+
+Proč toto pořadí: 1 a 2 mění samotnou výměnu (co a kdy návštěvník dostane, co musí odsouhlasit). 3 mění jen viditelnost výzvy.
+
+## Jak jsem pracoval s AI
+
+**Pokyny agentovi** jsou v [CLAUDE.md](CLAUDE.md): před každým větším krokem plán a čekat na schválení, po každém kroku commit a push, žádné číslo bez zdroje a data, chyby agenta zapisovat, vizuální styl nejdřív ke schválení, tajné údaje nikdy nevypisovat, na konci fáze export konverzace.
+
+**Kontrola výstupu:**
+- Prompty a revize jsem připravoval v chatu s druhou instancí Claude, která neviděla kontext agenta. Dostala jen výstup a zadání. Rozhodnutí jsou moje.
+- `npm run check` hlídá, že čísla na stránce, v PDF a v reklamách odpovídají datům a dokumentaci.
+- Agent dokládal výsledky screenshoty z headless Chrome. Celý funnel jsem prošel na iPhonu.
+
+**Nejdůležitější chyby agenta** (všech 16 v [docs/ai-notes.md](docs/ai-notes.md)):
+
+| Chyba | Jak se odhalila |
+|---|---|
+| Předpoklad z paměti, že US ETF z Česka koupit nejde. Pro klienty Fio nepravda. | plán ji označil jako hypotézu, průzkum ji vyvrátil |
+| Kalkulačka postavená na rozdílu VOO a SPY, v korunách asi 3 100 Kč za 20 let, tedy skoro nic | revize s druhou instancí |
+| Text reklamy B "co koupit místo něj" je investiční doporučení | revize s druhou instancí |
+| Výchozí evropský fond s vyšším TER: evropská verze by vždy vyšla dražší | kontrola čísel druhou instancí |
+| Bílý pruh pod patičkou po skrytí lišty, stránka laděná jen na mobil | můj test na iPhonu |
+| Skrytá lišta šla vybrat tabulátorem, u B neodpovídalo pořadí fokusu obrazovce | agent sám, průchodem klávesnicí (Lighthouse ani axe to nenašly) |
+| **Opačný směr:** agent odmítl formulaci recenzenta "v mnoha aplikacích ne", protože ověření jsou jen tři brokeři | agent při kontrole proti datům |
+
+Exporty konverzací jsou v [ai-log/](ai-log/).
+
+## Rozhodnutí u nejasností v zadání
+
+- **NYSE = NYSE Arca.** Všechny známé ETF (SPY, IVV, VOO, VTI, VT) se primárně obchodují na NYSE Arca, burze skupiny NYSE. Na stránce to píšu přesně.
+- **Evropské fondy vedle amerických.** Většina brokerů v ČR americká ETF neprodá (chybí KID podle PRIIPs). Srovnání jen US fondů by českému investorovi nepomohlo. Evropské fondy jsou jasně označené jako fondy mimo NYSE.
+- **PDF hned, ne e-mailem.** Bez vlastní domény e-mail spolehlivě nedoručím a okamžitá hodnota je silnější. E-mail je hypotéza 1.
+- **Bez cookie lišty.** Umami podle sebe cookies nepoužívá. Lišta by zabrala první obrazovku. Proto zatím bez Meta Pixelu.
+- **Nic nedoporučujeme.** Stránka, PDF i reklamy jen srovnávají (ČNB, RS2018-08). Evropské fondy jsou abecedně jako rozsah, žádný z nich není výchozí.
+
+## Co chybí a omezení
+
+K věcem z verdiktu nahoře:
+- Čísla proti zdrojům kontrolovala druhá instance Claude, ne člověk. Výkonnost fondů Vanguard proto na stránce není.
+- Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.
+- E-mail se neověřuje, adresa může být falešná.
+- Jeden e-mail = jeden řádek v databázi. Reklama se přiřazuje podle prvního odeslání.
+- Testováno na jednom iPhonu. Android a starší prohlížeče netestované.
+- Meta Ad Library a registr ČNB jsem neprocházel.
+
+Celý seznam: [docs/strategie.md](docs/strategie.md), sekce 7.
+
+---
+
+### Podrobnosti
+
+<sub>**Data a zdroje.** Náklady a velikost fondů ze stránek emitentů, průměrný fond v EU podle ESMA, brokeři z jejich nápovědy, vše k 12. 10. 2026. Ruční kontrola každého čísla a omezení dat: [docs/zdroje-dat.md](docs/zdroje-dat.md).</sub>
+
+<sub>**Měření.** Umami Cloud bez cookies, 12 eventů od příchodu po otevření PDF, tag `ad-a` / `ad-b`, 4 funnely. Tracking plán, návod na funnely a výsledek testu na iPhonu: [docs/mereni.md](docs/mereni.md).</sub>
+
+<sub>**Rychlost a přístupnost.** Lighthouse na produkci 99 až 100 (mobil i desktop), přenos 134 kB, axe-core bez porušení. Postup a opravy: [docs/kontrola.md](docs/kontrola.md).</sub>
+
+<sub>**Spuštění lokálně.** Node 22+, `npm install`, `DATABASE_URL` v `.env` (vzor v [.env.example](.env.example)), `npm run dev`. Dál `npm run check` (kontrola dat a textů), `npm run pdf`, `npm run ads`.</sub>
+
+<sub>**Struktura.** `public/` stránka a PDF, `api/lead.js` uložení kontaktu, `data/` zdrojová data, `ads/` reklamy, `reward/` zdroj PDF, `scripts/` build a kontroly, `docs/` podklady, `ai-log/` exporty konverzací.</sub>

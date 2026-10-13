@@ -242,12 +242,13 @@ Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklam
 
 ## 8. Hypotézy na A/B test (podklad pro README)
 
-Sbíráno průběžně, pořadí podle očekávaného dopadu se určí v README.
+Sbíráno průběžně. Pořadí podle očekávaného dopadu je v README (koncept 13. 10. 2026).
 
 | Hypotéza | Varianta A | Varianta B | Co měříme | Zapsáno |
 |---|---|---|---|---|
 | Doručení odměny | okamžité stažení PDF po odeslání (vyšší konverze, víc falešných adres) | PDF jen e-mailem (ověřený kontakt, nižší konverze) | konverze na odeslání; podíl platných adres | 12. 10. 2026 |
 | Kdy ukázat lištu s výzvou | lišta od načtení | lišta až po první interakci (změna vstupu, přepnutí fondu, scroll) | konverze na odeslání; klik na lištu | 12. 10. 2026 |
+| Povinný souhlas | souhlas je podmínka pro PDF | PDF dostane každý, e-mail se uloží jen se souhlasem (alternativa z Rozhodnutí 2) | konverze; `form_error` s důvodem `consent` | 13. 10. 2026 |
 - Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.
 
 ## 9. Pořadí sekcí na stránce (podklad pro README)

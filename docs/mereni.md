@@ -169,6 +169,6 @@ Zapsat: číslo průchodu, co neprošlo, screenshot první obrazovky. Čas testu
 - Řádků s `utm_source=test`: **0**, smazáno nic.
 - Tabulka má 1 řádek (id 17): vznikl 13. 10. 2026 ve 21:02 bez `utm_*` (zřejmě dřívější test z adresy bez parametrů), teď má 3 odeslání, poslední ve 22:17.
 - Vysvětlení: testovací odeslání použila stejný e-mail jako tento řádek. E-mail je v tabulce unikátní, opakované odeslání jen zvýší `submissions` a přepíše `ad` a kalkulačku, `utm_*` zůstává z prvního odeslání. Proto řádek nemá `utm_source=test` a průchody se v databázi nedají rozlišit.
-- Řádek 17 je testovací, ale pravidlo úklidu (`utm_source=test`) ho nezachytí; smaže se po potvrzení uživatele.
+- Úklid (13. 10. 2026, po potvrzení uživatele): smazán řádek 17 a řádek 20 (další test z 22:23, také bez `utm_*`). Před mazáním 2 řádky, po něm 0, tabulka `leads` je prázdná.
 
 **Poučení pro vyhodnocení kampaně:** počet kontaktů z databáze je počet unikátních e-mailů, ne počet odeslání. Opakovaná odeslání jsou ve sloupci `submissions`. Atribuce k reklamě (`utm_*`) je podle prvního odeslání; `ad` podle posledního.
