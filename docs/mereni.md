@@ -149,6 +149,26 @@ Zapsat: číslo průchodu, co neprošlo, screenshot první obrazovky. Čas testu
 - **Neon:** skript spočítá řádky s `utm_source = 'test'` podle `ad` a `utm_content` (očekáváno 2× `a`, 2× `b`). `DATABASE_URL` čte jen z prostředí, nic tajného nevypisuje, e-maily nevypisuje.
 - **Úklid:** smazání řádků s `utm_source = 'test'` a kontrola, že žádný jiný řádek nezmizel (počet před a po).
 
-### Výsledek
+### Výsledek (13. 10. 2026)
 
-Doplní se po testu.
+**Telefon (uživatel, iPhone, 4 průchody: Safari A a B, prohlížeč Instagramu A a B):**
+
+| Bod | Výsledek |
+|---|---|
+| První obrazovka | A i B nad lištou i v prohlížeči Instagramu; jeho horní lišta ubere místo, výsledek kalkulačky je pořád vidět |
+| Kalkulačka, přepínač VOO / SPY / IVV, lišta | funguje |
+| Chybové hlášky, odeslání, "Hotovo" | funguje |
+| PDF | otevře se v Safari i v prohlížeči Instagramu, všech 6 stran jde listovat |
+| Konec stránky | pod patičkou už není bílý pruh (oprava z 13. 10. 2026) |
+| VoiceOver | prošel bez problémů |
+| Nalezená chyba | v PDF na straně 4 citace DEGIRO jen anglicky ("can generally not offer"); opraveno na český překlad s originálem v závorce, PDF přegenerováno |
+
+**Umami (uživatel):** dorazilo všech 11 typů eventů, které měl test vyvolat, včetně `form_error`, `lead_saved` a `pdf_open`. Dvanáctý event z plánu, `lead_error`, při testu nevznikl, protože žádné uložení neselhalo.
+
+**Neon (agent, `npm run test-leads`):** výsledek neodpovídá očekávání (4 řádky s `utm_source=test`).
+- Řádků s `utm_source=test`: **0**, smazáno nic.
+- Tabulka má 1 řádek (id 17): vznikl 13. 10. 2026 ve 21:02 bez `utm_*` (zřejmě dřívější test z adresy bez parametrů), teď má 3 odeslání, poslední ve 22:17.
+- Vysvětlení: testovací odeslání použila stejný e-mail jako tento řádek. E-mail je v tabulce unikátní, opakované odeslání jen zvýší `submissions` a přepíše `ad` a kalkulačku, `utm_*` zůstává z prvního odeslání. Proto řádek nemá `utm_source=test` a průchody se v databázi nedají rozlišit.
+- Řádek 17 je testovací, ale pravidlo úklidu (`utm_source=test`) ho nezachytí; smaže se po potvrzení uživatele.
+
+**Poučení pro vyhodnocení kampaně:** počet kontaktů z databáze je počet unikátních e-mailů, ne počet odeslání. Opakovaná odeslání jsou ve sloupci `submissions`. Atribuce k reklamě (`utm_*`) je podle prvního odeslání; `ad` podle posledního.

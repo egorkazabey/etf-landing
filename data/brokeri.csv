@@ -1,6 +1,6 @@
 broker,us_etf,us_etf_kratce,overeno,doklad,poplatek_us,ziskano,zdroj_url
 Fio banka (e-Broker),ano,ano,ano,"""U nás můžete obchodovat i s americkými ETF."" Zároveň: ""Fio banka svým klientům ani dalším osobám nenabízí žádné ETF.""","7,95 USD za obchod do 100 ks, 9,95 USD nad 100 ks (Ceník základních služeb, soubor změněn 3. 7. 2026)",2026-10-12,https://www.fio.cz/akcie-investice/etf
-DEGIRO,ne,ne,ano,"ETF bez KID v místním jazyce ""can generally not offer"". Existující pozice lze držet a prodat.",,2026-10-12,https://www.degiro.cz/helpdesk/trading-possibilities/impact-new-priips-regulation
+DEGIRO,ne,ne,ano,"ETF bez KID v místním jazyce obecně nemůže nabízet (v originále ""can generally not offer""). Existující pozice lze držet a prodat.",,2026-10-12,https://www.degiro.cz/helpdesk/trading-possibilities/impact-new-priips-regulation
 XTB,jen CFD,jen CFD,ano,"Jen jako CFD (derivát), ne skutečný fond: ""Obchodujte CFD na IEF.US"".",,2026-10-12,https://www.xtb.com/cz/etf-cfd/ief-us
 Trading 212,ne (neověřeno),ne,ne,"Jen odpovědi na komunitním fóru, ne oficiální nápověda.",,2026-10-12,https://community.trading212.com/t/why-no-us-listed-us-index-etfs-etps/55400
 Interactive Brokers,ne (neověřeno),ne,ne,"Stránka vrací HTTP 403, jen výsledky vyhledávání.",,2026-10-12,https://www.ibkr.info/de/node/3324

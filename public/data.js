@@ -267,7 +267,7 @@ export const BROKERS = [
     "broker": "DEGIRO",
     "usEtf": "ne",
     "verified": true,
-    "evidence": "ETF bez KID v místním jazyce \"can generally not offer\". Existující pozice lze držet a prodat.",
+    "evidence": "ETF bez KID v místním jazyce obecně nemůže nabízet (v originále \"can generally not offer\"). Existující pozice lze držet a prodat.",
     "feeUs": "",
     "sourceUrl": "https://www.degiro.cz/helpdesk/trading-possibilities/impact-new-priips-regulation",
     "retrieved": "2026-10-12"
