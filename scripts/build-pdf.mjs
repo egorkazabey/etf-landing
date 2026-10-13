@@ -4,7 +4,7 @@
 // npm run pdf
 //   1. vygeneruje reward/tahak.html (HTML zdroj PDF, v gitu, kontroluje ho npm run check)
 //   2. headless Chrome z něj vytiskne public/srovnani-etf.pdf
-//   3. vyfotí první stranu jako náhled nad formulářem: public/odmena-nahled.png
+//   3. vyfotí první stranu jako náhled nad formulářem: public/odmena-nahled.png a .webp
 //   4. zapíše otisk HTML do reward/tahak.sha256, aby check poznal neaktuální PDF
 // Chrome: proměnná CHROME, jinak výchozí cesta na macOS.
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -19,6 +19,7 @@ export const HTML_PATH = root + "reward/tahak.html";
 export const SHA_PATH = root + "reward/tahak.sha256";
 const PDF_PATH = root + "public/srovnani-etf.pdf";
 const PREVIEW_PATH = root + "public/odmena-nahled.png";
+const PREVIEW_WEBP_PATH = root + "public/odmena-nahled.webp";
 const PAGES = 6;
 // Rozměr strany jako displej telefonu: v mobilním prohlížeči PDF zhruba 1:1, čitelné bez zoomování
 const PAGE_W = 378, PAGE_H = 673;
@@ -274,7 +275,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(1);
   }
   execFileSync(chrome, [...common, "--no-pdf-header-footer", "--print-to-pdf=" + PDF_PATH, url], { stdio: "ignore" });
-  execFileSync(chrome, [...common, `--window-size=${PAGE_W},${PAGE_H}`, "--force-device-scale-factor=2", "--screenshot=" + PREVIEW_PATH, url], { stdio: "ignore" });
+  // Náhled ve WebP (asi polovina velikosti PNG) a v PNG pro prohlížeče bez WebP; formát podle přípony
+  for (const path of [PREVIEW_PATH, PREVIEW_WEBP_PATH])
+    execFileSync(chrome, [...common, `--window-size=${PAGE_W},${PAGE_H}`, "--force-device-scale-factor=2", "--screenshot=" + path, url], { stdio: "ignore" });
   writeFileSync(SHA_PATH, sha256(html) + "\n");
-  console.log("reward/tahak.html, public/srovnani-etf.pdf, public/odmena-nahled.png vygenerováno");
+  console.log("reward/tahak.html, public/srovnani-etf.pdf, public/odmena-nahled.png a .webp vygenerováno");
 }

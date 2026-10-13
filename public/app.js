@@ -11,6 +11,10 @@ const fund = t => FUNDS.find(f => f.ticker === t);
 // ---------- Měření ----------
 // Umami, tracking plán v docs/mereni.md. Nikdy neposílat e-mail ani jiné osobní údaje.
 const AD = document.documentElement.dataset.ad;
+
+// U reklamy B je srovnání nahoře. CSS (order) ho tam ukáže hned při vykreslení, tady se přesune
+// i v DOM, aby pořadí pro klávesnici a čtečku obrazovky odpovídalo tomu, co je vidět.
+if (AD === "b") $("#kalkulacka").before($("#srovnani"));
 function track(name, data = {}) {
   const payload = { ad: AD, ...data };
   if (window.__trackDebug) window.__trackDebug.push([name, payload]); // jen pro lokální testy

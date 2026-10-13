@@ -61,7 +61,7 @@ const { renderTahak, sha256, HTML_PATH, SHA_PATH } = await import("./build-pdf.m
 const tahak = existsSync(HTML_PATH) ? readFileSync(HTML_PATH, "utf8") : "";
 if (tahak !== renderTahak()) fail("reward/tahak.html neodpovídá datům, spusťte npm run pdf");
 else if (!existsSync(SHA_PATH) || readFileSync(SHA_PATH, "utf8").trim() !== sha256(tahak)) fail("PDF není vytištěné z aktuálního reward/tahak.html, spusťte npm run pdf");
-for (const f of ["public/srovnani-etf.pdf", "public/odmena-nahled.png"]) if (!existsSync(root + f)) fail(`chybí ${f}, spusťte npm run pdf`);
+for (const f of ["public/srovnani-etf.pdf", "public/odmena-nahled.png", "public/odmena-nahled.webp"]) if (!existsSync(root + f)) fail(`chybí ${f}, spusťte npm run pdf`);
 const pagesHtml = tahak.split('<section class="page">').slice(1);
 const disclaimer = "nejde o investiční doporučení";
 if (!pagesHtml.length || !pagesHtml[0].includes(disclaimer) || !pagesHtml.at(-1).includes(disclaimer)) {

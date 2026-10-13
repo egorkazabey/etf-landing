@@ -10,7 +10,7 @@ const root = fileURLToPath(new URL("../public", import.meta.url));
 const port = Number(process.env.PORT) || 8765;
 const types = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css",
-  ".woff2": "font/woff2", ".pdf": "application/pdf", ".png": "image/png", ".svg": "image/svg+xml", ".txt": "text/plain; charset=utf-8"
+  ".woff2": "font/woff2", ".pdf": "application/pdf", ".png": "image/png", ".webp": "image/webp", ".svg": "image/svg+xml", ".txt": "text/plain; charset=utf-8"
 };
 
 createServer(async (req, res) => {
