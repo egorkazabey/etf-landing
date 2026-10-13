@@ -49,7 +49,24 @@ Umami funnel: kroky jsou adresa nebo event, musí jít v pořadí, mezi nimi mů
 | **Srovnání** | `/` → `fund_switch` → `form_view` → `lead_saved` | 60 min |
 | **Lišta** | `/` → `cta_click` → `form_start` → `lead_saved` | 60 min |
 
-Každý funnel zvlášť pro tag `ad-a` a `ad-b`. **Neověřeno:** zda jde funnel v Umami filtrovat podle tagu. Ověří se při nastavení ve fázi 3; když ne, rozdělí se podle vlastnosti `ad` v přehledu eventů.
+### Návod na nastavení v Umami Cloud
+
+Podle dokumentace Umami, ověřeno 13. 10. 2026 ([Funnel](https://docs.umami.is/docs/funnel), [Filters](https://docs.umami.is/docs/filters), [Tags](https://docs.umami.is/docs/tags)). Nastavuje uživatel, agent se do Umami nepřihlašuje.
+
+1. Umami Cloud → web *etf-landing-sigma.vercel.app* → sekce **Analysis** → **Funnel** → **Add funnel**.
+2. Název podle tabulky výše, **Window** 60 (minut mezi dvěma po sobě jdoucími kroky).
+3. Kroky přidávat tlačítkem **Add** v pořadí z tabulky:
+   - první krok typu **Viewed page**, hodnota `/` (adresa bez `utm_*`; Umami ukládá cestu a query zvlášť, viz Filters: "Path, Query"),
+   - ostatní kroky typu **Triggered event**, hodnota přesně podle názvu eventu (např. `form_view`).
+4. **Save** a spustit. Totéž pro všechny 4 funnely.
+5. **Rozdělení na A a B:** filtr **Tag** je `ad-a`, pak `ad-b`. Filtr nastavený na přehledu webu podle dokumentace platí "to all screens and reports"; mezi filtry je v sekci Other i "Tag".
+6. **Bez testovacích návštěv:** filtr **UTM Source** je *Is not* `test` a **Hostname** je `etf-landing-sigma.vercel.app` (vyřadí i jedno zobrazení z `etf.test` z 12. 10. 2026).
+
+**Ověří se v rozhraní** (dokumentace funnelu filtry výslovně nezmiňuje):
+- jestli se filtr Tag a UTM Source opravdu použije i na funnel. Kontrola: funnel s filtrem `ad-a` a s filtrem `ad-b` musí dát v prvním kroku různé počty, dohromady zhruba počet bez filtru,
+- jestli krok `/` zachytí i návštěvy s `?utm_...` v adrese.
+
+**Záloha, když funnel filtr nepřevezme:** rozdělení A a B podle vlastnosti `ad` u eventů (stránka Events, filtr Event properties), konverze = `lead_saved` s `ad=a` / `ad=b` vůči zobrazením s tagem `ad-a` / `ad-b` na přehledu.
 
 ## Ukazatele
 
@@ -90,4 +107,48 @@ Headless Chrome 375 × 667 přímo proti produkci, požadavky do Umami opět zac
 
 ## Kontrola funnelu na produkci (fáze 3)
 
-Doplní se: proklikání na skutečném telefonu z odkazů reklamy A i B, kontrola eventů v Umami, kontrola řádku v Neonu, smazání testovacích kontaktů.
+Postup schválený 13. 10. 2026. Testuje uživatel na iPhonu, výsledek zapíše agent (sekce Výsledek níže). Testovací kontakty s `utm_source=test` agent po testu smaže (potvrzeno předem).
+
+### Odkazy
+
+Stejné jako v reklamě, jen `utm_source=test`, aby šly testovací návštěvy vyfiltrovat v Umami i v databázi.
+
+- A: `https://etf-landing-sigma.vercel.app/?utm_source=test&utm_medium=paid_social&utm_campaign=etf_srovnani&utm_content=a_naklady`
+- B: `https://etf-landing-sigma.vercel.app/?utm_source=test&utm_medium=paid_social&utm_campaign=etf_srovnani&utm_content=b_srovnani`
+
+**Prohlížeč v Instagramu:** odkaz poslat sám sobě v Instagram DM (nebo z druhého účtu) a otevřít z konverzace, otevře se ve vestavěném prohlížeči.
+
+**E-maily:** pro každý průchod jiná adresa (např. `vase.jmeno+etf-a-safari@...`, `+etf-b-instagram`). Databáze má e-mail unikátní: druhé odeslání stejné adresy jen zvýší počítadlo a ponechá `ad` a `utm_*` z prvního odeslání.
+
+### Průchody
+
+| # | Prohlížeč | Odkaz |
+|---|---|---|
+| 1 | Safari | A |
+| 2 | Safari | B |
+| 3 | Instagram | A |
+| 4 | Instagram | B |
+
+### Co ověřit v každém průchodu
+
+1. **První obrazovka** (screenshot hned po načtení): nadpis a výsledek kalkulačky (A) nebo srovnání s podnadpisem a poznámkou (B) jsou nad lištou. Ze screenshotu z Instagramu zjistíme, kolik výšky ubere jeho prohlížeč.
+2. **Rychlost:** na mobilních datech (vypnutá Wi-Fi) je obsah vidět do zhruba 2 s. Stačí pocit, případně stopky.
+3. **Prvek:** A: změnit částku nebo roky, čísla i nadpis se přepočítají. B: přepnout SPY a IVV.
+4. **Lišta:** klepnout "Chci PDF", stránka sjede k formuláři, lišta zmizí.
+5. **Chyby:** odeslat prázdný formulář: obě hlášky (e-mail, souhlas), bez přiblížení stránky při klepnutí do pole.
+6. **Odeslání:** e-mail podle pravidla výše a souhlas, "Stáhnout PDF": potvrzení "Hotovo, PDF je vaše."
+7. **PDF:** "Otevřít PDF" otevře 6 stran, čitelné bez zoomování.
+8. **Konec stránky:** dojet až dolů, pod černou patičkou není bílý pruh (ani při přetažení).
+9. **Jen v průchodu 2, VoiceOver** (Nastavení → Zpřístupnění → VoiceOver, nebo trojklik bočního tlačítka, pokud je nastavený): rotor Nadpisy přečte nadpisy sekcí; pole přečte "Váš e-mail"; po prázdném odeslání přečte chybu; lišta se ohlásí jako "Stažení PDF".
+
+Zapsat: číslo průchodu, co neprošlo, screenshot první obrazovky. Čas testu (stačí přibližně) pomůže najít návštěvy v Umami.
+
+### Co pak zkontroluje agent
+
+- **Umami** (screenshot nebo export od uživatele, filtr UTM Source = `test`): 4 návštěvy, u každé eventy v pořadí zobrazení → (`calc_change` / `fund_switch`) → `cta_click` → `form_view` → `form_error` → `form_start` → `form_submit` → `lead_saved` → `pdf_open`; správný tag `ad-a` / `ad-b`; žádný e-mail v datech.
+- **Neon:** skript spočítá řádky s `utm_source = 'test'` podle `ad` a `utm_content` (očekáváno 2× `a`, 2× `b`). `DATABASE_URL` čte jen z prostředí, nic tajného nevypisuje, e-maily nevypisuje.
+- **Úklid:** smazání řádků s `utm_source = 'test'` a kontrola, že žádný jiný řádek nezmizel (počet před a po).
+
+### Výsledek
+
+Doplní se po testu.

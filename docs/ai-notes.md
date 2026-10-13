@@ -107,3 +107,10 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 - Chyba agenta: skrytou lištu jen vysunul transformací z obrazovky, takže odkaz "Chci PDF" zůstal dostupný tabulátorem i čtečce obrazovky. Pořadí sekcí u reklamy B změnil jen vlastností CSS `order`, takže klávesnice a čtečka šly v jiném pořadí, než jaké bylo vidět. Testoval jen dotykové ovládání.
 - Jak jsem ji odhalil: agent sám, při kontrole přístupnosti průchodem tabulátorem (axe-core ani Lighthouse ani jednu chybu nenašly).
 - Oprava: skrytá lišta má po dojetí `visibility: hidden`, u B skript přesune srovnání i v DOM. Detail v [kontrola.md](kontrola.md).
+
+### 16. Agent odmítl formulaci recenzenta, která tvrdila víc, než je ověřené (kontrola oběma směry)
+- Datum a fáze: 13. 10. 2026, fáze 3 (vizuály reklam a návaznost stránky B)
+- Situace: recenzent (druhá instance Claude) navrhl do podnadpisu B odpověď na otázku z reklamy "Koupíte VOO z Česka?" ve znění "U některých brokerů ano (Fio), v mnoha aplikacích ne."
+- Co agent udělal: formulaci nepřevzal. V [data/brokeri.csv](../data/brokeri.csv) jsou ověření jen tři brokeři (Fio ano, DEGIRO ne, XTB jen CFD); Trading 212 a Interactive Brokers mají "neověřeno". "V mnoha aplikacích ne" by bylo tvrzení bez zdroje, v rozporu s pravidlem 3 (žádná čísla a tvrzení bez zdroje).
+- Výsledek: podnadpis "U Fio ano, u DEGIRO ne, u XTB jen jako CFD. Vedle něj evropský fond na stejný index." se skládá z ověřených řádků dat a hlídá ho `npm run check`. Schváleno jako přesnější.
+- Poučení pro README: kontrola funguje oběma směry. Agent ověřuje i návrhy recenzenta proti datům, ne jen recenzent agenta.
