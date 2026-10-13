@@ -129,8 +129,10 @@ function goToForm(event) {
   track("cta_click", { where: event.currentTarget.dataset.cta });
   // Celý formulář dole na obrazovce, nad ním spodek náhledu PDF. Bez automatického fokusu:
   // klávesnice by na mobilu zakryla náhled a na iOS se po zpoždění stejně spolehlivě neotevře.
-  const target = leadDone ? $("#done") : $("#lead");
-  target.scrollIntoView({ block: "end", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  // Když se celá sekce vejde do okna (desktop), posunout na její začátek: formulář i celý náhled vedle sebe.
+  const fits = reward.offsetHeight <= innerHeight;
+  const target = fits ? reward : leadDone ? $("#done") : $("#lead");
+  target.scrollIntoView({ block: fits ? "start" : "end", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
 document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener("click", goToForm));
 

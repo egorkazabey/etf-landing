@@ -73,7 +73,7 @@ Výsledek: 13 záznamů v tomto pořadí: zobrazení stránky, `fund_switch` (SP
 
 Co test odhalil a co se opravilo:
 - Event pro první sekci (vidět hned po načtení) odešel dřív než zobrazení stránky. Funnel vyžaduje pořadí, proto se měří jen dočtení druhé sekce.
-- Lišta posouvala na začátek sekce s odměnou a dávala fokus do pole e-mailu bez posunu. Od přidání náhledu PDF (krok 4) bylo pole mimo obrazovku a `form_view` přišel až po `form_start`. Lišta teď posune tak, aby byl vidět celý formulář a nad ním spodek náhledu, bez automatického fokusu.
+- Lišta posouvala na začátek sekce s odměnou a dávala fokus do pole e-mailu bez posunu. Od přidání náhledu PDF (krok 4) bylo pole mimo obrazovku a `form_view` přišel až po `form_start`. Lišta teď posune tak, aby byl vidět celý formulář a nad ním spodek náhledu, bez automatického fokusu. Na desktopu (13. 10. 2026), kde se celá sekce vejde do okna, posune na začátek sekce: formulář vedle celého náhledu. Pořadí `cta_click`, `form_view`, `form_start` ověřeno na 1440 × 900 pro A i B.
 - Při ladění testu odešlo do skutečného Umami **jedno zobrazení stránky z hostitele `etf.test`** (12. 10. 2026 kolem 23:05), než test zachytával správnou adresu `gateway.umami.is`. Při vyhodnocení ho vyfiltrovat podle hostitele. Od nasazení je měření omezené atributem `data-domains` na produkční doménu.
 
 ## Ověření na produkci (12. 10. 2026, automaticky)

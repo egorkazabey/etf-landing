@@ -143,3 +143,22 @@ Zdroje ověřeny **12. 10. 2026**.
 5. **Meta Pixel ve fázi 2 ne.** Do README: skutečná kampaň optimalizovaná na leady ho potřebuje, spolu s cookie lištou. Doplní se ve čtvrtek, pokud zbude čas.
 
 **Opravy náhledu z revize:** registrace v ČR ověřena i u VUAA; obrazovka B má kratší nadpis a poznámka je vidět nad lištou; lišta s výzvou od načtení je sjednocená se strategií (viz [strategie.md](strategie.md), Rozhodnutí 2). Chyby agenta jsou v [ai-notes.md](ai-notes.md), záznamy 8 a 9.
+
+## 8. Desktop a tablet (13. 10. 2026, fáze 3)
+
+Reklama míří na mobil, ale hodnotitel stránku nejspíš otevře na počítači. Schváleno 13. 10. 2026.
+
+| Šířka okna | Rozložení |
+|---|---|
+| do 1023 px (mobil, tablet, úzké okno) | beze změny: jedna kolonka max. 480 px, vycentrovaná. Ověřeno na 768 px. |
+| od 1024 px | obsah max. 1120 px. Každá sekce ve dvou sloupcích 5 : 7, nadpis vlevo a obsah vpravo, jako štítek a hodnota ve spotřebitelském testu. |
+
+Na desktopu (od 1024 px):
+- **První obrazovka A:** nadpis vlevo, vstupy, výsledek kalkulačky a poznámka vpravo, celé bez scrollování na 1440 × 900.
+- **První obrazovka B:** nadpis, podnadpis a přepínač VOO / SPY / IVV vlevo, tabulka srovnání a poznámka "nejde o doporučení" vpravo.
+- **Odměna:** nadpis, obsah PDF a formulář vlevo, náhled 1. strany vpravo. Lišta posune na začátek sekce, pokud se celá vejde do okna (formulář i celý náhled vedle sebe); jinak jako na mobilu na formulář.
+- **Metodika:** nadpis "Jak počítáme a odkud jsou čísla" je vidět (na mobilu jen pro čtečky obrazovky).
+- **Lišta** zůstává, ale jen v šířce obsahu. Chová se stejně jako na mobilu, takže eventy a funnely jsou pro mobil i desktop stejné.
+- Nadpis první sekce roste s oknem (44 až 58 px), aby nadpis B měl na 1024 px tři řádky, ne čtyři.
+
+Technicky jeden blok `@media (min-width: 1024px)` v CSS; HTML se nezměnilo. Mobilní první obrazovka 375 × 667 je po změně pixelově shodná s předchozí verzí (A i B, porovnání screenshotů).
