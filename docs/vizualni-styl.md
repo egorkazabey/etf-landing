@@ -108,7 +108,7 @@ Shora dolů:
 Shora dolů:
 1. Hlavička jako u A.
 2. Titulek doslova podle titulku reklamy B: "VOO vedle evropského fondu na stejný index" (2 řádky; původní "VOO, SPY a evropské fondy na stejný index vedle sebe" měl 4 řádky a obrazovka byla na pár vteřin moc hutná).
-3. Podnadpis: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů." (datum je v hlavičce, proto bez "k říjnu 2026").
+3. Podnadpis: "U Fio ano, u DEGIRO ne, u XTB jen jako CFD. Vedle něj evropský fond na stejný index." (změna schválená 13. 10. 2026: obrázek B se ptá "Koupíte VOO z Česka?" a první obrazovka na to má hned odpovědět. Jen ověření brokeři z [data/brokeri.csv](../data/brokeri.csv), text se skládá z dat a hlídá ho `npm run check`. Předtím: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů.") Na 375 × 667 má pořád 2 řádky, poznámka zůstává nad lištou.
 4. Přepínač amerického fondu: VOO / SPY / IVV.
 5. Srovnání ve dvou sloupcích (vybraný US fond vs. evropské fondy CSPX, SPYL, VUAA): index, roční náklady (TER), velikost (u VOO a evropských fondů s drobným "jen třída ETF/Acc" přímo pod číslem, bez hvězdičky), "Koupím ho z Česka?" (US: Fio ano, DEGIRO ne, XTB jen CFD; evropské: registrované v ČR podle emitentů, ověřeno u všech tří, viz [zdroje-dat.md](zdroje-dat.md)).
 6. Poznámka nad lištou: "Srovnání slouží pro informaci, nejde o doporučení."

@@ -48,7 +48,10 @@ const expected = {
   'data-f="eu-ter"': pct(euLo).replace(" %", "") + " až " + pct(euHi),
   'data-f="size"': fmt(fund("VOO").assetsUsd / 1e9) + " mld. USD",
   'data-f="eu-size"': fmt(szLo / 1e9) + " až " + fmt(szHi / 1e9) + " mld. USD",
-  'data-f="brokers"': BROKERS.filter(b => b.verified).map(b => b.broker.split(" ")[0] + " " + b.usEtf).join(", ")
+  'data-f="brokers"': BROKERS.filter(b => b.verified).map(b => b.broker.split(" ")[0] + " " + b.usEtf).join(", "),
+  'data-f="brokers-sub"': BROKERS.filter(b => b.verified)
+    .map(b => "u " + b.broker.split(" ")[0] + " " + (b.usEtf === "jen CFD" ? "jen jako CFD" : b.usEtf)).join(", ")
+    .replace(/^u/, "U") + "."
 };
 for (const [attr, want] of Object.entries(expected)) {
   const m = html.match(new RegExp(attr + "[^>]*>([^<]*)"));

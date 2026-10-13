@@ -49,7 +49,7 @@ Dvě verze s jiným úhlem. Vizuály a podklady pro Ads Manager jsou v [ads/](..
 
 **Navazující první obrazovka (`utm_content=b_srovnani`):**
 - Nadpis: "VOO vedle evropského fondu na stejný index", doslova titulek reklamy (změna schválená 12. 10. 2026). Původní "VOO, SPY a evropské fondy na stejný index vedle sebe" měl na mobilu 4 řádky.
-- Podnadpis: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů." (změna schválená 12. 10. 2026: datum dat je v hlavičce stránky, proto bez "k říjnu 2026").
+- Podnadpis: "U Fio ano, u DEGIRO ne, u XTB jen jako CFD. Vedle něj evropský fond na stejný index." (změna schválená 13. 10. 2026: obrázek B se ptá "Koupíte VOO z Česka?" a první obrazovka na to má hned odpovědět. Jen ověření brokeři z [data/brokeri.csv](../data/brokeri.csv), text se skládá z dat a hlídá ho `npm run check`. Předtím: "Náklady, velikost a kde je v Česku koupíte. Data od emitentů.")
 - Hned pod tím přepínač amerického fondu (VOO / SPY / IVV) a srovnání s evropskými fondy na S&P 500 (CSPX, SPYL, VUAA abecedně) včetně řádku "Koupím ho z Česka?".
 
 ---

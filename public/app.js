@@ -96,6 +96,10 @@ renderCalc();
 const mld = usd => fmt(usd / 1e9) + " mld. USD";
 const classNote = f => (f.assetsLevel === "fond" ? "" : "<small>jen třída ETF</small>");
 const brokersLine = BROKERS.filter(b => b.verified).map(b => b.broker.split(" ")[0] + " " + b.usEtf).join(", ");
+// Podnadpis B odpovídá na otázku z reklamy ("Koupíte VOO z Česka?"), jen ověření brokeři
+const brokersSub = BROKERS.filter(b => b.verified)
+  .map(b => "u " + b.broker.split(" ")[0] + " " + (b.usEtf === "jen CFD" ? "jen jako CFD" : b.usEtf)).join(", ")
+  .replace(/^u/, "U") + ".";
 const euSize = [Math.min(...EU.map(f => f.assetsUsd)), Math.max(...EU.map(f => f.assetsUsd))];
 
 function renderFund(ticker) {
@@ -115,6 +119,7 @@ document.querySelectorAll("[data-fund]").forEach(btn =>
 $('[data-f="eu-ter"]').textContent = pct(euTer[0]).replace("\u00a0%", "") + " až " + pct(euTer[1]);
 $('[data-f="eu-size"]').innerHTML = fmt(euSize[0] / 1e9) + " až " + mld(euSize[1]) + "<small>jen třídy Acc</small>";
 $('[data-f="brokers"]').textContent = brokersLine;
+$('[data-f="brokers-sub"]').textContent = brokersSub;
 renderFund("VOO");
 
 // ---------- Lišta s výzvou ----------
