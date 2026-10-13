@@ -1,0 +1,1549 @@
+▗ ▗   ▖ ▖  Claude Code v2.1.296
+           Opus 5.5 · Claude Pro
+ ▘▘   ▝▝   ~/etf-landing
+
+  Get to finished work sooner with Opus 5.5. Switch anytime with /model.
+
+❯ /clear                                                                        
+
+❯ /plan Přečti CLAUDE.md a docs/. Produkce běží na                              
+  https://etf-landing-sigma.vercel.app/. Jsme ve fázi 3. Začneme dvěma opravami 
+  z mého testu na iPhonu (Safari i prohlížeč v aplikaci):                       
+                                                                                
+  1. Bílý pruh pod patičkou: když se lišta skryje (u formuláře a po odeslání),  
+  zůstane pod černou patičkou bílé místo, nejspíš rezerva pro lištu             
+  (padding-bottom). Oprav to tak, aby pod patičkou nikdy nebylo bílé místo, ať  
+  je lišta vidět nebo ne. Ověř na 375 × 667 i 390 × 844 ve všech stavech: lišta 
+  viditelná, skrytá u formuláře, po odeslání.                                   
+  2. Desktop: reklama jde na mobil, ale hodnotitel stránku nejspíš otevře na    
+  počítači. Navrhni rozložení od 1024 px: obsah nesmí být roztažený přes celou  
+  šířku, první obrazovka má na desktopu ukázat nadpis a kalkulačku (u B         
+  srovnání) vedle sebe nebo v rozumně široké kolonce, formulář vedle náhledu    
+  PDF, lišta jen tak široká jako obsah nebo na desktopu vůbec ne. Mobilní verzi 
+  neměň. Ukaž mi plán a screenshoty 1440 × 900 pro A i B, teprve potom commit.  
+                                                                                
+  Pak pokračuj plánem fáze 3: rychlost a přístupnost, vizuály reklam v ads/,    
+  návod na funnely v Umami, koncept README.                                     
+
+  Read 1 file, listed 3 directories, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Čtu kód a připravuji si headless Chrome, abych udělal screenshoty současného
+  stavu před návrhem plánu.
+
+  Searched for 1 pattern, read 2 files, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Současný stav jsem změřil na produkci v headless Chrome. Pod patičkou je
+  opravdu bílý pruh 68 px, tedy body { padding-bottom: var(--bar-h) }
+  (public/index.html:65). Na desktopu je teď jedna kolonka 480 px uprostřed a
+  černá lišta přes celou šířku. Než začnu, potřebuji schválit tento plán.
+
+  Oprava 1: bílý pruh pod patičkou
+
+  Příčina: místo pro lištu drží body s bílým pozadím. Když lišta zajede, pruh
+  zůstane prázdný.
+
+  Oprava (jen CSS):
+  - Z body odstraním padding-bottom a místo pro lištu přidám do spodního
+    odsazení patičky. Pod lištou tak vždy bude černá patička. Text patičky
+    zůstane nad lištou a po jejím skrytí bude patička jen o kousek vyšší.
+  - html dostane černé pozadí, body bílé. Při přetažení stránky na konci
+    (pružení v iOS) bude pod patičkou černá. Nahoře bude při přetažení taky
+    černá, ale to sedí s theme-color #111111, který už stránka používá.
+
+  Ověření: na 375 × 667 a 390 × 844 ve třech stavech:
+  1. lišta je vidět (konec stránky před odesláním),
+  2. lišta je skrytá u formuláře,
+  3. po odeslání.
+
+  Odpověď /api/lead v testu podvrhnu, takže se do Neonu nic nezapíše, a
+  požadavky do Umami zablokuji. Pro každý stav změřím, že spodní hrana patičky
+  je na spodní hraně okna a pixel pod ní je černý, a uložím screenshot. Na
+  skutečném iPhonu to potom ověříte vy, headless Chrome pružení ani panel
+  Instagramu nenasimuluje.
+
+  Oprava 2: desktop od 1024 px
+
+  Mobil ani tablet do 1023 px se nemění. Všechno je v jednom bloku @media 
+  (min-width: 1024px), HTML ani JS se nemění.
+
+  ┌──────────────────────── 1120 px ────────────────────────┐
+  │ ETF v korunách                       data k 12. 10. 2026 │
+  ├──────────────────────────────────────────────────────────┤
+  │ Kolik vás za 20 let     │ [2 000 Kč]  [20 let]           │  A: nadpis vlevo,
+  │ stojí samotný fond?     │ VOO ............... 1 443 Kč   │  kalkulačka 
+  vpravo
+  │ (asi 56 px)             │ Evropské ..... 1 443 až 3 359  │  (B: nadpis + 
+  podnadpis
+  │ poznámka: bez zhodnocení│ Průměrný fond .... 61 171 Kč   │  vlevo, 
+  VOO/SPY/IVV +
+  │                         │                                │  tabulka vpravo)
+  ├─────────────────────────┼────────────────────────────────┤
+  │ druhá sekce, stejná mřížka: nadpis vlevo, obsah vpravo   │
+  ├─────────────────────────┼────────────────────────────────┤
+  │ Celé srovnání v PDF     │                                │
+  │ obsah 1 až 6            │   [náhled 1. strany PDF]       │
+  │ [e-mail] [souhlas]      │                                │
+  │ [Stáhnout PDF]          │                                │
+  ├─────────────────────────┼────────────────────────────────┤
+  │ Jak počítáme…           │ + Jak kalkulačka počítá  …     │
+  └──────────────────────────────────────────────────────────┘
+        ┌─ lišta jen v šířce obsahu (1120 px) ─┐
+
+  - Mřížka: obsah má nejvýš 1120 px, sekce mají dva sloupce (asi 5:7): nadpis
+    vlevo, obsah vpravo. Vzniká z toho rytmus „štítek | hodnota“ jako ve
+    spotřebitelském testu, v duchu schválené Cenovky.
+  - První obrazovka 1440 × 900:
+    - A: nadpis a celá kalkulačka vedle sebe.
+    - B: nadpis, podnadpis a poznámka „nejde o doporučení“ vlevo, přepínač a
+      tabulka vpravo.
+  - Formulář vedle náhledu PDF. Skok z lišty k formuláři zůstane funkční.
+    Ověřím, že form_view přijde před form_start.
+  - Metodika: na desktopu bude vidět nadpis „Jak počítáme a odkud jsou čísla“,
+    který je teď jen pro čtečky obrazovky.
+  - Lišta: doporučuji ji ponechat, jen v šířce obsahu. Výzva zůstane po celé
+    stránce a chová se stejně jako na mobilu (zmizí u formuláře a po odeslání).
+    Eventy i funnely se nemění a data z mobilu a desktopu jdou porovnat. Druhá
+    možnost je lištu na desktopu skrýt a dát tlačítko do levého sloupce první
+    obrazovky. Pak ale výzva po odscrollování zmizí a v měření přibude nová
+    hodnota cta_click where: hero.
+
+  Postup: implementace, screenshoty 1440 × 900 pro A i B (horní obrazovka a celá
+  stránka) a k tomu mobil 375 × 667 před a po, abych doložil, že se mobil
+  nezměnil. Ukážu vám je a commit udělám až po vašem schválení.
+
+  Zbytek fáze 3 (podrobný plán vždy před každým krokem)
+
+  1. Rychlost a přístupnost: Lighthouse (mobil) proti produkci pro A i B,
+     axe-core, průchod klávesnicí, kontrola kontrastu nových prvků. Nálezy
+     opravím a zapíšu.
+  2. Vizuály reklam v ads/: HTML ve stylu Cenovky podle konceptů v
+     docs/reklamy.md, převedené na PNG 1080 × 1350 a 1080 × 1920 pro A i B.
+     Formáty a bezpečné zóny nejdřív ověřím v dokumentaci Meta a čísla vezmu z
+     dat.
+  3. Návod na funnely v Umami: postup krok za krokem do docs/mereni.md.
+     Nastavíte je sami, já se do Umami nepřihlašuji. Při tom ověříme, jestli jde
+     funnel filtrovat podle tagu ad-a / ad-b.
+  4. Proklikání funnelu na iPhonu: připravím odkazy s utm_source=test a
+     checklist. Potom ověřím eventy v Umami (podle vašeho exportu nebo
+     screenshotu) a řádek v Neonu (jen počty, žádné tajné údaje), testovací
+     kontakty smažu a zapíšu to do docs/mereni.md.
+  5. Koncept README podle checklistu v CLAUDE.md.
+  6. Export ai-log/03-kontrola.txt.
+
+  Schvalujete opravy 1 a 2? A má na desktopu zůstat lišta v šířce obsahu
+  (doporučuji), nebo ji skrýt a dát tlačítko do první obrazovky?
+
+✻ Cooked for 2m 13s · done 9:09 PM
+
+❯ Schvaluji opravy 1 a 2. Lišta na desktopu zůstane v šířce obsahu, jak         
+  doporučuješ.                                                                  
+  Ověř navíc šířku 768 px (tablet, úzké okno prohlížeče): mobilní kolonka nesmí 
+  být roztažená přes celou šířku, max. kolem 560 px a vycentrovaná.             
+  Pošli screenshoty 1440 × 900 (A a B, horní obrazovka) a 375 × 667 před a po,  
+  pak commit.                                                                   
+
+⏺ Píšu opravu 1 a desktopové rozložení.
+
+⏺ Update(public/index.html)
+  ⎿  Added 2 lines, removed 2 lines
+      55      --bar-h: 68px;
+      56    }
+      57    * { box-sizing: border-box; margin: 0; padding: 0; }
+      58 -  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 12
+         -px; }                                                          
+      58 +  /* Černé html: při pružení na konci stránky (iOS) je pod pati
+         +čkou černá, ne bílá */                                         
+      59 +  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 12
+         +px; background: var(--ink); }                                  
+      60    body {
+      61      font-family: "Archivo", system-ui, -apple-system, "Segoe UI
+          ", sans-serif;
+      62      font-variant-numeric: tabular-nums;
+      63      color: var(--ink);
+      64      background: var(--paper);
+      65      line-height: 1.4;
+      65 -    padding-bottom: var(--bar-h);                              
+      66    }
+      67    a { color: inherit; }
+      68    :focus-visible { outline: 3px solid var(--ink); outline-offse
+          t: 2px; box-shadow: 0 0 0 6px var(--tag); }
+
+⏺ Update(public/index.html)
+  ⎿  Added 2 lines, removed 1 line
+      189    details li + li { margin-top: 4px; }
+      190    #metodika { border-bottom: 0; }
+      191  
+      192 -  footer { padding: 18px 16px 28px; background: var(--ink); co
+          -lor: var(--paper); font-size: 13px; line-height: 1.5; }       
+      192 +  /* Místo pro lištu drží patička (černá), ne body: po skrytí 
+          +lišty pod patičkou nezůstane bílý pruh */                     
+      193 +  footer { padding: 18px 16px calc(28px + var(--bar-h)); backg
+          +round: var(--ink); color: var(--paper); font-size: 13px; line-
+          +height: 1.5; }                                                
+      194    footer p + p { margin-top: 8px; }
+      195    footer .disclaimer { font-weight: 700; font-size: 14px; }
+      196  
+
+⏺ Update(public/index.html)
+  ⎿  Added 68 lines
+      209    }
+      210    .bar.off { transform: translateY(110%); }
+      211    @media (prefers-reduced-motion: reduce) { .bar, .fill { tran
+           sition: none; } }
+      212 +                                                              
+      213 +  /* Desktop od 1024 px: obsah 1120 px, sekce ve dvou sloupcíc
+          +h (nadpis vlevo, obsah vpravo).                               
+      214 +     Mobil a tablet beze změny. Poslední řádek mřížky 1fr pohl
+          +tí výšku dlouhého sloupce,                                    
+      215 +     aby se položky v kratším sloupci neroztahovaly. */       
+      216 +  @media (min-width: 1024px) {                                
+      217 +    .wrap { max-width: 1184px; }                              
+      218 +    .top { height: 56px; padding: 0 32px; }                   
+      219 +    .logo { font-size: 18px; }                                
+      220 +    .asof { font-size: 14px; }                                
+      221 +                                                              
+      222 +    section {                                                 
+      223 +      display: grid; grid-template-columns: 5fr 7fr; column-ga
+          +p: 64px; align-items: start;                                  
+      224 +      padding: 40px 32px 48px;                                
+      225 +    }                                                         
+      226 +    section > * { grid-column: 2; }                           
+      227 +    .title { font-size: 40px; }                               
+      228 +    [data-ad="a"] #kalkulacka .title, [data-ad="b"] #srovnani 
+          +.title { font-size: 58px; }                                   
+      229 +    .sub { font-size: 17px; margin-top: 12px; }               
+      230 +    .note { font-size: 13px; }                                
+      231 +                                                              
+      232 +    /* Kalkulačka: nadpis vlevo, vstupy, výsledek a poznámka v
+          +pravo */                                                      
+      233 +    #kalkulacka { grid-template-rows: auto auto auto 1fr; }   
+      234 +    #kalkulacka .title { grid-column: 1; grid-row: 1 / -1; }  
+      235 +    .inputs { margin-top: 0; }                                
+      236 +    .field .val { font-size: 26px; }                          
+      237 +    .name { font-size: 16px; }                                
+      238 +    .name small { font-size: 13px; }                          
+      239 +    .amount { font-size: 32px; }                              
+      240 +    .row { padding: 12px 0 13px; }                            
+      241 +    .track { height: 10px; margin-top: 9px; }                 
+      242 +                                                              
+      243 +    /* Srovnání: nadpis, podnadpis a přepínač vlevo, tabulka a
+          + poznámka vpravo */                                           
+      244 +    #srovnani { grid-template-rows: auto auto auto 1fr auto; }
+      245 +    #srovnani .title, #srovnani .sub, #srovnani .tabs { grid-c
+          +olumn: 1; }                                                   
+      246 +    #srovnani .tabs { margin-top: 20px; }                     
+      247 +    .cmp { grid-row: 1 / 5; margin-top: 0; }                  
+      248 +    .cmp-head div { font-size: 26px; }                        
+      249 +    .cmp-head small, .cmp-vals small { font-size: 13px; }     
+      250 +    .cmp-row { padding: 9px 0 10px; }                         
+      251 +    .cmp-label { font-size: 13px; }                           
+      252 +    .cmp-vals { font-size: 17px; }                            
+      253 +    .cmp-vals .num { font-size: 24px; }                       
+      254 +                                                              
+      255 +    /* Odměna: nadpis, obsah PDF a formulář vlevo, náhled PDF 
+          +vpravo */                                                     
+      256 +    #odmena { grid-template-rows: auto auto auto auto 1fr; }  
+      257 +    #odmena > * { grid-column: 1; }                           
+      258 +    #odmena .preview { grid-column: 2; grid-row: 1 / -1; margi
+          +n-top: 0; max-width: 420px; }                                 
+      259 +                                                              
+      260 +    /* Metodika: nadpis je na desktopu vidět */               
+      261 +    #metodika { grid-template-rows: auto auto auto 1fr; }     
+      262 +    #met-title {                                              
+      263 +      position: static; width: auto; height: auto; overflow: v
+          +isible; clip: auto; white-space: normal;                      
+      264 +      grid-column: 1; grid-row: 1 / -1; font-stretch: 72%; fon
+          +t-weight: 850; font-size: 32px; line-height: 1.05;            
+      265 +    }                                                         
+      266 +    details:first-of-type { border-top: var(--rule); }        
+      267 +    summary { font-size: 18px; }                              
+      268 +    details > div { font-size: 15px; }                        
+      269 +                                                              
+      270 +    footer { padding: 28px 0 calc(36px + var(--bar-h)); font-s
+          +ize: 14px; }                                                  
+      271 +    footer .wrap { padding: 0 32px; }                         
+      272 +                                                              
+      273 +    /* Lišta jen v šířce obsahu */                            
+      274 +    .bar { max-width: 1184px; margin: 0 auto; }               
+      275 +    .bar .wrap { padding: 0 16px 0 32px; }                    
+      276 +    .bar p { font-size: 16px; }                               
+      277 +    .bar p small { font-size: 13px; }                         
+      278 +    .bar a { font-size: 17px; padding: 0 24px; }              
+      279 +  }                                                           
+      280  </style>
+      281  </head>
+      282  <body>
+
+  Read 2 files, ran 3 shell commands (ctrl+o to expand)
+
+⏺ Desktop vypadá dobře, ještě kontroluji sekci s formulářem, celou stránku, 768
+  px a mobil před a po.
+
+  Read 2 files (ctrl+o to expand)
+
+⏺ Na desktopu po klepnutí na lištu je PDF náhled useknutý – protože se tam celá
+  sekce s odměnou vejde do okna, posunu lištu na začátek sekce. Mobilní chování,
+  kde se sekce nevejde, zůstane beze změny.
+
+⏺ Update(public/app.js)
+  ⎿  Added 4 lines, removed 2 lines
+      129    track("cta_click", { where: event.currentTarget.dataset.cta 
+           });
+      130    // Celý formulář dole na obrazovce, nad ním spodek náhledu P
+           DF. Bez automatického fokusu:
+      131    // klávesnice by na mobilu zakryla náhled a na iOS se po zpo
+           ždění stejně spolehlivě neotevře.
+      132 -  const target = leadDone ? $("#done") : $("#lead");          
+      133 -  target.scrollIntoView({ block: "end", behavior: matchMedia("
+          -(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+          - });                                                          
+      132 +  // Když se celá sekce vejde do okna (desktop), posunout na j
+          +ejí začátek: formulář i celý náhled vedle sebe.               
+      133 +  const fits = reward.offsetHeight <= innerHeight;            
+      134 +  const target = fits ? reward : leadDone ? $("#done") : $("#l
+          +ead");                                                        
+      135 +  target.scrollIntoView({ block: fits ? "start" : "end", behav
+          +ior: matchMedia("(prefers-reduced-motion: reduce)").matches ? 
+          +"auto" : "smooth" });                                         
+      136  }
+      137  document.querySelectorAll('[data-cta]').forEach(a => a.addEven
+           tListener("click", goToForm));
+      138  
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+⏺ Mobilní první obrazovka 375 × 667 je pro A i B před i po opravě pixelově
+  shodná. Prohlížím zbylé screenshoty.
+
+  Read 4 files (ctrl+o to expand)
+
+⏺ Na 1024 px má nadpis B čtyři řádky. Velikost nadpisu proto nechám plynule růst
+  s šířkou okna: na 1024 px bude 44 px, od zhruba 1380 px 58 px.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Rozložení je hotové. Doplňuji dokumentaci (styl, chyba agenta, chování lišty v
+  tracking plánu) a pouštím kontroly.
+
+  Ran 3 shell commands (ctrl+o to expand)
+
+⏺ Kontroly prošly. Pro srovnání před/po u konce stránky na 375 × 667 ještě
+  vyfotím stejné stavy na současné produkci (odeslání formuláře je podvržené, do
+  databáze nic nejde).
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ 1440 × 900 A a B po úpravě; 375 × 667 konec stránky po odeslání před (bílý
+  pruh 68 px) a po; mobilní první obrazovka je pixelově shodná s produkcí
+
+  ›       /private/tmp/claude-501/-Users-egorkazabey-etf-landing/9ea2fa3 (114.8K
+  [image] 4-4986-4839-9e8b-1a726999484f/scratchpad/shots/send/1440x900-AB)
+          -po.png
+  ›       /private/tmp/claude-501/-Users-egorkazabey-etf-landing/9ea2fa3 (113.4K
+  [image] 4-4986-4839-9e8b-1a726999484f/scratchpad/shots/send/1440x900-BB)
+          -po.png
+  ›       /private/tmp/claude-501/-Users-egorkazabey-etf-landing/9ea2fa34 (32.1K
+  [image] -4986-4839-9e8b-1a726999484f/scratchpad/shots/send/375x667-koneB)
+          c-po-odeslani-PRED.png
+  ›       /private/tmp/claude-501/-Users-egorkazabey-etf-landing/9ea2fa34 (32.1K
+  [image] -4986-4839-9e8b-1a726999484f/scratchpad/shots/send/375x667-koneB)
+          c-po-odeslani-PO.png
+  ›       /private/tmp/claude-501/-Users-egorkazabey-etf-landing/9ea2fa34 (53.2K
+  [image] -4986-4839-9e8b-1a726999484f/scratchpad/shots/send/375x667-A-prB)
+          vni-obrazovka-shodna.png
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Commit je pushnutý. Počkám na nasazení a ověřím produkci.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Obě opravy jsou nasazené na produkci, commit d0eaffe je pushnutý. Na produkci
+  jsem je ověřil v headless Chrome. Screenshoty jsem vám poslal: 1440 × 900 pro
+  A i B a 375 × 667 před a po.
+
+  1. Bílý pruh pod patičkou
+  - Místo pro lištu teď drží odsazení černé patičky, ne body.
+  - html má černé pozadí, takže by bílá neměla být vidět ani při pružení stránky
+    na iOS.
+  - Na 375 × 667 i 390 × 844 je ve všech třech stavech (lišta viditelná, skrytá
+    u formuláře, po odeslání) spodní hrana patičky přesně na spodní hraně okna.
+    Dřív tam byl bílý pruh 68 px.
+  - Pružení stránky a prohlížeč v Instagramu headless Chrome nenasimuluje.
+    Prosím ověřte to znovu na iPhonu.
+
+  2. Desktop od 1024 px
+  - Rozložení: obsah má nejvýš 1120 px. Sekce mají nadpis vlevo a obsah vpravo,
+    formulář je vedle náhledu PDF a lišta je jen v šířce obsahu.
+  - První obrazovka 1440 × 900: u A je nadpis vedle celé kalkulačky, u B je
+    nadpis s přepínačem vedle tabulky srovnání.
+  - Změny navíc proti plánu:
+    - Klepnutí na lištu na desktopu posune na začátek sekce s odměnou, aby byl
+      formulář i celý náhled vidět vedle sebe. Na mobilu se nic nemění. Eventy
+      přijdou ve správném pořadí: cta_click, form_view, form_start.
+    - Nadpis první sekce roste s šířkou okna (44 až 58 px). Na 1024 px měl
+      nadpis B čtyři řádky, teď má tři.
+  - 768 px: kolonka má 480 px a je vycentrovaná, nic nepřetéká. Lišta je na
+    tabletu dál přes celou šířku, stejně jako patička.
+  - Mobil: první obrazovka 375 × 667 je pro A i B pixelově stejná jako před
+    změnou.
+
+  Dokumentaci jsem doplnil: docs/vizualni-styl.md (nová sekce 8 o desktopu a
+  tabletu), chybu agenta jsem zapsal do docs/ai-notes.md jako záznam 14 a
+  chování lišty na desktopu do docs/mereni.md. npm run check prošel, dlouhé
+  pomlčky v textech nejsou.
+
+  Další krok: rychlost a přístupnost (ke schválení)
+
+  1. Lighthouse proti produkci pro A i B: mobil s výchozím omezením sítě a CPU a
+     k tomu desktop. Zapíšu skóre a hlavní metriky (LCP, CLS, TBT).
+  2. axe-core pro A i B na mobilu a desktopu, včetně stavu po odeslání
+     formuláře.
+  3. Ruční kontrola:
+     - průchod klávesnicí od kalkulačky přes přepínač a formulář po metodiku,
+     - viditelný fokus,
+     - čtení chybových hlášek (aria-live),
+     - zvětšení textu na 200 %,
+     - kontrast nových desktopových prvků.
+  4. Výsledky zapíšu do nového dokumentu docs/kontrola.md (nález, závažnost,
+     oprava). Nálezy opravím. Pokud by oprava měnila vzhled nebo texty,
+     předložím ji nejdřív ke schválení.
+  5. Commit a push.
+
+  Lighthouse a axe spustím přes npx ve scratchpadu, do projektu se nepřidá žádná
+  závislost. Požadavky do Umami budou při měření zablokované, aby se testy
+  nezapočítaly do statistik. Můžu začít?
+
+✻ Worked for 8m 0s · done 9:19 PM
+※ recap: Pracujeme na fázi 3 ETF landing page: bílý pruh pod patičkou je opravený, desktopové rozložení je hotové a nasazené na produkci. Teď čekám na vaše schválení plánu kontroly rychlosti a přístupnosti (Lighthouse, axe, ruční průchod).
+
+❯ Desktop i oprava pruhu schváleny. Plán kontroly rychlosti a přístupnosti      
+  schvaluji, Umami při testech blokuj. Opravy, které nemění vzhled ani texty,   
+  udělej rovnou. Ostatní mi předlož. Pak commit a pokračuj dalším krokem fáze 3 
+  (vizuály reklam), nejdřív plán.                                               
+
+⏺ Instaluji Lighthouse a axe-core do scratchpadu a spouštím měření proti
+  produkci.
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Skóre jsou 96 až 100. Zjišťuji, proč jeden běh měl SEO 92, odkud se bere malý
+  posun rozvržení (CLS) a co tvoří 209 kB.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Z produkčních Lighthouse testů vidím skvělé výsledky, ale PDF náhled je
+  zbytečně velký (154 kB PNG, dvojnásobné rozlišení), chybí robots.txt (sráží
+  SEO na 92) a app.js načítá data.js a calc.js sekvenčně. Teď se podívám, jak
+  vzniká náhled PDF.
+
+  Searched for 1 pattern, read 2 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ WebP v dvojnásobném rozlišení je ostrý a má 79 kB místo 154 kB. Teď spouštím
+  axe-core na produkci (A i B, mobil i desktop, s rozbalenou metodikou, s
+  chybami formuláře a po odeslání).
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Axe-core našel jedno porušení (lišta #bar mimo orientační oblasti) a v kódu
+  jsem objevil další dvě podezření – skrytou lištu zůstávající dosažitelnou
+  tabulátorem a špatné pořadí fokusu u varianty B. Teď to ověřím průchodem
+  pomocí klávesnice.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Potvrdil jsem obě podezření – pořadí fokusu u B skáče na kalkulačku před
+  srovnáním a po odeslání fokus u patičky skočí na skrytý odkaz „Chci PDF“. Teď
+  to opravím bez jakéhokoli zásahu do vzhledu.
+
+  Searched for 1 pattern, read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Update(public/index.html)
+  ⎿  Added 1 line, removed 1 line
+      198    .bar {
+      199      position: fixed; left: 0; right: 0; bottom: 0; z-index: 10
+           ;
+      200      background: var(--ink); color: var(--paper);
+      201 -    transition: transform .2s;                                
+      201 +    transition: transform .2s, visibility 0s;                 
+      202    }
+      203    .bar .wrap { height: var(--bar-h); display: flex; align-item
+           s: center; justify-content: space-between; gap: 12px; padding:
+            0 12px 0 16px; }
+      204    .bar p { font-size: 14px; font-weight: 700; line-height: 1.2
+           5; }
+
+⏺ Update(public/index.html)
+  ⎿  Added 3 lines, removed 2 lines
+      207      flex: none; display: inline-flex; align-items: center; hei
+           ght: 48px; padding: 0 18px;
+      208      background: var(--tag); color: var(--ink); font-weight: 85
+           0; font-size: 16px; text-decoration: none;
+      209    }
+      210 -  .bar.off { transform: translateY(110%); }                   
+      211 -  @media (prefers-reduced-motion: reduce) { .bar, .fill { tran
+          -sition: none; } }                                             
+      210 +  /* Skrytá lišta: po dojetí i mimo pořadí fokusu a čtečky obr
+          +azovky */                                                     
+      211 +  .bar.off { transform: translateY(110%); visibility: hidden; 
+          +transition: transform .2s, visibility 0s .2s; }               
+      212 +  @media (prefers-reduced-motion: reduce) { .bar, .bar.off, .f
+          +ill { transition: none; } }                                   
+      213  
+      214    /* Desktop od 1024 px: obsah 1120 px, sekce ve dvou sloupcíc
+           h (nadpis vlevo, obsah vpravo).
+      215       Mobil a tablet beze změny. Poslední řádek mřížky 1fr pohl
+           tí výšku dlouhého sloupce,
+
+⏺ Update(public/index.html)
+  ⎿  Added 2 lines
+       8  <meta name="theme-color" content="#111111">
+       9  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://
+          www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' h
+          eight='32' fill='%23111'/%3E%3Crect x='4' y='20' width='24' hei
+          ght='6' fill='%23ffd400'/%3E%3C/svg%3E">
+      10  <link rel="preload" href="/fonts/archivo-cs.woff2" as="font" ty
+          pe="font/woff2" crossorigin>
+      11 +<link rel="modulepreload" href="/data.js">                     
+      12 +<link rel="modulepreload" href="/calc.js">                     
+      13  <script>
+      14    // Hlavička podle reklamy: b_srovnani = srovnání fondů nahoře
+          , cokoli jiného = kalkulačka (reklama A, výchozí).
+      15    // Běží před vykreslením, aby stránka neproblikla.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Opravuji nálezy přístupnosti a rychlosti: lištu jako orientační oblast,
+  skrytou lištu mimo fokus, náhled PDF ve WebP a pořadí sekcí u B.
+
+⏺ Update(public/index.html)
+  ⎿  Added 2 lines, removed 2 lines
+      435    </div>
+      436  </footer>
+      437  
+      438 -<div class="bar" id="bar">                                    
+      438 +<aside class="bar" id="bar" aria-label="Stažení PDF">         
+      439    <div class="wrap">
+      440      <p>Srovnání 11 fondů v PDF<small>zdarma, stáhnete hned</sm
+           all></p>
+      441      <a href="#odmena" data-cta="bar">Chci PDF</a>
+      442    </div>
+      443 -</div>                                                        
+      443 +</aside>                                                      
+      444  
+      445  <script type="module" src="/app.js"></script>
+      446  </body>
+
+⏺ Update(public/index.html)
+  ⎿  Added 5 lines, removed 2 lines
+      371        <li>Zdroj a datum u každého čísla</li>
+      372      </ol>
+      373      <figure class="preview">
+      374 -      <img src="/odmena-nahled.png" width="378" height="673" l
+          -oading="lazy" decoding="async"                                
+      375 -        alt="První strana PDF: tabulka šesti fondů na S&amp;P 
+          -500 (CSPX, IVV, SPY, SPYL, VOO, VUAA) se sídlem, ročními nákla
+          -dy a výplatou výnosů a souhrn nákladů v korunách.">           
+      374 +      <picture>                                               
+      375 +        <source type="image/webp" srcset="/odmena-nahled.webp"
+          +>                                                             
+      376 +        <img src="/odmena-nahled.png" width="378" height="673"
+          + loading="lazy" decoding="async"                              
+      377 +          alt="První strana PDF: tabulka šesti fondů na S&amp;
+          +P 500 (CSPX, IVV, SPY, SPYL, VOO, VUAA) se sídlem, ročními nák
+          +lady a výplatou výnosů a souhrn nákladů v korunách.">         
+      378 +      </picture>                                              
+      379        <figcaption>1. strana ze 6</figcaption>
+      380      </figure>
+      381  
+
+⏺ Teď pořadí sekcí u B v DOM, generování WebP ve skriptu pro PDF, kontrola v
+  check.mjs a robots.txt.
+
+⏺ Update(public/app.js)
+  ⎿  Added 4 lines
+      11  // ---------- Měření ----------
+      12  // Umami, tracking plán v docs/mereni.md. Nikdy neposílat e-mai
+          l ani jiné osobní údaje.
+      13  const AD = document.documentElement.dataset.ad;
+      14 +                                                               
+      15 +// U reklamy B je srovnání nahoře. CSS (order) ho tam ukáže hne
+         +d při vykreslení, tady se přesune                              
+      16 +// i v DOM, aby pořadí pro klávesnici a čtečku obrazovky odpoví
+         +dalo tomu, co je vidět.                                        
+      17 +if (AD === "b") $("#kalkulacka").before($("#srovnani"));       
+      18  function track(name, data = {}) {
+      19    const payload = { ad: AD, ...data };
+      20    if (window.__trackDebug) window.__trackDebug.push([name, payl
+          oad]); // jen pro lokální testy
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+⏺ Pořadí je v pořádku. Teď generování WebP ve skriptu pro PDF a kontrola v
+  check.mjs.
+
+⏺ Update(scripts/build-pdf.mjs)
+  ⎿  Added 4 lines, removed 2 lines
+      274      process.exit(1);
+      275    }
+      276    execFileSync(chrome, [...common, "--no-pdf-header-footer", "
+           --print-to-pdf=" + PDF_PATH, url], { stdio: "ignore" });
+      277 -  execFileSync(chrome, [...common, `--window-size=${PAGE_W},${
+          -PAGE_H}`, "--force-device-scale-factor=2", "--screenshot=" + P
+          -REVIEW_PATH, url], { stdio: "ignore" });                      
+      277 +  // Náhled ve WebP (asi polovina velikosti PNG) a v PNG pro p
+          +rohlížeče bez WebP; formát podle přípony                      
+      278 +  for (const path of [PREVIEW_PATH, PREVIEW_WEBP_PATH])       
+      279 +    execFileSync(chrome, [...common, `--window-size=${PAGE_W},
+          +${PAGE_H}`, "--force-device-scale-factor=2", "--screenshot=" +
+          + path, url], { stdio: "ignore" });                            
+      280    writeFileSync(SHA_PATH, sha256(html) + "\n");
+      279 -  console.log("reward/tahak.html, public/srovnani-etf.pdf, pub
+          -lic/odmena-nahled.png vygenerováno");                         
+      281 +  console.log("reward/tahak.html, public/srovnani-etf.pdf, pub
+          +lic/odmena-nahled.png a .webp vygenerováno");                 
+      282  }
+
+⏺ Update(scripts/build-pdf.mjs)
+  ⎿  Added 1 line
+      19  export const SHA_PATH = root + "reward/tahak.sha256";
+      20  const PDF_PATH = root + "public/srovnani-etf.pdf";
+      21  const PREVIEW_PATH = root + "public/odmena-nahled.png";
+      22 +const PREVIEW_WEBP_PATH = root + "public/odmena-nahled.webp";  
+      23  const PAGES = 6;
+      24  // Rozměr strany jako displej telefonu: v mobilním prohlížeči P
+          DF zhruba 1:1, čitelné bez zoomování
+      25  const PAGE_W = 378, PAGE_H = 673;
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ PNG je bajtově shodný, PDF se liší jen časem vytvoření v metadatech. Vrátím
+  ho, ať v commitu není zbytečná změna. Pak restartuji lokální server a ověřím
+  opravy.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Background command "Start local dev server" failed with exit code 143
+
+  Ran 2 shell commands (ctrl+o to expand)
+⏺ axe-core teď hlásí 0 porušení ve všech 12 stavech, pořadí fokusu i screenshoty
+  sedí. Zbývá ověřit zalomení na 320 px, viditelnost fokusu na černé liště a
+  načítání WebP.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Fokus na žlutém tlačítku je viditelný, na 320 px nic nepřetéká a WebP se
+  načítá správně. Teď commituji opravy a po nasazení znovu zkontroluji
+  Lighthouse a axe na produkci.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Opravy jsou nasazené. Spouštím Lighthouse (3 běhy) a axe znovu proti produkci,
+  výsledky pak zapíšu do docs/kontrola.md.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Po opravách na produkci dosahuje Lighthouse 99-100 na mobilu a 100 na
+  desktopu, LCP se zrychlilo a přenos klesl z 209 kB na 134 kB, přičemž axe-core
+  nehlásí žádná porušení ve 12 stavech. Zapisuji tyto výsledky do
+  docs/kontrola.md.
+
+⏺ Write(docs/kontrola.md)
+  ⎿  Wrote 68 lines to docs/kontrola.md
+       1 # Kontrola rychlosti a přístupnosti
+       3 Stav: 13. 10. 2026, fáze 3. Měřeno proti produkci https://etf-la
+         i B (`utm_content=b_srovnani`). Požadavky do Umami byly při všec
+         láře v testech mělo podvrženou odpověď `/api/lead`, do databáze 
+       4 
+       5 ## Nástroje
+       7 | Nástroj | Verze | Nastavení |
+       9 | Lighthouse | 12.8.2 | mobil: výchozí simulace (RTT 150 ms, 1,6
+         binace 3 běhy, `--blocked-url-patterns='*umami.is*'`. |
+          2.0, 2.1 a 2.
+     … +112 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Kontrola je hotová a commitnutá. Teď připravuji plán vizuálů reklam. Nejdřív
+  si v dokumentaci Meta ověřím formáty a bezpečné zóny, ať plán nestojí na
+  číslech z paměti.
+
+⏺ Web Search("Meta ads guide Instagram feed image 4:5 1080x1350 stories 9:16
+            safe zone 14% top bottom")
+  ⎿  Did 1 search in 7s
+
+⏺ Web Search("facebook.com/business/ads-guide image Instagram Stories safe zone
+            "250 pixels"")
+  ⎿  Did 1 search in 6s
+
+⏺ Výsledky jsou jen z webů třetích stran a liší se. Zkusím Meta Ads Guide
+  napřímo.
+
+⏺ Fetch(https://www.facebook.com/business/ads-guide/update/image/instagram-feed)
+  ⎿  Received 346.1KB (200 OK)
+
+⏺ Fetch(https://www.facebook.com/business/ads-guide/update/image/instagram-story
+       )
+  ⎿  Received 364.4KB (200 OK)
+
+⏺ Meta Ads Guide se načetl (česká verze). Ověřím ještě Reels, které reklamy.md
+  slučuje se Stories.
+
+⏺ Fetch(https://www.facebook.com/business/ads-guide/update/image/instagram-reels
+       )
+  ⎿  Received 350.4KB (200 OK)
+
+⏺ Fetch(https://www.facebook.com/business/ads-guide/update/image/facebook-feed)
+  ⎿  Received 349.5KB (200 OK)
+
+⏺ Kontrolu rychlosti a přístupnosti jsem dokončil, výsledky jsou commitnuté a
+  nasazené na produkci. Formáty reklam jsem ověřil v Meta Ads Guide a níže je
+  plán vizuálů ke schválení.
+
+  Výsledek kontroly
+
+  Vše měřeno na produkci, Umami blokované, odeslání formuláře podvržené (do
+  databáze nic nešlo).
+
+  Opraveno, vzhled ani texty se nezměnily (commit d99b861, screenshoty před a po
+  jsou pixelově shodné):
+  1. Skrytá lišta šla vybrat tabulátorem. U formuláře a po odeslání skákal fokus
+     na neviditelný odkaz „Chci PDF“ mimo obrazovku. Teď ho klávesnice ani
+     čtečka obrazovky nenajde.
+  2. Pořadí fokusu u B neodpovídalo obrazovce. Fokus šel nejdřív do kalkulačky,
+     i když je nahoře srovnání. Skript u B teď přesune srovnání i v kódu
+     stránky.
+  3. Lišta neležela v žádné orientační oblasti stránky. Teď je <aside>. Tohle
+     jediné nahlásil axe-core, body 1 a 2 našel až průchod tabulátorem.
+  4. Rychlost: náhled PDF je ve WebP (79 kB místo 154 kB), skripty se načítají
+     souběžně a přibyl robots.txt. Stránka teď přenese 134 kB místo 209 kB.
+
+  Výsledky:
+
+  ┌──────────────────────────────────────────────┬────────────┬─────────────┐
+  │                                              │   Mobil    │   Desktop   │
+  ├──────────────────────────────────────────────┼────────────┼─────────────┤
+  │ Lighthouse (výkon, přístupnost, best         │ 99 až 100  │ 100         │
+  │ practices, SEO)                              │            │             │
+  ├──────────────────────────────────────────────┼────────────┼─────────────┤
+  │ LCP                                          │ 1,5 až 1,8 │ 0,4 až 0,5  │
+  │                                              │  s         │ s           │
+  └──────────────────────────────────────────────┴────────────┴─────────────┘
+
+  axe-core hlásí 0 porušení ve všech 12 testovaných stavech. Na šířce 320 px nic
+  nepřetéká. Podrobnosti jsou v docs/kontrola.md, chybu agenta jsem zapsal do
+  docs/ai-notes.md jako záznam 15.
+
+  Neověřeno: VoiceOver a rychlost na skutečném iPhonu s mobilními daty. Obojí
+  přidám do kroku s proklikáním funnelu na telefonu.
+
+  Ke schválení (mění vzhled): fokus na tmavém pozadí (lišta, patička) bílým
+  obrysem místo černého. Dnes je kolem prvku vidět jen žlutý lem, což WCAG AA
+  splňuje, takže to není nutné. Doporučuji nechat, jak to je. Chcete to změnit?
+
+  Plán: vizuály reklam v ads/
+
+  Formáty podle Meta Ads Guide (ověřeno 13. 10. 2026):
+
+  ┌──────────────────┬───────┬────────────────┬─────────────────────────────┐
+  │     Umístění     │ Poměr │  Doporučené    │        Bezpečná zóna        │
+  │                  │       │   rozlišení    │                             │
+  ├──────────────────┼───────┼────────────────┼─────────────────────────────┤
+  │ Instagram a      │ 4 : 5 │ 1440 × 1800    │ Meta pro Feed neuvádí,      │
+  │ Facebook Feed    │       │                │ nechám okraj 6 %            │
+  ├──────────────────┼───────┼────────────────┼─────────────────────────────┤
+  │ Instagram        │ 9 :   │ 1440 × 2560    │ volných asi 14 % nahoře, 35 │
+  │ Stories a Reels  │ 16    │                │  % dole, 6 % po stranách    │
+  └──────────────────┴───────┴────────────────┴─────────────────────────────┘
+
+  Proti docs/reklamy.md se tím mění dvě věci:
+  - Rozlišení: pracovní 1080 px nahradím 1440 px podle Meta.
+  - Spodní zóna ve Stories: Meta uvádí 35 % (896 px), weby třetích stran 250 až
+    340 px. Řídím se Metou. Obsah se ve Stories vejde do pásu 1268 × 1306 px
+    uprostřed, spodní třetina zůstane jen jako pozadí.
+
+  Výstup: 4 PNG (A a B, každá ve Feedu a ve Stories), tedy ads/a-feed-4x5.png,
+  ads/a-stories-9x16.png, ads/b-feed-4x5.png, ads/b-stories-9x16.png. Ke každé
+  navíc kontrolní obrázek s vyznačenými zónami Mety.
+
+  Jak vzniknou: stejně jako PDF. Jedna HTML šablona ads/reklama.html bere čísla
+  z public/data.js a vzorce v calc.js. Skript scripts/build-ads.mjs (npm run 
+  ads) ji vyfotí v headless Chrome. npm run check pak hlídá, že PNG odpovídají
+  aktuální šabloně a datům (otisk jako u PDF), takže v reklamě nemůže být jiné
+  číslo než na stránce.
+
+  Vzhled: schválená Cenovka (Archivo zúžené, bílá, černá, jedna žlutá cenovka,
+  červená jen pro průměrný fond, ostré hrany). Bez fotek, ikon a grafů růstu.
+  Tlačítko do obrázku nekreslím, Meta přidává vlastní.
+
+  A, Feed 4:5                          B, Feed 4:5
+  ┌──────────────────────────────┐     ┌──────────────────────────────┐
+  │ ETF v korunách               │     │ ETF v korunách               │
+  │ 2 000 Kč měsíčně, 20 let,    │     │ Stejný index S&P 500         │
+  │ jen náklady fondu            │     │ ┌───────────┐ ┌────────────┐ │
+  │                  ┌─────────┐ │     │ │ VOO       │ │ Evropské   │ │
+  │                  │61 000 Kč│ │     │ │ USA,      │ │ fondy      │ │
+  │                  ███████████ │     │ │ NYSE Arca │vs│ Irsko     │ │
+  │  1 400 Kč        ███████████ │     │ │ TER 0,03 %│ │TER 0,03 až │ │
+  │  ▂▂▂▂            ███████████ │     │ │           │ │0,07 %      │ │
+  │  ETF na S&P 500  průměrný    │     │ └───────────┘ └────────────┘ │
+  │  0,03 %          fond v EU   │     │ Koupíte ho z Česka?          │
+  │                  1,38 %      │     │ Srovnání brokerů uvnitř.     │
+  │ bez zhodnocení, bez poplatků │     │ data emitentů, říjen 2026    │
+  │ brokera a daní; ESMA 2026    │     │ nejde o doporučení           │
+  └──────────────────────────────┘     └──────────────────────────────┘
+
+  Ve Stories bude stejný obsah ve středním pásu, horních 14 % a spodních 35 %
+  zůstane bez textu.
+
+  Texty:
+  - Čísla a texty beru z docs/reklamy.md. Částky jsou zaokrouhlené dolů jako v
+    titulku reklamy A („1 400 Kč, nebo 61 000 Kč?“).
+  - Do obou vizuálů přidám drobně „nejde o doporučení“. Ve schválených
+    konceptech není, ale stránka i PDF to uvádějí.
+  - Přesné texty ukážu na náhledu ke schválení.
+
+  Postup:
+  1. Šablona a náhledy všech 4 PNG plus obrázky se zónami vám pošlu ke
+     schválení.
+  2. Pak skript, npm run check, aktualizace docs/reklamy.md (ověřené formáty,
+     zóny, odkazy s UTM) a commit.
+
+  Zbytek fáze 3: návod na funnely v Umami, proklikání funnelu na iPhonu, koncept
+  README a export ai-log/03-kontrola.txt.
+
+  Schvalujete plán vizuálů, včetně rozlišení 1440 px, bezpečné zóny 35 % dole ve
+  Stories a řádku „nejde o doporučení“?
+
+  Zdroje:
+  - Meta Ads Guide: Instagram Feed, obrázek
+    (https://www.facebook.com/business/ads-guide/update/image/instagram-feed)
+  - Meta Ads Guide: Instagram Stories, obrázek
+    (https://www.facebook.com/business/ads-guide/update/image/instagram-story)
+  - Meta Ads Guide: Instagram Reels, obrázek
+    (https://www.facebook.com/business/ads-guide/update/image/instagram-reels)
+  - Meta Ads Guide: Facebook Feed, obrázek
+    (https://www.facebook.com/business/ads-guide/update/image/facebook-feed)
+  - Pro srovnání weby třetích stran, které se v číslech liší: adkit.so
+    (https://adkit.so/tools/safe-zones/instagram), firstpier.com
+    (https://www.firstpier.com/resources/instagram-ad-safe-zones)
+
+✻ Worked for 18m 22s · done 9:54 PM
+
+❯ Kontrolu schvaluji, fokus nech, jak je. Plán vizuálů schvaluji včetně 1440    
+  px, zóny 35 % ve Stories a řádku "nejde o doporučení", s úpravami:            
+  - A: na obrázku chybí háček. V Feedu člověk vidí nejdřív obrázek, text        
+  reklamy často nečte. Dej nahoru velkým písmem otázku, např. "Kolik vás stojí  
+  samotný fond?", pod ni obě částky.                                            
+  - B: dvě karty se čtyřmi řádky jsou na Feed moc hutné. Zjednoduš: velká       
+  otázka "Koupíte VOO z Česka?", pod ní VOO vedle "evropský fond na stejný      
+  index" jen s TER, nic dalšího.                                                
+  - Do ads/ přidej ads/README.md: ke každé reklamě primární text, titulek,      
+  popis, odkaz s UTM a které PNG k ní patří, ať je reklama kompletní pro Ads    
+  Manager.                                                                      
+    Náhledy všech 4 PNG mi pak pošli ke schválení.                              
+
+⏺ Plán vizuálů je schválený i s vašimi úpravami. Prohlédnu si, jak build-pdf.mjs
+  skládá HTML a písma, a vizuály udělám stejným způsobem.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Vizuály udělám stejně jako PDF: skript skládá HTML z public/data.js a calc.js
+  a headless Chrome ho vyfotí. Píšu scripts/build-ads.mjs.
+
+⏺ Write(scripts/build-ads.mjs)
+  ⎿  Wrote 206 lines to scripts/build-ads.mjs
+       1 // Vizuály reklam A a B pro Feed (4:5) a Stories/Reels (9:16), t
+       2 // Všechna čísla bere z public/data.js (tedy z data/*.csv) a ze 
+         vzorce v public/calc.js, stejně jako stránka a PDF.
+       4 // npm run ads
+         , v gitu, kontroluje ho npm run check)
+       6 //   2. headless Chrome z nich vyfotí ads/{a,b}-feed-4x5.png a a
+       7 //   3. vyfotí kontrolní obrázky s vyznačenými bezpečnými zónami
+          Mety: ads/kontrola/*-zony.png
+         l neaktuální PNG
+      10 //   Feed 4:5, 1440 × 1800
+     … +278 lines (ctrl+o to expand)
+
+  Read 2 files, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Oba vizuály jsou čitelné, ale zbytečně nechávají prázdné místo a karta VOO je
+  nevyvážená díky dvouřádkovému fondu. Teď obsah vycentruji a zvětším písmo, a u
+  varianty B dám obě karty pod sebe na celou šířku (název vlevo, TER vpravo,
+  „vs“ uprostřed) pro lepší vyváženost.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Upravuji rozvržení vizuálů: obsah vycentrovaný, větší písmo a karty u B pod
+  sebou.
+
+  Ran 4 shell commands (ctrl+o to expand)
+
+⏺ Chrome se zasekl na posledním kontrolním snímku. Ukončím ho, do skriptu
+  doplním časový limit s jedním opakováním a build pustím znovu.
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Background command "Restyle ad layouts and rebuild PNGs" failed with exit code
+1
+
+  Read 4 files (ctrl+o to expand)
+
+⏺ Vizuály u Stories sedí v bezpečné zóně, jen datum v poznámce se zalomí
+  uprostřed – opravím to pevnými mezerami. Pak napojím vizuály na npm run check
+  a napíšu ads/README.md.
+
+  Read 1 file, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Datum se už nezalamuje. Píšu ads/README.md s kompletními podklady pro Ads
+  Manager. Nejdřív spočítám délky textů proti doporučením Mety.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Write(ads/README.md)
+  ⎿  Wrote 71 lines to ads/README.md
+       1 # Reklamy pro Ads Manager
+       3 Dvě reklamy (A a B), každá pro Feed a pro Stories/Reels. Všechno
+          potřebné pro zadání v Meta Ads Manageru je níže. Zdůvodnění úhl
+         lamy.md).
+       5 ## Společné nastavení
+       6 
+       8 |---|---|
+       9 | Cíl kampaně | leady na webu (konverze = odeslaný formulář, eve
+         ) |
+         stane PNG 4 : 5, Stories a Reels PNG 9 : 16. |
+     … +108 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Všechno je připravené a npm run check prošel. Posílám náhledy všech 4 PNG a
+  kontrolní obrázky Stories se zónami.
+
+⏺ Reklamy A a B: Feed 1440 × 1800 a Stories/Reels 1440 × 2560, k tomu kontrola
+  bezpečných zón Mety ve Stories (červeně: 14 % nahoře, 35 % dole, 6 % po
+  stranách)
+
+  › [image] ads/a-feed-4x5.png (147.2KB)
+  › [image] ads/a-stories-9x16.png (127.7KB)
+  › [image] ads/b-feed-4x5.png (119.1KB)
+  › [image] ads/b-stories-9x16.png (109.7KB)
+  › [image] ads/kontrola/a-stories-9x16-zony.png (138.6KB)
+  › [image] ads/kontrola/b-stories-9x16-zony.png (119.8KB)
+
+⏺ Poslal jsem vám náhledy všech 4 vizuálů a dva kontrolní obrázky Stories s
+  vyznačenými zónami. Commit udělám až po vašem schválení.
+
+  A: Kolik vás stojí samotný fond?
+  - Nahoře je velká otázka, pod ní „2 000 Kč měsíčně, 20 let, i bez zhodnocení:“
+    a dva řádky jako výsledek kalkulačky na stránce: ETF na S&P 500 1 400 Kč a
+    průměrný akciový fond v EU 61 000 Kč na žluté cenovce s červeným sloupcem.
+  - Reklama tak vizuálně navazuje na první obrazovku stránky.
+
+  B: Koupíte VOO z Česka?
+  - Pod otázkou jsou dvě karty pod sebou: VOO s TER 0,03 % a „Evropský fond na
+    stejný index“ s TER 0,03 až 0,07 %, mezi nimi „vs“. Nic dalšího v obrázku
+    není.
+  - Odpověď na otázku je až na stránce, v řádku „Koupím ho z Česka?“.
+  - Karty jsem dal pod sebe, ne vedle sebe. Vedle sebe byla karta VOO napůl
+    prázdná a rozsah TER se lámal do dvou řádků.
+
+  Obě reklamy:
+  - Dole drobně je uvedený zdroj s datem a tučně „Nejde o investiční
+    doporučení.“
+  - Ve Stories je všechno uvnitř bezpečné zóny Mety, spodních 35 % zůstává
+    prázdných pro tlačítko a popisek.
+
+  Jak to drží pohromadě:
+  - Čísla se berou z public/data.js a výpočtu v calc.js, stejně jako na stránce
+    a v PDF. Částky v A jsou zaokrouhlené dolů, stejně jako v textu reklamy.
+  - npm run ads vizuály vygeneruje. Skript odmítne vytvořit PNG, pokud obsah
+    přeteče z bezpečné zóny.
+  - npm run check hlídá, že vizuály odpovídají aktuálním datům. Kontrola prošla.
+  - ads/README.md obsahuje pro každou reklamu primární text, titulek, popis,
+    odkaz s UTM a příslušné PNG, takže jde rovnou do Ads Manageru. V
+    docs/reklamy.md jsem doplnil ověřené formáty a vaše úpravy vizuálů.
+
+  Potřebuji vaše rozhodnutí: titulek B je o 2 znaky delší, než Meta doporučuje.
+  - „VOO vedle evropského fondu na stejný index“ má 42 znaků, Meta doporučuje
+    do 40. Konec se může zkrátit.
+  - Doporučuji ho nechat, protože doslova odpovídá nadpisu stránky B. Druhá
+    možnost je zkrátit ho na „VOO vedle evropského fondu“ (26 znaků), ale pak se
+    rozejde s nadpisem stránky.
+
+  Primární texty obou reklam jsou delší než doporučených 125 znaků a zbytek se
+  schová pod „více“. Háček je ale v prvních 125 znacích u obou, takže je
+  nechávám.
+
+  Schvalujete vizuály? A má titulek B zůstat?
+
+  Po schválení commitnu a navrhnu další krok: návod na funnely v Umami a
+  proklikání funnelu na iPhonu, včetně VoiceOver.
+
+✻ Cooked for 7m 40s · done 10:03 PM
+
+❯ Vizuály jsem zkontroloval ručně, schvaluji. Titulek B nech, jak je. Commitni  
+  a pushni vizuály.                                                             
+                                                                                
+  Jedna úprava kvůli návaznosti: obrázek B se ptá "Koupíte VOO z Česka?", ale   
+  první obrazovka B na otázku neodpovídá, odpověď je až v tabulce. Dej do       
+  podnadpisu B krátkou odpověď z ověřených dat, např. "U některých brokerů ano  
+  (Fio), v mnoha aplikacích ne. Vedle něj evropský fond na stejný index."       
+  Formuluj to jako fakt, ne doporučení, a jen podle data/brokeri.csv. Ověř, že  
+  se první obrazovka B na 375 × 667 pořád vejde nad lištu. Pak commit a push a  
+  navrhni další krok fáze 3.                                                    
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Vizuály jsem commitnul a pushnul (37f9895). V data/brokeri.csv jsou ověření
+  jen tři brokeři (Fio, DEGIRO jako ne, XTB jen CFD), Trading 212 a Interactive
+  Brokers nejsou ověření, takže podnadpis postavím pouze na těchto třech a
+  provázanost ohlídám přes npm run check.
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+⏺ Podnadpis se skládá z dat a npm run check ho hlídá (12 hodnot sedí s daty).
+  Teď ověřím, že se první obrazovka B na 375 × 667 vejde nad lištu.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Vejde se. Podnadpis má pořád dva řádky a poznámka „nejde o doporučení“ zůstává
+  nad lištou se stejnou rezervou 18 px jako dřív. Doplňuji změnu do dokumentace
+  a commituji.
+
+  Searched for 1 pattern, ran 2 shell commands (ctrl+o to expand)
+
+⏺ Podnadpis B je nasazený na produkci a ověřený tam na 375 × 667. Commit 0e269c8
+  je pushnutý.
+
+  Co je nového:
+  - Vizuály reklam jsou commitnuté a pushnuté (37f9895).
+  - První obrazovka B teď odpovídá na otázku z reklamy: „U Fio ano, u DEGIRO ne,
+    u XTB jen jako CFD. Vedle něj evropský fond na stejný index.“
+
+  Proč jiné znění než váš příklad: „v mnoha aplikacích ne“ by tvrdilo víc, než
+  mám ověřené. Podle data/brokeri.csv jsou ověření jen tři brokeři: Fio, DEGIRO
+  a XTB. Trading 212 a Interactive Brokers mají v datech „neověřeno“. Věta jen
+  vyjmenovává fakta, nic nedoporučuje.
+
+  Jak je věta hlídaná: skládá se z dat stejně jako řádek „Koupím ho z Česka?“ v
+  tabulce a npm run check kontroluje, že text v HTML sedí s daty.
+
+  Vejde se: podnadpis má na 375 × 667 pořád 2 řádky a poznámka „nejde o
+  doporučení“ zůstává nad lištou se stejnou rezervou 18 px jako dřív. Změnu jsem
+  zapsal do docs/reklamy.md a docs/vizualni-styl.md.
+
+  Návrh dalšího kroku: funnely v Umami a proklikání na iPhonu
+
+  1. Návod na funnely do docs/mereni.md
+  - Nejdřív ověřím v dokumentaci Umami, jak se funnel zakládá a jestli jde
+    filtrovat podle tagu ad-a / ad-b. To je zatím otevřená otázka.
+  - Pak napíšu postup krok za krokem pro 4 funnely, které už jsou v plánu měření
+    (celá cesta, kalkulačka, srovnání, lišta). Nastavíte je sami, do Umami se
+    nepřihlašuji.
+
+  2. Checklist pro iPhone (Safari a prohlížeč v Instagramu)
+  - Připravím odkazy A a B s utm_source=test, aby šly testovací návštěvy
+    vyfiltrovat. Do Instagramu je pošlete sami sobě přes DM a otevřou se ve
+    vestavěném prohlížeči.
+  - U každého kroku napíšu, co ověřit:
+    - první obrazovku nad lištou, kalkulačku a přepínač,
+    - lištu: posun k formuláři,
+    - prázdné odeslání formuláře (chybové hlášky), pak odeslání s testovacím
+      e-mailem a otevření PDF,
+    - že pod patičkou není bílý pruh,
+    - rychlost na mobilních datech,
+    - krátký průchod s VoiceOverem: nadpisy, popisky polí, chybové hlášky.
+  - Pošlete mi screenshoty první obrazovky z obou prohlížečů. Z nich zjistíme,
+    kolik výšky ubere prohlížeč Instagramu, což je otevřený bod z
+    vizualni-styl.md.
+
+  3. Moje kontrola po vašem testu
+  - Eventy v Umami ověřím z vašeho screenshotu nebo exportu.
+  - V Neonu spočítám testovací řádky skriptem, který čte DATABASE_URL jen z
+    prostředí a nic nevypisuje.
+  - Testovací kontakty (utm_source=test) smažu, ale až po vašem potvrzení,
+    protože jde o mazání v produkční databázi.
+  - Výsledek zapíšu do docs/mereni.md (sekce „Kontrola funnelu na produkci“) a
+    commitnu.
+
+  Potom zbývá koncept README a export ai-log/03-kontrola.txt.
+
+  Můžu začít ověřením funnelů v dokumentaci Umami a přípravou checklistu?
+
+✻ Brewed for 1m 59s · done 10:07 PM
+
+❯ Souhlasím, tvoje znění je přesnější. Do docs/ai-notes.md zapiš i tenhle       
+  případ: navrhovanou formulaci od recenzenta (druhá instance Claude) jsi       
+  odmítl, protože tvrdila víc, než je ověřené. Kontrola funguje oběma směry.    
+                                                                                
+  Plán schvaluji, začni ověřením funnelů v dokumentaci Umami a checklistem pro  
+  iPhone. Testovací kontakty s utm_source=test po testu smaž, potvrzení ti      
+  dávám předem.                                                                 
+
+⏺ Zapisuji případ do docs/ai-notes.md a pak ověřuji funnely v dokumentaci Umami.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Fetch(https://docs.umami.is/docs/funnel)
+  ⎿  Received 62.1KB (200 OK)
+
+⏺ Dokumentace funnelu filtr podle tagu nezmiňuje. Hledám v dokumentaci Umami
+  filtry a tagy.
+
+⏺ Fetch(https://docs.umami.is/docs/filters)
+  ⎿  Received 66.3KB (200 OK)
+
+⏺ Web Search("umami analytics data-tag attribute filter reports funnel tag
+            docs.umami.is")
+  ⎿  Did 1 search in 7s
+
+⏺ Fetch(https://docs.umami.is/docs/tags)
+  ⎿  Received 64.2KB (200 OK)
+
+⏺ Ověřím v rozhraní, zda se tag mezi filtry vztahuje i na funnel, jelikož to
+  dokumentace výslovně neuvádí. Zároveň píšu návod a checklist do
+  docs/mereni.md.
+
+  Listed 1 directory, ran 3 shell commands (ctrl+o to expand)
+
+⏺ Návod na funnely a checklist pro iPhone jsou v docs/mereni.md. Teď připravím
+  skript pro kontrolu a úklid testovacích kontaktů v Neonu, ať je po vašem testu
+  hotový.
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Write(scripts/test-leads.mjs)
+  ⎿  Wrote 33 lines to scripts/test-leads.mjs
+       1 // Testovací kontakty (utm_source = 'test') po kontrole funnelu 
+       2 // npm run test-leads            počty testovacích řádků podle a
+         d a utm_content, bez e-mailů
+       3 // npm run test-leads -- --delete smaže testovací řádky a ukáže 
+       4 // DATABASE_URL se čte z prostředí (lokálně z .env), nikdy se ne
+         vypisuje.
+       6 
+       7 if (!process.env.DATABASE_URL) {
+       8   console.error("Chybí DATABASE_URL (lokálně v .env).");
+      10 }
+     … +34 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Skript funguje. Testovacích řádků je zatím 0, ale tabulka má 1 řádek, přestože
+  podle záznamu z 12. 10. byla po testu prázdná. Podívám se na jeho údaje bez
+  e-mailu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Tenhle řádek vznikl ve 21:02 bez UTM parametrů (verze A, výchozí hodnoty),
+  odpovědi na /api/lead v mé session jsem měl podvržené, takže nepochází ze mě –
+  spíš z vašeho dnešního testu na iPhonu. Protože nemá utm_source=test, nemažu
+  ho a ptám se vás; teď commituji návod, checklist a skript.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Návod na funnely, checklist pro iPhone a skript na úklid testovacích kontaktů
+  jsou commitnuté a pushnuté (7d47d98). Odmítnutou formulaci recenzenta jsem
+  zapsal do docs/ai-notes.md jako záznam 16.
+
+  Funnely v Umami
+
+  Návod je v docs/mereni.md, sekce Funnely. Podle dokumentace Umami (ověřeno 13.
+  10. 2026):
+
+  - Kde: Analysis → Funnel → Add funnel.
+  - Okno: 60 minut mezi kroky.
+  - Kroky: první je zobrazení stránky /, další jsou eventy.
+  - Filtry: Tag je mezi filtry a filtry z přehledu webu podle dokumentace platí
+    pro všechny obrazovky a reporty. Funnel tam ale výslovně uvedený není, takže
+    to ověříte v rozhraní:
+    - Funnel s filtrem ad-a a s filtrem ad-b musí mít v prvním kroku různé
+      počty.
+    - Testovací návštěvy vyřadíte filtrem UTM Source Is not test.
+  - Záloha: pokud funnel filtr nepřevezme, A a B rozdělíme podle vlastnosti ad u
+    eventů.
+
+  Checklist pro iPhone
+
+  Je v docs/mereni.md, sekce „Kontrola funnelu na produkci“.
+
+  - 4 průchody: Safari A, Safari B, Instagram A, Instagram B. Odkazy s
+    utm_source=test tam jsou připravené. Do Instagramu si je pošlete přes DM.
+  - V každém průchodu 8 bodů: první obrazovka nad lištou, rychlost na mobilních
+    datech, kalkulačka nebo přepínač, lišta, prázdné odeslání, odeslání
+    formuláře, otevření PDF, konec stránky bez bílého pruhu.
+  - Při průchodu 2 navíc VoiceOver.
+  - Pro každý průchod jiný e-mail, třeba s +etf-a-safari za jménem. Databáze má
+    e-mail unikátní a druhé odeslání stejné adresy by přepsalo jen počítadlo,
+    takže by B nebylo vidět.
+  - Pošlete mi: screenshot první obrazovky z každého průchodu, co neprošlo,
+    přibližný čas testu a screenshot nebo export eventů z Umami.
+
+  Po vašem testu spustím npm run test-leads: spočítá testovací řádky podle ad a
+  utm_content bez e-mailů. Pak npm run test-leads -- --delete smaže řádky s
+  utm_source=test a ověří, že počet všech řádků klesl přesně o smazané.
+
+  Potřebuji vaše rozhodnutí: kontakt v Neonu, který není testovací
+
+  V tabulce leads je 1 řádek, i když byla 12. 10. po testu prázdná:
+  - vznikl dnes ve 21:02 (19:02 UTC),
+  - verze A, 2 000 Kč a 20 let,
+  - bez UTM.
+
+  Moje testy dnes měly odpověď /api/lead podvrženou a do databáze nic nezapsaly.
+  Nejspíš je to váš test na iPhonu z adresy bez parametrů. Nemá
+  utm_source=test, takže ho úklid nesmaže a já ho bez vašeho souhlasu nemažu. Je
+  to váš test a mám ho smazat (podle id = 17)?
+
+  Až budete mít test hotový, pošlete výsledky a já je zapíšu a uklidím.
+
+  Zdroje:
+  - Umami: Funnel (https://docs.umami.is/docs/funnel)
+  - Umami: Filters (https://docs.umami.is/docs/filters)
+  - Umami: Tags (https://docs.umami.is/docs/tags)
+
+✻ Churned for 2m 13s · done 10:10 PM
+
+※ recap: Phase 3 of the ETF landing page is nearly done: fixes, accessibility, ad visuals, Umami funnel guide and iPhone checklist are all pushed. Next, run the iPhone test, send me the results and tell me whether to delete the untested Neon lead (id 17).
+
+❯ Test na iPhonu hotový, 4 průchody (Safari a prohlížeč Instagramu, A i B): -   
+  První obrazovka A i B se vejde nad lištu i v prohlížeči Instagramu (jeho      
+  horní lišta ubere místo, ale výsledek kalkulačky je pořád vidět). -           
+  Kalkulačka, přepínač VOO/SPY/IVV, lišta, chybové hlášky, odeslání a "Hotovo"  
+  fungují. - PDF se otevře v Safari i v prohlížeči Instagramu, všech 6 stran    
+  jde listovat. - Pod patičkou už není bílý pruh. - Umami: dorazilo všech 11    
+  typů eventů včetně form_error, lead_saved a pdf_open. - VoiceOver: prošel bez 
+  problémů Zapiš výsledek do docs/mereni.md, smaž testovací kontakty            
+  (utm_source=test) a ověř počty. Oprava: v PDF na straně 4 je citace DEGIRO    
+  anglicky ("can generally not offer"). Napiš ji česky a originál dej do        
+  závorky, pak přegeneruj PDF a náhled. Commit a push, pak navrhni koncept      
+  README.                                                                       
+
+⏺ Zapíšu výsledek testu, uklidím testovací kontakty a opravím citaci DEGIRO v
+  PDF. Nejdřív spočítám testovací řádky v Neonu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Nenašel jsem žádné testovací řádky s utm_source=test, ačkoliv Umami hlásí
+  lead_saved. Zkontroluji, jestli se odeslání nenapárovala na existující řádek
+  17, kde by se stejný e-mail jen zvýšil počítadlo a zachovala se UTM z prvního
+  odeslání.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Testovací odeslání se jen připsalo k existujícímu řádku 17 (stejný e-mail),
+  takže žádný nový řádek s utm_source=test nevznikl a nic podle tohoto pravidla
+  nemažu. Řádek 17 nechávám beze změny, dokud nepotvrdíte mazání podle id, a
+  pokračuji opravou PDF.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Citace v PDF pochází z data/brokeri.csv (sloupec doklad). Opravím ji ve zdroji
+  a přegeneruji data.js, PDF i náhled. Stejnou větu sjednotím i v
+  docs/strategie.md.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ PDF prošlo kontrolou přetečení (6 stran). Náhled první strany vyšel bajtově
+  stejný, protože se oprava týká strany 4. Stranu 4 si ještě vyfotím.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Strana 4 je v pořádku, jen opravím jednopísmennou předložku „(v“ pevnou
+  mezerou ke slovu „originále“ a pak zapíšu výsledek testu.
+
+  Read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ Strana 4 je opravená. Zapisuji výsledek testu do docs/mereni.md.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Commit 5af5220 je pushnutý. Ověřím, že produkce vydává nové PDF.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Produkce už vydává nové PDF. Než navrhnu koncept README, projdu, co už je v
+  dokumentech, ať README odkazuje na existující podklady a nic nevymýšlí.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Výsledek testu je zapsaný v docs/mereni.md a citace DEGIRO v PDF je česky.
+  Testovací kontakty jsem ale nesmazal: v databázi žádné nejsou, protože se
+  všechna odeslání zapsala do jednoho starého řádku (vysvětlení níže). Commit
+  5af5220 je pushnutý a produkce už vydává nové PDF.
+
+  Výsledek testu
+
+  - Telefon (zapsáno podle vašeho testu): všech 4 průchodů prošlo, včetně první
+    obrazovky v prohlížeči Instagramu, PDF a VoiceOveru. Z Umami dorazilo 11
+    typů eventů. Dvanáctý event v plánu, lead_error, při testu nevznikl, protože
+    žádné uložení neselhalo.
+  - PDF, strana 4: „ETF bez KID v místním jazyce obecně nemůže nabízet (v
+    originále "can generally not offer").“ Opravil jsem to ve zdroji
+    data/brokeri.csv a stejnou větu sjednotil i v docs/strategie.md. Za „(v“
+    jsem dal pevnou mezeru, aby jednopísmenná předložka nezůstala na konci
+    řádku. Stranu jsem zkontroloval screenshotem a PDF má pořád 6 stran.
+
+  Testovací kontakty: v databázi nejsou
+
+  Řádků s utm_source=test je 0, takže jsem nic nesmazal.
+
+  - V tabulce je jen řádek 17. Vznikl dnes ve 21:02 bez UTM, teď má 3 odeslání a
+    poslední je z 22:17.
+  - Testy zřejmě použily stejný e-mail jako tento starší test. E-mail je v
+    databázi unikátní, takže další odeslání jen zvýšila počítadlo a UTM zůstalo
+    z prvního odeslání, tedy prázdné.
+  - Průchody se proto v databázi rozlišit nedají. Zapsal jsem to do
+    docs/mereni.md i s poučením pro vyhodnocení: počet kontaktů = počet
+    unikátních e-mailů, reklama se přiřazuje podle prvního odeslání.
+
+  Váš souhlas platil pro řádky s utm_source=test, tenhle pod něj nespadá. Mám 
+  smazat řádek 17? Je zjevně testovací.
+
+  Návrh: koncept README
+
+  Česky, stručně, s odkazy do docs/ místo opakování obsahu. Pořadí sleduje
+  otázku hodnotitele „dala by se zítra pustit reklama“:
+
+  1. Nahoře: URL stránky, odkaz na reklamy (ads/README.md), PDF odměna a jedna
+     věta, co stránka dělá. Hned pod tím stav pro spuštění reklamy: co je
+     připravené a co před placenou kampaní chybí (Vercel Pro, pravidla Meta pro
+     finance, Meta Pixel).
+  2. Screenshoty: mobil A a B (první obrazovka), stav po odeslání, desktop,
+     náhled obou reklam. Uložím je do docs/img/.
+  3. Cílová skupina, co návštěvník dostane za kontakt a kdy o něj žádáme
+     (strategie.md, rozhodnutí 1 a 2).
+  4. Reklamy A a B a návaznost první obrazovky.
+  5. Pořadí sekcí a jeho zdůvodnění, včetně desktopu.
+  6. Data a zdroje: odkud čísla jsou, ruční kontrola, npm run check hlídá
+     stránku, PDF i reklamy.
+  7. Měření: eventy, funnely, výsledek testu na iPhonu.
+  8. Očekávaná konverze s benchmarkem a zdrojem (strategie.md, sekce 5).
+  9. Tři hypotézy na A/B test seřazené podle dopadu (strategie.md, sekce 8).
+  10. Rozhodnutí u nejasností v zadání: NYSE vs. NYSE Arca, proč jsou ve
+      srovnání i evropské fondy, PDF hned místo e-mailem, měření bez cookie
+      lišty, nic nedoporučujeme.
+  11. Jak jsem pracoval s AI: pravidla pro agenty v CLAUDE.md, jak jsem výstup
+      kontroloval (recenzent jako druhá instance Claude, skripty, screenshoty,
+      test na iPhonu), tabulka nejdůležitějších chyb agenta ze 17 záznamů v
+      ai-notes.md včetně kontroly oběma směry, exporty v ai-log/.
+  12. Rychlost a přístupnost (kontrola.md).
+  13. Co chybí: omezení ze strategie.md (sekce 7) a nová zjištění:
+      - netestováno na Androidu,
+      - PDF se nedoručuje e-mailem,
+      - jedno odeslání = jeden e-mail, reklama se přiřazuje podle prvního
+        odeslání,
+      - pravidla Meta pro finanční reklamy neověřena,
+      - právní posouzení Umami neproběhlo.
+  14. Spuštění lokálně a struktura repozitáře: příkazy npm run … a .env.example.
+
+  Postup:
+  1. Napíšu koncept, npm run check a kontrola dlouhých pomlček.
+  2. Pošlu vám ho ke kontrole, commit udělám až po schválení.
+  3. Pak připomenu export /export ai-log/03-kontrola.txt a fázi 3 uzavřu.
+
+  Schvalujete strukturu README a screenshoty v docs/img/? A smazat řádek 17?
+
+✻ Cogitated for 2m 35s · done 10:25 PM
+
+※ recap: Ve fázi 3 dokončujeme ETF landing page k odevzdání: opravy, kontrola, reklamy i test na iPhonu jsou hotové a pushnuté. Od vás potřebuji schválit strukturu konceptu README a říct, jestli mám smazat testovací řádek 17 v databázi.
+
+❯ Řádek 17 je můj test, smaž ho.                                                
+                                                                                
+  README: obsah je správný, ale 14 sekcí je moc. Hodnotitel ho otevře první a   
+  má do 2 až 3 minut najít odpovědi na to, co v zadání výslovně chce. Uspořádej 
+  to takto:                                                                     
+                                                                                
+  1. Nahoře: URL, reklamy, PDF, jedna věta co to je, a krátký verdikt "Dala by  
+  se zítra pustit reklama?": co je hotové a co chybí, s odhadem času na každou  
+  chybějící věc.                                                                
+  2. Jeden obrázek: první obrazovka mobil A a B vedle sebe a vedle nich obě     
+  reklamy. Ostatní screenshoty jen v docs/img/ s odkazem.                       
+  3. Cílová skupina, odměna a kdy žádáme kontakt (krátce).                      
+  4. Pořadí sekcí a proč.                                                       
+  5. Očekávaná konverze se zdroji.                                              
+  6. 3 hypotézy na A/B test seřazené podle dopadu.                              
+  7. Jak jsem pracoval s AI: pokyny agentům (CLAUDE.md, plán, schválení,        
+  commit, export), kontrola výstupu (prompty a revize jsem připravoval v chatu  
+  s druhou instancí Claude, která neviděla kontext agenta, rozhodnutí jsou      
+  moje; skripty npm run check, screenshoty, test na iPhonu), tabulka 5 až 7     
+  nejdůležitějších chyb agenta s tím, jak se odhalily, včetně případu, kdy      
+  agent odmítl formulaci recenzenta. Odkaz na ai-notes.md a ai-log/.            
+  8. Rozhodnutí u nejasností v zadání (NYSE Arca, evropské fondy, PDF hned, bez 
+  cookie lišty, nic nedoporučujeme).                                            
+  9. Co chybí a omezení.                                                        
+  10. Na konec malým písmem: data a zdroje, měření, rychlost a přístupnost,     
+  spuštění lokálně, struktura repa. Každé 2 až 3 věty a odkaz do docs/.         
+                                                                                
+  Krátké věty, žádné opakování obsahu docs/. Pošli mi koncept ke kontrole,      
+  commit až po schválení.                                                       
+
+⏺ Nejdřív smažu řádek 17 a ověřím počty.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Smazáno. Před smazáním ale tabulka měla 2 řádky, ne 1, takže mezitím přibyl
+  nový. Podívám se na jeho údaje bez e-mailu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Zbylý řádek 20 (vznikl ve 22:23, bez UTM, verze A s výchozími hodnotami)
+  nechávám bez zásahu, protože jste smazání potvrdil jen pro řádek 17 – zeptám
+  se na něj později. Teď jdu sbírat podklady pro README ze souboru strategie.md.
+
+  Ran 1 shell command (ctrl+o to expand)
+⏺ Řádek 17 je smazaný. Pro tabulku chyb agenta si projdu názvy všech záznamů v
+  ai-notes.md.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Mám podklady. Udělám obrázky z produkce: souhrnný obrázek (mobil A a B, obě
+  reklamy) a ostatní screenshoty do docs/img/.
+
+  Read 2 files, ran 1 shell command (ctrl+o to expand)
+
+⏺ Obrázky jsou v pořádku. Zjistím adresu repozitáře a píšu koncept README.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Píšu koncept README.
+
+⏺ Write(README.md)
+  ⎿  Wrote 128 lines to README.md
+      1 # ETF v korunách
+      3 Landing page pro českého drobného investora, který přijde z rekla
+        my na Instagramu: kalkulačka nákladů fondu a srovnání ETF z NYSE 
+        ovnání 11 fondů.
+      5 - **Stránka:** https://etf-landing-sigma.vercel.app/ (reklama A j
+        e výchozí, verze B: [`?utm_content=b_srovnani`](https://etf-landi
+      6 - **Reklamy:** [ads/README.md](ads/README.md) (texty, odkazy s UT
+        M, vizuály pro Feed a Stories)
+        n ve formátu telefonu)
+      9 ## Dala by se zítra pustit reklama?
+     … +209 lines (ctrl+o to expand)
+
+⏺ Koncept je napsaný. Doplním třetí hypotézu (povinný souhlas) do tabulky
+  hypotéz v docs/strategie.md, aby README neobsahovalo nic, co v podkladech
+  chybí. Upřesním i jednu nepřesnou větu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Koncept README ke kontrole (necommitnutý) a souhrnný obrázek, který je v něm
+  nahoře
+
+  › [file] README.md (9.4KB)
+  › [image] docs/img/prehled.png (484.4KB)
+
+⏺ Koncept README a souhrnný obrázek jsem vám poslal ke kontrole. Nic z toho
+  zatím není commitnuté. Řádek 17 jsem smazal, ale v databázi mezitím přibyl
+  další kontakt (řádek 20), ke kterému potřebuji vaše rozhodnutí.
+
+  README
+
+  Má 10 částí v pořadí, které jste zadal. Podrobnosti jsou dole malým písmem,
+  každá ve 2 až 3 větách s odkazem do docs/.
+
+  - Souhrnný obrázek docs/img/prehled.png: první obrazovka A a B na mobilu (z
+    produkce) a vedle nich obě reklamy pro Feed. Ostatní screenshoty (formulář,
+    po odeslání, desktop A a B) jsou jen v docs/img/ s odkazem.
+  - Tabulka chyb agenta má 7 řádků a jako poslední je případ, kdy agent odmítl
+    formulaci recenzenta.
+  - npm run check prošel a dlouhé pomlčky v textech nejsou.
+
+  Prosím zkontrolujte (píšu za vás, v první osobě)
+
+  1. Verdikt „Technicky ano“ a co chybí:
+     - Před spuštěním: Vercel Pro, pravidla Meta pro finanční reklamy, právní
+       posouzení souhlasu, test na Androidu.
+     - Před škálováním: Meta Pixel, ochrana formuláře, PDF mimo veřejnou adresu.
+     - Odhady času jsem navrhl já a v README jsou označené jako vaše odhady, ne
+       měření. Upravte je podle sebe.
+     - Kvůli právnímu posouzení (1 až 3 dny) to přesně vzato na „zítra“
+       nevychází. Pokud chcete verdikt ostřejší, třeba „ano, po dvou formálních
+       krocích (asi 2 h), právní kontrola souhlasu je riziko k posouzení“,
+       napište.
+  2. Třetí hypotéza je nová. V podkladech byly jen dvě (PDF hned vs. e-mailem,
+     kdy ukázat lištu). Jako třetí jsem doplnil povinný vs. dobrovolný souhlas.
+     Je to alternativa, kterou strategie už popisovala v Rozhodnutí 2, a doplnil
+     jsem ji do tabulky hypotéz v docs/strategie.md. Pořadí podle dopadu je
+     odhad:
+     -
+       i. Doručení PDF hned vs. e-mailem.
+     -
+       ii. Povinný vs. dobrovolný souhlas.
+     -
+       iii. Lišta od načtení vs. až po první interakci.
+
+     Zdůvodnění: první dvě mění samotnou výměnu (co návštěvník dostane a co musí
+     odsouhlasit), třetí jen viditelnost výzvy.
+  3. Popis kontroly: prompty a revize jste připravoval s druhou instancí Claude
+     bez kontextu agenta a rozhodnutí jsou vaše. Formuloval jsem to podle vašeho
+     zadání.
+
+  Řádek 20 v databázi
+
+  Kontrola počtů při mazání ukázala, že v databázi mezitím přibyl další kontakt:
+
+  ┌─────────────────┬───────┐
+  │                 │ Řádků │
+  ├─────────────────┼───────┤
+  │ Před smazáním   │ 2     │
+  ├─────────────────┼───────┤
+  │ Smazán řádek 17 │ 1     │
+  ├─────────────────┼───────┤
+  │ Po smazání      │ 1     │
+  └─────────────────┴───────┘
+
+  Zbylý řádek 20 vznikl dnes ve 22:23, bez UTM, z verze A s výchozími hodnotami.
+  Nejspíš je to zase váš test z adresy bez parametrů. Smazání jste potvrdil jen
+  pro řádek 17, takže řádek 20 zůstává. Mám ho smazat?
+
+  Až README schválíte, commitnu ho i se screenshoty a doplněnou hypotézou. Fázi
+  3 pak uzavřete příkazem /export ai-log/03-kontrola.txt, export commitnu a
+  pushnu.
+
+✻ Cooked for 2m 56s · done 10:33 PM
+
+※ recap: We're finishing phase 3 of the ETF landing page, and I've sent you the README draft to review; nothing is committed yet. Next, I need your approval of the README and a yes or no on deleting test row 20 in the database.
+
+❯ Řádek 20 je taky můj test, smaž ho.                                           
+                                                                                
+  README:                                                                       
+  - Verdikt dej ostřejší: "Ano, po dvou formálních krocích (asi 2 h). Právní    
+  kontrola povinného souhlasu je riziko, které by před ostrým spuštěním měl     
+  posoudit právník." Odhady času nech označené jako moje.                       
+  - Třetí hypotézu i pořadí schvaluji.                                          
+  - Popis kontroly je správně.                                                  
+                                                                                
+  Commitni README, obrázky a hypotézu jako koncept a pushni. Recenzent ho       
+  přečte z repozitáře, případné úpravy uděláme dalším commitem.                 
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Řádek 20 je smazaný a tabulka je prázdná. Upravuji verdikt v README.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Do výsledku testu v docs/mereni.md doplním úklid databáze a pak commitnu.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Koncept README je commitnutý a pushnutý (4210050), recenzent ho najde v
+  repozitáři: https://github.com/egorkazabey/etf-landing
+
+  - README: verdikt má vaše znění: „Ano, po dvou formálních krocích (asi 2 h).“
+    Pod ním je věta o právní kontrole povinného souhlasu jako riziku. V tabulce
+    je to rozlišené: Vercel Pro a pravidla Meta jako formální kroky, právní
+    posouzení jako riziko. Odhady času zůstávají označené jako vaše.
+  - Další soubory v commitu: souhrnný obrázek a 6 screenshotů v docs/img/. Třetí
+    hypotéza (povinný souhlas) je i v docs/strategie.md.
+  - Databáze: řádek 20 je smazaný. Počet řádků byl před smazáním 1 a po něm 0,
+    tabulka leads je prázdná. Úklid obou testovacích řádků (17 a 20) je zapsaný
+    ve výsledku testu v docs/mereni.md.
+  - Kontrola: npm run check prošel a dlouhé pomlčky v textech nejsou.
+
+  Podle harmonogramu tím končí fáze 3. Prosím spusťte:
+
+  /export ai-log/03-kontrola.txt
+
+  Export pak commitnu a pushnu. Úpravy README po recenzi uděláme dalším
+  commitem, nejspíš ve fázi 4.
+
+✻ Baked for 31s · done 10:57 PM
