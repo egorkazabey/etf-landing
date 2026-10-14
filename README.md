@@ -105,6 +105,13 @@ Proč toto pořadí: 1 a 2 mění samotnou výměnu (co a kdy návštěvník dos
 - `npm run check` hlídá, že čísla na stránce, v PDF a v reklamách odpovídají datům a dokumentaci.
 - Agent dokládal výsledky screenshoty z headless Chrome. Celý funnel jsem prošel na iPhonu.
 
+### Co bych příště udělal jinak
+- **Začal bych rovnou v Claude Code.** První verzi jsem začal v chatu a pak ji zahodil, protože jsem chtěl mít celou práci zaznamenanou v ai-log. Stálo mě to večer, ale druhý start byl díky tomu rychlejší a čistší.
+- **Na telefonu bych testoval hned po první verzi stránky.** Bílý pruh pod patičkou jsem našel až na iPhonu a na desktop jsem si vzpomněl až ve fázi 3. Headless Chrome a screenshoty od agenta nestačí.
+- **Do pravidel pro agenta bych hned dal: nepsat víc, než je ověřené.** Formulace typu "většina brokerů" nebo "v mnoha aplikacích" zněly přirozeně, ale ověření jsme měli jen u tří brokerů. Chytila to až kontrola, jednou dokonce agent opravil recenzenta.
+- **Na testy bych používal oddělené e-maily od začátku.** Moje testovací průchody se v databázi slily do jednoho řádku, protože jsem posílal pořád stejnou adresu.
+- **Překvapilo mě**, jak velký vzorek A/B test potřebuje. Při 10 000 Kč týdně by test malé změny trval přes půl roku. Proto navrhuju testovat postupně a jen velké změny.
+
 **Nejdůležitější chyby agenta** (výběr z 16 chyb a 1 případu opačného směru v [docs/ai-notes.md](docs/ai-notes.md), číslo záznamu v závorce):
 
 | Chyba | Jak se odhalila |
