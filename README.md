@@ -1,5 +1,7 @@
 # ETF v korunách
 
+[![check](https://github.com/egorkazabey/etf-landing/actions/workflows/check.yml/badge.svg)](https://github.com/egorkazabey/etf-landing/actions/workflows/check.yml)
+
 Landing page pro českého drobného investora, který přijde z reklamy na Instagramu: kalkulačka nákladů fondu a srovnání ETF z NYSE Arca s evropskými fondy na stejný index. Za e-mail dostane PDF srovnání 11 fondů.
 
 - **Stránka:** https://etf-landing-sigma.vercel.app/ (reklama A je výchozí, verze B: [`?utm_content=b_srovnani`](https://etf-landing-sigma.vercel.app/?utm_content=b_srovnani))
@@ -127,6 +129,6 @@ Celý seznam: [docs/strategie.md](docs/strategie.md), sekce 7.
 
 <sub>**Rychlost a přístupnost.** Lighthouse na produkci 99 až 100 (mobil i desktop), přenos 134 kB, axe-core bez porušení. Postup a opravy: [docs/kontrola.md](docs/kontrola.md).</sub>
 
-<sub>**Spuštění lokálně.** Node 22+, `npm install`, `DATABASE_URL` v `.env` (vzor v [.env.example](.env.example)), `npm run dev`. Dál `npm run check` (kontrola dat a textů), `npm run pdf`, `npm run ads`.</sub>
+<sub>**Spuštění lokálně.** Node 22+, `npm install`, `DATABASE_URL` v `.env` (vzor v [.env.example](.env.example)), `npm run dev`. Dál `npm run check` (kontrola dat a textů, běží i v GitHub Actions při každém push), `npm run pdf`, `npm run ads`.</sub>
 
 <sub>**Struktura.** `public/` stránka a PDF, `api/lead.js` uložení kontaktu, `data/` zdrojová data, `ads/` reklamy, `reward/` zdroj PDF, `scripts/` build a kontroly, `docs/` podklady, `ai-log/` exporty konverzací.</sub>
