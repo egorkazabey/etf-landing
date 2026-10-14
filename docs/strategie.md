@@ -238,6 +238,7 @@ Viz [reklamy.md](reklamy.md). Reklama A stojí na nákladech v korunách, reklam
 - Umami uvádí, že nepoužívá cookies a nepotřebuje cookie lištu. Právní posouzení jsme nedělali.
 - Povinný souhlas jako podmínka pro získání PDF je podmíněný souhlas (GDPR čl. 7 odst. 4). Právně neověřeno, před ostrým spuštěním konzultovat s právníkem. Alternativa je popsaná v Rozhodnutí 2.
 - PDF leží veřejně v `public/` (`/srovnani-etf.pdf`): kdo zná odkaz, stáhne ho i bez formuláře. Pro skutečnou kampaň by bylo potřeba podepsaný odkaz s omezenou platností nebo doručení e-mailem.
+- Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.
 - Formulář chrání proti robotům jen skryté pole. Omezení počtu požadavků (rate limiting) ani CAPTCHA nejsou: při skutečné kampani by bylo potřeba doplnit, jinak lze databázi zaplnit falešnými adresami.
 
 ## 8. Hypotézy na A/B test (podklad pro README)
@@ -249,7 +250,6 @@ Sbíráno průběžně. Pořadí podle očekávaného dopadu je v README (koncep
 | Doručení odměny | okamžité stažení PDF po odeslání (vyšší konverze, víc falešných adres) | PDF jen e-mailem (ověřený kontakt, nižší konverze) | konverze na odeslání; podíl platných adres | 12. 10. 2026 |
 | Kdy ukázat lištu s výzvou | lišta od načtení | lišta až po první interakci (změna vstupu, přepnutí fondu, scroll) | konverze na odeslání; klik na lištu | 12. 10. 2026 |
 | Povinný souhlas | souhlas je podmínka pro PDF | PDF dostane každý, e-mail se uloží jen se souhlasem (alternativa z Rozhodnutí 2) | konverze; `form_error` s důvodem `consent` | 13. 10. 2026 |
-- Trading 212, Interactive Brokers, Patria, Revolut a Portu nejsou ověřené z primárních zdrojů.
 
 ## 9. Pořadí sekcí na stránce (podklad pro README)
 
@@ -261,7 +261,7 @@ Zapsáno 12. 10. 2026 při stavbě stránky (fáze 2).
 4. **Jak počítáme a odkud jsou čísla:** sbalené, pro ty, kdo chtějí ověřit. Neodvádí pozornost od formuláře, ale je k dispozici.
 5. **Patička:** upozornění, že nejde o doporučení, správce osobních údajů, označení ukázkového projektu.
 
-Technicky je pořadí sekcí 1 a 2 přepnuté přes CSS (`order`) podle `utm_content` ještě před vykreslením, takže stránka neproblikne.
+Technicky je pořadí sekcí 1 a 2 přepnuté přes CSS (`order`) podle `utm_content` ještě před vykreslením, takže stránka neproblikne. Od fáze 3 skript přesune sekci i v DOM, aby pořadí pro klávesnici a čtečku obrazovky odpovídalo tomu, co je vidět (viz [ai-notes.md](ai-notes.md), záznam 15).
 
 ## 10. Cena za lead a rozpočet
 

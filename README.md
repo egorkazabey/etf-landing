@@ -146,7 +146,7 @@ Celý seznam: [docs/strategie.md](docs/strategie.md), sekce 7.
 
 <sub>**Data a zdroje.** Náklady a velikost fondů ze stránek emitentů, průměrný fond v EU podle ESMA, brokeři z jejich nápovědy, vše k 12. 10. 2026. Ruční kontrola každého čísla a omezení dat: [docs/zdroje-dat.md](docs/zdroje-dat.md).</sub>
 
-<sub>**Měření.** Umami Cloud bez cookies, 12 eventů od příchodu po otevření PDF, tag `ad-a` / `ad-b`, 4 funnely. Tracking plán, návod na funnely a výsledek testu na iPhonu: [docs/mereni.md](docs/mereni.md).</sub>
+<sub>**Měření.** Umami Cloud bez cookies, 12 eventů od příchodu po otevření PDF, tag `ad-a` / `ad-b`, 4 funnely. Veřejné statistiky: [cloud.umami.is/share/I0dtZYEeDBGkvhBF](https://cloud.umami.is/share/I0dtZYEeDBGkvhBF). Tracking plán, návod na funnely a výsledek testu na iPhonu: [docs/mereni.md](docs/mereni.md).</sub>
 
 <sub>**Rychlost a přístupnost.** Lighthouse na produkci 99 až 100 (mobil i desktop), přenos 134 kB, axe-core bez porušení. Postup a opravy: [docs/kontrola.md](docs/kontrola.md).</sub>
 
