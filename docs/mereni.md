@@ -68,6 +68,24 @@ Podle dokumentace Umami, ověřeno 13. 10. 2026 ([Funnel](https://docs.umami.is/
 
 **Záloha, když funnel filtr nepřevezme:** rozdělení A a B podle vlastnosti `ad` u eventů (stránka Events, filtr Event properties), konverze = `lead_saved` s `ad=a` / `ad=b` vůči zobrazením s tagem `ad-a` / `ad-b` na přehledu.
 
+### Veřejný odkaz na statistiky (Share URL)
+
+Podle dokumentace Umami, ověřeno 14. 10. 2026 ([Enable Share URL](https://docs.umami.is/docs/enable-share-url)). Nastavuje uživatel, odkaz pak přidá do README.
+
+1. Umami Cloud → **Websites** v postranním panelu → u webu *etf-landing-sigma.vercel.app* **Edit**.
+2. Sekce **Share URL** → **Add**.
+3. Ve formuláři vybrat, které pohledy budou veřejné. Dokumentace nabízí Traffic (Overview, Events, Sessions, Realtime, Compare, Breakdown), Behavior (Goals, Funnels, Journeys, Retention) a Growth (UTM, Revenue, Attribution).
+4. Uložit. Umami odkaz vygeneruje sám.
+
+**Doporučený výběr:** Overview, Events, Funnels a UTM. To stačí k ověření celé cesty a rozdělení A a B. Sessions a Journeys bych nezveřejňoval: ukazují jednotlivé návštěvy, ne souhrn. Revenue a Attribution stránka nepoužívá.
+
+**Co odkaz ukáže:** eventy s vlastnostmi z tabulky výše (`ad`, `monthly`, `years`, `fund`, `reason` a další). E-mail ani jiné osobní údaje do Umami nikdy nejdou, takže je veřejný odkaz neukáže.
+
+**Ověří se v rozhraní** (dokumentace to neuvádí):
+- jestli sdílený pohled Funnels ukáže 4 uložené funnely, nebo jen prázdný nástroj. Kontrola: otevřít odkaz v anonymním okně,
+- jestli jde odkaz zrušit nebo vygenerovat znovu,
+- testovací návštěvy (`utm_source=test`, `etf.test`) jsou v datech taky. Návštěvník odkazu si je vyfiltruje sám filtrem z bodu 6 výše, pokud ho sdílený pohled nabízí.
+
 ## Ukazatele
 
 | Ukazatel | Výpočet | Zdroj |
