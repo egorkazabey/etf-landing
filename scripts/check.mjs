@@ -83,6 +83,27 @@ for (const ad of ads.ADS) for (const [format, F] of Object.entries(ads.FORMATS))
 }
 if (!existsSync(ads.SHA_PATH) || readFileSync(ads.SHA_PATH, "utf8").trim() !== ads.sha256(ads.allSources())) fail("PNG reklam nejsou vyfocené z aktuálních ads/src/*.html, spusťte npm run ads");
 
+// 2e. Texty e-mailů (docs/emaily.md): částky v příkladu den 3 sedí s daty a vzorcem, ověření brokeři, zakázané formulace
+const mail = existsSync(root + "docs/emaily.md") ? norm(readFileSync(root + "docs/emaily.md", "utf8")) : "";
+if (!mail) fail("chybí docs/emaily.md");
+const sp500 = FUNDS.filter(f => f.index.startsWith("S&P 500"));
+const mailRows = [...new Set(sp500.map(f => f.ter))].sort((a, b) => a - b)
+  .map(ter => [sp500.filter(f => f.ter === ter).map(f => f.ticker).sort().join(", "), ter])
+  .concat([["průměrné akciové ETF v EU (ESMA)", ESMA.avg_etf.ter], ["průměrný akciový fond v EU (ESMA)", ESMA.avg_fund.ter]]);
+for (const [label, ter] of mailRows) {
+  const row = `> | ${label} | ${pct(ter)} | ${norm(fmt(cost(ter)))} Kč |`;
+  if (!mail.includes(row)) fail(`docs/emaily.md: chybí řádek "${row}"`);
+}
+const spCost = sp500.map(f => cost(f.ter));
+const spread = Math.ceil((Math.max(...spCost) - Math.min(...spCost)) / 100) * 100;
+const gap = Math.floor((cost(ESMA.avg_fund.ter) - Math.max(...spCost)) / 1000) * 1000;
+for (const want of [`do ${norm(fmt(spread))} Kč`, `přes ${norm(fmt(gap))} Kč`]) if (!mail.includes(want)) fail(`docs/emaily.md: chybí "${want}"`);
+for (const b of BROKERS.filter(b => b.verified)) if (!mail.includes(`**${b.broker.split(" ")[0]}`)) fail(`docs/emaily.md: chybí ověřený broker ${b.broker}`);
+const mailBody = mail.split("## 1. Hned")[1] ?? "";
+for (const bad of ["kupte", "doporučujeme", "nejlepší", "nejvýhodnější", "pro vás", "hodí se vám", "lidé jako vy", "co koupit"]) {
+  if (mailBody.toLowerCase().includes(bad)) fail(`docs/emaily.md: zakázaná formulace "${bad}"`);
+}
+
 // 3. Dlouhé pomlčky (U+2013, U+2014)
 function files(dir, exts) {
   if (!existsSync(dir)) return [];
@@ -111,4 +132,4 @@ if (errors.length) {
   console.error("CHYBY:\n- " + errors.join("\n- "));
   process.exit(1);
 }
-console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, PDF aktuální (${pagesHtml.length} stran), ${adCount} vizuály reklam aktuální, ${textFiles.length} souborů bez dlouhých pomlček`);
+console.log(`OK: data aktuální, ${rows.length} výpočtů sedí s dokumentací, ${Object.keys(expected).length} výchozích hodnot v HTML sedí s daty, PDF aktuální (${pagesHtml.length} stran), ${adCount} vizuály reklam aktuální, e-maily sedí s daty, ${textFiles.length} souborů bez dlouhých pomlček`);

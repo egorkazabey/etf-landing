@@ -39,6 +39,8 @@ Další screenshoty (formulář, stav po odeslání, desktop) jsou v [docs/img/]
 
 **Kdy žádáme:** až když hodnotu vidí. Výsledek kalkulačky (A) nebo srovnání (B) je na první obrazovce bez jakékoli akce. Pevná lišta "Chci PDF" vede k formuláři, nad kterým je náhled první strany PDF. Formulář má jen e-mail a souhlas.
 
+**Po odeslání:** tři e-maily (hned PDF, den 3 náklady pro zadanou částku, den 7 co uvádějí brokeři). Zatím jen texty, odesílání chybí: [docs/emaily.md](docs/emaily.md).
+
 Podrobně: [docs/strategie.md](docs/strategie.md), Rozhodnutí 1 a 2.
 
 ## Pořadí sekcí
