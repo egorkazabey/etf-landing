@@ -8,12 +8,13 @@ Landing page pro českého drobného investora, který přijde z reklamy na Inst
 
 ## Dala by se zítra pustit reklama?
 
-**Ano, po dvou formálních krocích (asi 2 h).** Právní kontrola povinného souhlasu je riziko, které by před ostrým spuštěním měl posoudit právník.
+**Ano, pokud se dosadí provozovatel a přepne hosting (asi 1 h).** Stránka, měření a reklamy jsou hotové.
 
 Celá cesta funguje a je změřená: reklama → první obrazovka podle reklamy → formulář → kontakt v databázi → PDF. Prošel jsem ji na iPhonu v Safari i v prohlížeči Instagramu.
 
 | Chybí | Kdy | Odhad času |
 |---|---|---|
+| Provozovatel a správce údajů. Teď je to ukázkový projekt s mým jménem. Dosadit skutečnou firmu (Clientelo nebo klienta), upravit patičku a zásady | formální krok před spuštěním | 30 min |
 | Tarif Vercel Pro (Hobby je podle Vercelu jen pro nekomerční použití) | formální krok před spuštěním | 15 min |
 | Projít pravidla Meta pro finanční reklamy | formální krok před spuštěním | 1 až 2 h, schválení Metou neodhadnu |
 | Právní posouzení povinného souhlasu jako podmínky pro PDF (GDPR čl. 7 odst. 4) a měření bez cookie lišty | riziko, posoudit před ostrým spuštěním | 1 až 3 dny podle právníka |
@@ -81,24 +82,25 @@ Proč toto pořadí: 1 a 2 mění samotnou výměnu (co a kdy návštěvník dos
 - `npm run check` hlídá, že čísla na stránce, v PDF a v reklamách odpovídají datům a dokumentaci.
 - Agent dokládal výsledky screenshoty z headless Chrome. Celý funnel jsem prošel na iPhonu.
 
-**Nejdůležitější chyby agenta** (všech 16 v [docs/ai-notes.md](docs/ai-notes.md)):
+**Nejdůležitější chyby agenta** (výběr z 15 chyb a 1 případu opačného směru v [docs/ai-notes.md](docs/ai-notes.md), číslo záznamu v závorce):
 
 | Chyba | Jak se odhalila |
 |---|---|
-| Předpoklad z paměti, že US ETF z Česka koupit nejde. Pro klienty Fio nepravda. | plán ji označil jako hypotézu, průzkum ji vyvrátil |
-| Kalkulačka postavená na rozdílu VOO a SPY, v korunách asi 3 100 Kč za 20 let, tedy skoro nic | revize s druhou instancí |
-| Text reklamy B "co koupit místo něj" je investiční doporučení | revize s druhou instancí |
-| Výchozí evropský fond s vyšším TER: evropská verze by vždy vyšla dražší | kontrola čísel druhou instancí |
-| Bílý pruh pod patičkou po skrytí lišty, stránka laděná jen na mobil | můj test na iPhonu |
-| Skrytá lišta šla vybrat tabulátorem, u B neodpovídalo pořadí fokusu obrazovce | agent sám, průchodem klávesnicí (Lighthouse ani axe to nenašly) |
-| **Opačný směr:** agent odmítl formulaci recenzenta "v mnoha aplikacích ne", protože ověření jsou jen tři brokeři | agent při kontrole proti datům |
+| Předpoklad z paměti, že US ETF z Česka koupit nejde. Pro klienty Fio nepravda. (3) | plán ji označil jako hypotézu, průzkum ji vyvrátil |
+| Kalkulačka postavená na rozdílu VOO a SPY, v korunách asi 3 100 Kč za 20 let, tedy skoro nic (4) | revize s druhou instancí |
+| Text reklamy B "co koupit místo něj" je investiční doporučení (5) | revize s druhou instancí |
+| Výchozí evropský fond s vyšším TER: evropská verze by vždy vyšla dražší (6) | kontrola čísel druhou instancí |
+| Bílý pruh pod patičkou po skrytí lišty, stránka testovaná jen na šířce 375 px (14) | pruh můj test na iPhonu, desktop úvaha, kdo bude stránku hodnotit |
+| Skrytá lišta šla vybrat tabulátorem, u B neodpovídalo pořadí fokusu obrazovce (15) | agent sám, průchodem klávesnicí (Lighthouse ani axe to nenašly) |
+| **Opačný směr:** agent odmítl formulaci recenzenta "v mnoha aplikacích ne", protože ověření jsou jen tři brokeři (16) | agent při kontrole proti datům |
 
 Exporty konverzací jsou v [ai-log/](ai-log/).
 
 ## Rozhodnutí u nejasností v zadání
 
 - **NYSE = NYSE Arca.** Všechny známé ETF (SPY, IVV, VOO, VTI, VT) se primárně obchodují na NYSE Arca, burze skupiny NYSE. Na stránce to píšu přesně.
-- **Evropské fondy vedle amerických.** Většina brokerů v ČR americká ETF neprodá (chybí KID podle PRIIPs). Srovnání jen US fondů by českému investorovi nepomohlo. Evropské fondy jsou jasně označené jako fondy mimo NYSE.
+- **Evropské fondy vedle amerických.** Z ověřených brokerů americká ETF umožňuje jen Fio. DEGIRO ne (ETF bez KID podle PRIIPs), XTB jen jako CFD. Ostatní brokeři jsou neověření ([data/brokeri.csv](data/brokeri.csv)). Srovnání jen US fondů by klientovi DEGIRO nebo XTB nepomohlo. Evropské fondy jsou jasně označené jako fondy mimo NYSE.
+- **Kalkulačka bez zhodnocení.** Stránka tak nic neslibuje o výnosech. Čísla jsou proto menší, ale nejdou zpochybnit.
 - **PDF hned, ne e-mailem.** Bez vlastní domény e-mail spolehlivě nedoručím a okamžitá hodnota je silnější. E-mail je hypotéza 1.
 - **Bez cookie lišty.** Umami podle sebe cookies nepoužívá. Lišta by zabrala první obrazovku. Proto zatím bez Meta Pixelu.
 - **Nic nedoporučujeme.** Stránka, PDF i reklamy jen srovnávají (ČNB, RS2018-08). Evropské fondy jsou abecedně jako rozsah, žádný z nich není výchozí.
