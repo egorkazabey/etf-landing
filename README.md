@@ -105,7 +105,7 @@ Proč toto pořadí: 1 a 2 mění samotnou výměnu (co a kdy návštěvník dos
 - `npm run check` hlídá, že čísla na stránce, v PDF a v reklamách odpovídají datům a dokumentaci.
 - Agent dokládal výsledky screenshoty z headless Chrome. Celý funnel jsem prošel na iPhonu.
 
-**Nejdůležitější chyby agenta** (výběr z 15 chyb a 1 případu opačného směru v [docs/ai-notes.md](docs/ai-notes.md), číslo záznamu v závorce):
+**Nejdůležitější chyby agenta** (výběr z 16 chyb a 1 případu opačného směru v [docs/ai-notes.md](docs/ai-notes.md), číslo záznamu v závorce):
 
 | Chyba | Jak se odhalila |
 |---|---|
