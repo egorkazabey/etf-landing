@@ -118,5 +118,5 @@ Výstupy agenta (plány, dokumenty, data) kontroluji s druhou instancí Claude v
 ### 17. Koncept README tvrdil víc, než říkají data a záznamy
 - Datum a fáze: 14. 10. 2026, fáze 4 (README); chyby vznikly v konceptu z fáze 3
 - Chyba agenta: v Rozhodnutí napsal "Většina brokerů v ČR americká ETF neprodá", přestože ověření jsou jen tři brokeři. Je to stejný typ tvrzení, jaké agent sám odmítl u recenzenta (záznam 16). V tabulce chyb agenta uvedl u bílého pruhu i desktopu, že je odhalil test na iPhonu (desktop podle záznamu 14 vyplynul z úvahy, kdo bude stránku hodnotit), a psal "všech 16 chyb", přestože záznam 16 není chyba agenta.
-- Jak jsem ji odhalil: při kontrole README (s druhou instancí Claude). Zadal jsem agentovi ověřit každý řádek tabulky proti tomuto souboru.
-- Oprava: Rozhodnutí přepsané podle [data/brokeri.csv](../data/brokeri.csv) (Fio ano, DEGIRO ne, XTB jen CFD, ostatní neověřené), u řádků tabulky čísla záznamů, řádek 14 opravený, počet "15 chyb a 1 případ opačného směru".
+- Jak jsem ji odhalil: při kontrole README. Zadal jsem agentovi ověřit každý řádek tabulky proti tomuto souboru.
+- Oprava: Rozhodnutí přepsané podle [data/brokeri.csv](../data/brokeri.csv) (Fio ano, DEGIRO ne, XTB jen CFD, ostatní neověřené), u řádků tabulky čísla záznamů, řádek 14 opravený, případ opačného směru (záznam 16) počítaný zvlášť od chyb.
