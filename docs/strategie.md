@@ -289,3 +289,28 @@ Data za finance v ČR ani v EU jsem nenašel. Cena za klik 0,86 USD (18,74 Kč) 
 
 Cena za lead = CPC / konverze. Kontakty = 10 000 Kč / CPC × konverze.
 
+## 11. Velikost vzorku pro A/B testy
+
+Zapsáno 14. 10. 2026 (fáze 4). Výpočet: `npm run kampan` (s `-- --sim` i simulace).
+
+**Parametry (zadané uživatelem):** výchozí konverze 3,8 %, detekovaná změna o 25 % relativně (3,8 % → 4,75 %), oboustranný test dvou podílů, alfa 0,05, síla 80 %. Pro srovnání i změna o 50 % (3,8 % → 5,7 %).
+
+**Předpoklady (odhad autora):** rozpočet 10 000 Kč týdně, cena za klik 18,74 Kč (Rozhodnutí 10), 1 klik = 1 návštěva. To je 76 návštěv denně.
+
+| Změna konverze | Návštěv na variantu | Celkem | Dní | Cena |
+|---|---|---|---|---|
+| +25 % (3,8 → 4,75 %) | 7 117 | 14 234 | 187 | 266 712 Kč |
+| +50 % (3,8 → 5,7 %) | 1 967 | 3 934 | 52 | 73 714 Kč |
+
+**Platí pro všechny tři hypotézy:** všechny mají jako hlavní metriku stejnou konverzi (odeslaný formulář), takže potřebují stejný vzorek. Hypotéza 3 má jako vedlejší metriku `cta_click`, jehož výchozí míru zatím neznáme (z Umami jsou jen testovací návštěvy). Až bude známá, dá se pro ni vzorek přepočítat. Hypotéza 1 navíc předpokládá doručování e-mailů (zatím chybí).
+
+**Ověření třemi způsoby:**
+1. Vzorec pro dva podíly s normální aproximací (skript): 7 117 a 1 967.
+2. Simulace 10 000 testů se stejným z-testem (`--sim`): síla 80,0 % a 79,7 %.
+3. Pro kontrolu i aproximace přes arkussinus (Cohenovo h): 7 098 a 1 950 na variantu.
+
+**Závěr:** s rozpočtem 10 000 Kč týdně trvá jeden test na změnu o 25 % přes půl roku a stojí 27× víc, než je týdenní rozpočet. Všechny tři testy za sebou by trvaly přes 1,5 roku. Doporučení:
+- testovat postupně podle očekávaného dopadu (hypotéza 1, pak 2, pak 3), ne souběžně, protože souběh dělí provoz;
+- testovat jen velké změny: při změně o 50 % stačí 52 dní; malé úpravy (barva, text tlačítka) při tomto provozu měřitelné nejsou;
+- nebo zvýšit rozpočet: délka testu klesá úměrně rozpočtu.
+

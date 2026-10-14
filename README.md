@@ -71,7 +71,16 @@ Oba zdroje jsou zahraniční a počítají konverzi jinak než my (Unbounce i kl
 | 3,8 % | 493 Kč | 20 |
 | 7 % | 268 Kč | 37 |
 
-Výpočet `npm run kampan`, zdroje a výhrady: [docs/strategie.md](docs/strategie.md), Rozhodnutí 10.
+**Velikost vzorku.** Výchozí konverze 3,8 %, alfa 0,05, síla 80 %. Rozpočet 10 000 Kč týdně (můj předpoklad), tedy 76 návštěv denně. Všechny tři hypotézy mají stejnou hlavní metriku, takže i stejný vzorek:
+
+| Detekovaná změna | Návštěv na variantu | Délka testu | Cena |
+|---|---|---|---|
+| +25 % (3,8 → 4,75 %) | 7 117 | 187 dní | 267 tis. Kč |
+| +50 % (3,8 → 5,7 %) | 1 967 | 52 dní | 74 tis. Kč |
+
+**Jeden test na změnu o 25 % by s tímto rozpočtem trval přes půl roku.** Doporučuji proto testovat hypotézy postupně podle dopadu (1, 2, 3) a jen velké změny, které mají šanci posunout konverzi o 50 % a víc. Malé úpravy při tomto provozu měřitelné nejsou. Větší rozpočet zkracuje test úměrně.
+
+Výpočet `npm run kampan` (ověřený simulací), zdroje a výhrady: [docs/strategie.md](docs/strategie.md), Rozhodnutí 10 a 11.
 
 ## Tři hypotézy na A/B test
 
