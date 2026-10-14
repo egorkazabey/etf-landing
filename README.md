@@ -8,7 +8,7 @@ Landing page pro českého drobného investora, který přijde z reklamy na Inst
 
 ## Dala by se zítra pustit reklama?
 
-**Ano, pokud se dosadí provozovatel a přepne hosting (asi 1 h).** Stránka, měření a reklamy jsou hotové.
+**Ano, pokud se dosadí provozovatel, přepne hosting a projdou pravidla Meta pro finanční reklamy (asi 2 až 3 h).** Stránka, měření a reklamy jsou hotové. Povinný souhlas doporučuji před ostrým spuštěním nechat posoudit právníkem.
 
 Celá cesta funguje a je změřená: reklama → první obrazovka podle reklamy → formulář → kontakt v databázi → PDF. Prošel jsem ji na iPhonu v Safari i v prohlížeči Instagramu.
 
