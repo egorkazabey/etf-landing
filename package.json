@@ -9,7 +9,8 @@
     "db:migrate": "node --env-file-if-exists=.env scripts/db-migrate.mjs",
     "pdf": "node scripts/build-pdf.mjs",
     "ads": "node scripts/build-ads.mjs",
-    "test-leads": "node --env-file-if-exists=.env scripts/test-leads.mjs"
+    "test-leads": "node --env-file-if-exists=.env scripts/test-leads.mjs",
+    "kampan": "node scripts/kampan.mjs"
   },
   "engines": {
     "node": ">=22"

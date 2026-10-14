@@ -262,3 +262,30 @@ Zapsáno 12. 10. 2026 při stavbě stránky (fáze 2).
 5. **Patička:** upozornění, že nejde o doporučení, správce osobních údajů, označení ukázkového projektu.
 
 Technicky je pořadí sekcí 1 a 2 přepnuté přes CSS (`order`) podle `utm_content` ještě před vykreslením, takže stránka neproblikne.
+
+## 10. Cena za lead a rozpočet
+
+Zapsáno 14. 10. 2026 (fáze 4). Výpočet: `npm run kampan` ([scripts/kampan.mjs](../scripts/kampan.mjs)).
+
+**Vstupy:**
+
+| Údaj | Hodnota | Zdroj, datum | Výhrada |
+|---|---|---|---|
+| Cena za klik (CPC), finance | 0,86 USD | [LocaliQ, Facebook Advertising Benchmarks](https://localiq.com/blog/facebook-advertising-benchmarks/), Finance & Insurance, traffic campaigns; aktualizováno 23. 9. 2026, získáno 14. 10. 2026 | Stránka neuvádí zemi, počet kampaní ani zda jde o medián, nebo průměr. Data WordStream/LocaliQ jsou podle všeho z USA (neověřeno, stránka WordStream s metodikou vrací 403). |
+| CPC v ČR, všechna odvětví | 0,95 USD | [AdAmigo, Meta Ads CPM & CPC Benchmarks by Country in 2026](https://www.adamigo.ai/blog/meta-ads-cpm-cpc-benchmarks-by-country-2026), 4. 10. 2026, získáno 14. 10. 2026 | Projekce "based on industry benchmarks and late 2025 data", zdroj dat neuveden. Jen pro kontrolu řádu. |
+| CPM v ČR | 6,20 USD (AdAmigo), 5,70 USD ([Lebesgue](https://lebesgue.io/facebook-ads/facebook-cpm-by-country), e-commerce, 27. 7. 2026) | získáno 14. 10. 2026 | Ani jeden zdroj neuvádí metodiku. Do výpočtu nevstupuje: přepočet na klik by potřeboval CTR za ČR, které nemám. |
+| Kurz USD | 21,788 Kč | ČNB, kurz devizového trhu 13. 10. 2026, získáno 14. 10. 2026 | |
+| Konverze | 2 / 3,8 / 7 % | Rozhodnutí 5: 2 % odhad autora, 3,8 % střed rozsahu 3,7 až 3,9 %, 7 % uvnitř rozsahu 6,3 až 8,3 % | |
+
+Data za finance v ČR ani v EU jsem nenašel. Cena za klik 0,86 USD (18,74 Kč) je proto **odhad**: finanční CPC z (pravděpodobně) amerických dat. Pro kontrolu: CPC v ČR za všechna odvětví vychází podobně (0,95 USD, 20,70 Kč).
+
+**Výsledek** (předpoklad: 1 klik = 1 návštěva stránky; ve skutečnosti část kliků stránku nenačte, cena za lead bude vyšší):
+
+| Konverze | Cena za lead | Kontaktů za 10 000 Kč |
+|---|---|---|
+| 2 % | 937 Kč | 11 |
+| 3,8 % | 493 Kč | 20 |
+| 7 % | 268 Kč | 37 |
+
+Cena za lead = CPC / konverze. Kontakty = 10 000 Kč / CPC × konverze.
+

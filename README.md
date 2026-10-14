@@ -63,6 +63,16 @@ Konverze = odeslaný formulář (`lead_saved`) / návštěvníci.
 
 Oba zdroje jsou zahraniční a počítají konverzi jinak než my (Unbounce i kliky, Ruler kvalifikované leady). Data za ČR ani za lead magnety ve financích jsem nenašel.
 
+**Cena za lead.** Cena za klik je odhad: 0,86 USD (18,74 Kč) pro finance podle [LocaliQ](https://localiq.com/blog/facebook-advertising-benchmarks/) (září 2026, nejspíš data z USA). Za ČR ani EU jsem data pro finance nenašel. Při předpokladu 1 klik = 1 návštěva:
+
+| Konverze | Cena za lead | Kontaktů za 10 000 Kč |
+|---|---|---|
+| 2 % | 937 Kč | 11 |
+| 3,8 % | 493 Kč | 20 |
+| 7 % | 268 Kč | 37 |
+
+Výpočet `npm run kampan`, zdroje a výhrady: [docs/strategie.md](docs/strategie.md), Rozhodnutí 10.
+
 ## Tři hypotézy na A/B test
 
 Seřazené podle očekávaného dopadu. Pořadí je můj odhad, ne měření.
