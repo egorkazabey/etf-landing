@@ -23,6 +23,7 @@ Celá cesta funguje a je změřená: reklama → první obrazovka podle reklamy 
 | Meta Pixel s cookie lištou, aby kampaň mohla optimalizovat na leady | před škálováním | 4 h |
 | Ochrana formuláře proti robotům (rate limiting, CAPTCHA) | před škálováním | 2 h |
 | PDF mimo veřejnou adresu (podepsaný odkaz nebo e-mail) | před škálováním | 3 h |
+| Export kontaktů nebo napojení na CRM či e-mailový nástroj, aby se obchod ke kontaktům dostal bez přístupu do databáze | před škálováním | 2 h |
 | Test na Androidu | doporučeno před spuštěním | 30 min |
 
 Odhady času jsou moje, ne měření.
@@ -154,6 +155,8 @@ Celý seznam: [docs/strategie.md](docs/strategie.md), sekce 7.
 <sub>**Data a zdroje.** Náklady a velikost fondů ze stránek emitentů, průměrný fond v EU podle ESMA, brokeři z jejich nápovědy, vše k 12. 10. 2026. Ruční kontrola každého čísla a omezení dat: [docs/zdroje-dat.md](docs/zdroje-dat.md).</sub>
 
 <sub>**Měření.** Umami Cloud bez cookies, 12 eventů od příchodu po otevření PDF, tag `ad-a` / `ad-b`, 4 funnely. Veřejné statistiky: [cloud.umami.is/share/I0dtZYEeDBGkvhBF](https://cloud.umami.is/share/I0dtZYEeDBGkvhBF). Tracking plán, návod na funnely a výsledek testu na iPhonu: [docs/mereni.md](docs/mereni.md).</sub>
+
+<sub>**Kontakty.** Tabulka `leads` v Neon Postgres, region Frankfurt (EU). Ukládá se e-mail, souhlas s jeho zněním a časem, verze A/B, `utm_*` a částka a roky z kalkulačky, nejdéle do 31. 12. 2026. E-mail nikdy nejde do Umami. Zásady: [public/soukromi.html](public/soukromi.html), struktura: [db/schema.sql](db/schema.sql).</sub>
 
 <sub>**Rychlost a přístupnost.** Lighthouse na produkci 99 až 100 (mobil i desktop), přenos 134 kB, axe-core bez porušení. Postup a opravy: [docs/kontrola.md](docs/kontrola.md).</sub>
 
